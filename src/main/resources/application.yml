@@ -1,1 +1,40 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cookify
+    username: codingmbair
+    password:
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        #               show_sql: true
+        format_sql: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 132142798081-k5rvgbrj4mjna8fu1gdb8bqh7jjjpeke.apps.googleusercontent.com
+            client-secret: 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
+
+            scope:
+              - email
+              - profile
+
+
+logging.level:
+  org.hibernate.SQL: debug
+  org.hibernate.type: trace #??? ?? 2.x, hibernate5
+# org.hibernate.orm.jdbc.bind: trace #??? ?? 3.x, hibernate6
+logging:
+  level:
+    Cook:
+      Cookify_SpringBoot:
+        service:
+          CustomOAuth2UserService: trace
+
 
