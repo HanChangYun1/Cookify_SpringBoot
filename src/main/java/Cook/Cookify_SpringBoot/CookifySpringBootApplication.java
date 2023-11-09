@@ -10,13 +10,11 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 @SpringBootApplication
 public class CookifySpringBootApplication {
 
+
 	public static void main(String[] args) {
 		SpringApplication.run(CookifySpringBootApplication.class, args);
 	}
 
-	@Bean
-	public ServerEndpointExporter serverEndpointExporter(){
-		return new ServerEndpointExporter();
-	}
+
 }
 
