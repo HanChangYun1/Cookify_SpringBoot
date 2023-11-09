@@ -4,9 +4,10 @@ package Cook.Cookify_SpringBoot.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -15,6 +16,7 @@ public class GoogleMember extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
     private Long id;
 
     @Column(nullable = false)
@@ -29,6 +31,15 @@ public class GoogleMember extends BaseTimeEntity{
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @OneToMany
+    private List<Recipe> recipes = new ArrayList<>();
+
+    @OneToMany
+    private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany
+    private List<Order> orders =new ArrayList<>();
 
 
 
