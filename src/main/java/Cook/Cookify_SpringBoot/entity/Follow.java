@@ -12,6 +12,7 @@ public class Follow {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "follow_id")
     private Long id;
 
     @ManyToOne

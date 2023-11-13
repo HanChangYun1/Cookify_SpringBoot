@@ -11,14 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class GoogleMemberController {
 
-    @GetMapping("/test")
-    public String getTest(Authentication authentication){
-        System.out.println(authentication);
-
-        String userName = authentication.getName();
-        return "Hello, " + userName + "? This is a test";
-    }
-
     @GetMapping("/userInfo")
     public String userInfo(@AuthenticationPrincipal SessionMember sessionMember, Model model) {
         model.addAttribute("user", sessionMember);

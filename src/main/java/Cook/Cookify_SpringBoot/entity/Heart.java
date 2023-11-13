@@ -14,6 +14,7 @@ public class Heart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "heart_id")
     private Long id;
 
     @ManyToOne()
