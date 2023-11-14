@@ -5,6 +5,7 @@ import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;
 import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeRequestDto;
 import Cook.Cookify_SpringBoot.domain.recipe.repository.RecipeRepository;
+import Cook.Cookify_SpringBoot.global.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,10 +25,9 @@ public class RecipeServiceImpl implements RecipeService{
 
     @Transactional
     public Recipe saveRecipe(RecipeRequestDto dto){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        String email = oAuth2User.getAttribute("email");
-        GoogleMember member = memberRepository.findByEmail(email).orElse(null);
+        String loginUserEmail = SecurityUtil.getLoginUserEmail();
+        GoogleMember member = memberRepository.findByEmail(loginUserEmail).orElse(null);
+
         Recipe recipe = Recipe.createRecipe(member, dto.getTitle(), dto.getContent());
         return recipeRepository.save(recipe);
     }

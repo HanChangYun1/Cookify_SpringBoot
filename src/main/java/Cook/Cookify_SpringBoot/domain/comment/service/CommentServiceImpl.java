@@ -9,6 +9,7 @@ import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;
 import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
 import Cook.Cookify_SpringBoot.domain.recipe.repository.RecipeRepository;
+import Cook.Cookify_SpringBoot.global.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,11 +32,9 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public Comment save(Long recipeId, CommentRequestDto commentRequestDto) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        String email = oAuth2User.getAttribute("email");
+        String loginUserEmail = SecurityUtil.getLoginUserEmail();
+        GoogleMember member = memberRepository.findByEmail(loginUserEmail).orElse(null);
 
-        GoogleMember member = memberRepository.findByEmail(email).orElse(null);
         Recipe recipe = recipeRepository.findById(recipeId).orElse(null);
 
         Comment comment = Comment.createComment(member, recipe, commentRequestDto.getContent());
@@ -46,10 +45,8 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public Comment saveReComment(Long recipeId, Long parentId, CommentRequestDto commentRequestDto) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        String email = oAuth2User.getAttribute("email");
-        GoogleMember member = memberRepository.findByEmail(email).orElse(null);
+        String loginUserEmail = SecurityUtil.getLoginUserEmail();
+        GoogleMember member = memberRepository.findByEmail(loginUserEmail).orElse(null);
 
         Recipe recipe = recipeRepository.findById(recipeId).orElse(null);
         Comment parent = commentRepository.findByParentId(parentId).orElse(null);
