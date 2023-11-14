@@ -1,7 +1,7 @@
-package Cook.Cookify_SpringBoot.domain.security;
+package Cook.Cookify_SpringBoot.domain.member.security;
 
-import Cook.Cookify_SpringBoot.domain.entity.Role;
-import Cook.Cookify_SpringBoot.domain.service.CustomOAuth2UserService;
+import Cook.Cookify_SpringBoot.domain.member.Role;
+import Cook.Cookify_SpringBoot.domain.member.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package Cook.Cookify_SpringBoot.domain.controller;
+package Cook.Cookify_SpringBoot.domain.recipe.dto;
 
 import lombok.Data;
 import lombok.Getter;

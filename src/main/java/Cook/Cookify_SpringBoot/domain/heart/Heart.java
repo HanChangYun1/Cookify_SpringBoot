@@ -1,5 +1,6 @@
-package Cook.Cookify_SpringBoot.domain.entity;
+package Cook.Cookify_SpringBoot.domain.heart;
 
+import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

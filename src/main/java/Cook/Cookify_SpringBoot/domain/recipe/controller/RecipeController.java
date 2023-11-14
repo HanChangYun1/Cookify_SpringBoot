@@ -1,7 +1,8 @@
-package Cook.Cookify_SpringBoot.domain.controller;
+package Cook.Cookify_SpringBoot.domain.recipe.controller;
 
 import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
-import Cook.Cookify_SpringBoot.domain.service.RecipeService;
+import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeRequestDto;
+import Cook.Cookify_SpringBoot.domain.recipe.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

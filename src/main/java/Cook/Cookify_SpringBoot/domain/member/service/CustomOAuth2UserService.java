@@ -1,9 +1,9 @@
-package Cook.Cookify_SpringBoot.domain.service;
+package Cook.Cookify_SpringBoot.domain.member.service;
 
-import Cook.Cookify_SpringBoot.domain.entity.GoogleMember;
-import Cook.Cookify_SpringBoot.domain.repository.GoogleMemberRepository;
-import Cook.Cookify_SpringBoot.domain.security.OAuthAttributes;
-import Cook.Cookify_SpringBoot.domain.security.SessionMember;
+import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
+import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;
+import Cook.Cookify_SpringBoot.domain.member.security.OAuthAttributes;
+import Cook.Cookify_SpringBoot.domain.member.security.SessionMember;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

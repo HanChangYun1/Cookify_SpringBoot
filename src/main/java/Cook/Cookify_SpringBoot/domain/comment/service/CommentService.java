@@ -6,6 +6,8 @@ import Cook.Cookify_SpringBoot.domain.comment.dto.CommentUpdateDto;
 import Cook.Cookify_SpringBoot.domain.comment.exception.CommentException;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 public interface CommentService {
     void save(Long postId, CommentSaveDto commentSaveDto);
