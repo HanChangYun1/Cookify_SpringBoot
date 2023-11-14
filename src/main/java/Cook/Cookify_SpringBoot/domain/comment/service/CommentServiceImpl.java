@@ -56,7 +56,12 @@ public class CommentServiceImpl implements CommentService{
         comment.confirmParent(parent);
 
         return commentRepository.save(comment);
+    }
 
+    @Override
+    public List<Comment> getComments(Long recipeId){
+        List<Comment> comments = commentRepository.findByRecipeId(recipeId);
+        return comments;
     }
 
 
