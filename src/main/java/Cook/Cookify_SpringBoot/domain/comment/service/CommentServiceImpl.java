@@ -6,11 +6,18 @@ import Cook.Cookify_SpringBoot.domain.comment.dto.CommentUpdateDto;
 import Cook.Cookify_SpringBoot.domain.comment.exception.CommentException;
 import Cook.Cookify_SpringBoot.domain.comment.exception.CommentExceptionType;
 import Cook.Cookify_SpringBoot.domain.comment.repository.CommentRepository;
-import Cook.Cookify_SpringBoot.domain.repository.GoogleMemberRepository;
-import Cook.Cookify_SpringBoot.domain.repository.RecipeRepository;
+import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
+import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;
+import Cook.Cookify_SpringBoot.domain.recipe.repository.RecipeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -24,9 +31,12 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public void save(Long recipeId, CommentSaveDto commentSaveDto) {
-        Comment comment = commentSaveDto.toEntity();
 
-        comment.confirmMember(memberRepository.findByEmail());
+        SecurityContextHolder.getContext().getAuthentication()
+
+        Optional<GoogleMember> member = memberRepository.findByEmail();
+
+        comment.confirmMember(member);
 
         comment.confirmRecipe(recipeRepository.findById(recipeId).orElse(null));
 
@@ -39,7 +49,7 @@ public class CommentServiceImpl implements CommentService{
     public void saveReComment(Long postId, Long parentId, CommentSaveDto commentSaveDto) {
         Comment comment = commentSaveDto.toEntity();
 
-        comment.confirmMember(memberRepository.findByUsername(SecurityUtil.getLoginUsername()).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_MEMBER)));
+        comment.confirmMember(memberRepository.findByUsername());
 
         comment.confirmRecipe(recipeRepository.findById(postId).orElseThrow(() -> new PostException(PostExceptionType.POST_NOT_POUND)));
 
@@ -56,9 +66,7 @@ public class CommentServiceImpl implements CommentService{
 
         Comment comment = commentRepository.findById(id).orElseThrow(() -> new CommentException(CommentExceptionType.NOT_POUND_COMMENT));
 
-//        if(!comment.getWriter().getUsername().equals(SecurityUtil.getLoginUsername())){
-//            throw new CommentException(CommentExceptionType.NOT_AUTHORITY_UPDATE_COMMENT);
-//        }
+
 
         commentUpdateDto.getContent().ifPresent(comment::updateContent);
     }
@@ -69,9 +77,6 @@ public class CommentServiceImpl implements CommentService{
     public void remove(Long id) throws CommentException {
         Comment comment = commentRepository.findById(id).orElseThrow(() -> new CommentException(CommentExceptionType.NOT_POUND_COMMENT));
 
-        if(!comment.getWriter().getUsername().equals(SecurityUtil.getLoginUsername())){
-            throw new CommentException(CommentExceptionType.NOT_AUTHORITY_DELETE_COMMENT);
-        }
 
         comment.remove();
         List<Comment> removableCommentList = comment.findRemovableList();

@@ -1,4 +1,4 @@
-package Cook.Cookify_SpringBoot.domain.repository;
+package Cook.Cookify_SpringBoot.domain.recipe.repository;
 
 import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -17,15 +19,13 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/{postId}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void commentSave(@PathVariable("postId") Long postId, CommentSaveDto commentSaveDto){
+    @PostMapping("/{recipeId}")
+    public void commentSave(@PathVariable("recipeId") Long postId, CommentSaveDto commentSaveDto){
         commentService.save(postId, commentSaveDto);
     }
 
 
     @PostMapping("/{postId}/{commentId}")
-    @ResponseStatus(HttpStatus.CREATED)
     public void reCommentSave(@PathVariable("postId") Long postId,
                               @PathVariable("commentId") Long commentId,
                               CommentSaveDto commentSaveDto){

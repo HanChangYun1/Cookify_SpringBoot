@@ -1,4 +1,4 @@
-package Cook.Cookify_SpringBoot.domain.entity;
+package Cook.Cookify_SpringBoot.domain;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

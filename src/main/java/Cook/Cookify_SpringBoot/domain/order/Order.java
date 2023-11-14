@@ -1,5 +1,8 @@
-package Cook.Cookify_SpringBoot.domain.entity;
+package Cook.Cookify_SpringBoot.domain.order;
 
+import Cook.Cookify_SpringBoot.domain.BaseTimeEntity;
+import Cook.Cookify_SpringBoot.domain.delivery.Delivery;
+import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +12,7 @@ import javax.persistence.*;
 @Table(name = "orders")
 @NoArgsConstructor
 @Entity
-public class Order extends BaseTimeEntity{
+public class Order extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

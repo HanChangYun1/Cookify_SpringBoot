@@ -1,8 +1,8 @@
-package Cook.Cookify_SpringBoot.domain.service;
+package Cook.Cookify_SpringBoot.domain.recipe.service;
 
-import Cook.Cookify_SpringBoot.domain.controller.RecipeRequestDto;
+import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeRequestDto;
 import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
-import Cook.Cookify_SpringBoot.domain.repository.RecipeRepository;
+import Cook.Cookify_SpringBoot.domain.recipe.repository.RecipeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

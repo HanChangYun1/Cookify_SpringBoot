@@ -1,7 +1,7 @@
-package Cook.Cookify_SpringBoot.domain.security;
+package Cook.Cookify_SpringBoot.domain.member.security;
 
-import Cook.Cookify_SpringBoot.domain.entity.GoogleMember;
-import Cook.Cookify_SpringBoot.domain.entity.Role;
+import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
+import Cook.Cookify_SpringBoot.domain.member.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,6 @@ public class OAuthAttributes {
 
     //OAuth2User에서 반환하는 사용자 정보는 Map이기 때문에 값 하나하나를 변환해야만 한다.
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes){
-        log.debug("attributes:{}",attributes);
         return ofGoogle(userNameAttributeName, attributes);
     }
 

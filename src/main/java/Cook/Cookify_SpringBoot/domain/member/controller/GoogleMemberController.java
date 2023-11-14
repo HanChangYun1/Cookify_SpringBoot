@@ -1,6 +1,6 @@
-package Cook.Cookify_SpringBoot.domain.controller;
+package Cook.Cookify_SpringBoot.domain.member.controller;
 
-import Cook.Cookify_SpringBoot.domain.security.SessionMember;
+import Cook.Cookify_SpringBoot.domain.member.security.SessionMember;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
