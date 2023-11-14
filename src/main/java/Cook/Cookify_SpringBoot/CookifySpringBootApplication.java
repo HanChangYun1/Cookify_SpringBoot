@@ -8,8 +8,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @SpringBootApplication
 public class CookifySpringBootApplication {
 
+
 	public static void main(String[] args) {
 		SpringApplication.run(CookifySpringBootApplication.class, args);
 	}
 
+
 }
+

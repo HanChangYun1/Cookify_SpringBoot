@@ -1,6 +1,6 @@
-package Cook.Cookify_SpringBoot.repository;
+package Cook.Cookify_SpringBoot.domain.repository;
 
-import Cook.Cookify_SpringBoot.entity.GoogleMember;
+import Cook.Cookify_SpringBoot.domain.entity.GoogleMember;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

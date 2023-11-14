@@ -1,6 +1,6 @@
-package Cook.Cookify_SpringBoot.security;
+package Cook.Cookify_SpringBoot.domain.security;
 
-import Cook.Cookify_SpringBoot.entity.GoogleMember;
+import Cook.Cookify_SpringBoot.domain.entity.GoogleMember;
 import lombok.Getter;
 
 import java.io.Serializable;

@@ -1,4 +1,4 @@
-package Cook.Cookify_SpringBoot.entity;
+package Cook.Cookify_SpringBoot.domain.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

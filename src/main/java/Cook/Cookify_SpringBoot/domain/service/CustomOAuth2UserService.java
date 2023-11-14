@@ -1,9 +1,9 @@
-package Cook.Cookify_SpringBoot.service;
+package Cook.Cookify_SpringBoot.domain.service;
 
-import Cook.Cookify_SpringBoot.entity.GoogleMember;
-import Cook.Cookify_SpringBoot.repository.GoogleMemberRepository;
-import Cook.Cookify_SpringBoot.security.OAuthAttributes;
-import Cook.Cookify_SpringBoot.security.SessionMember;
+import Cook.Cookify_SpringBoot.domain.entity.GoogleMember;
+import Cook.Cookify_SpringBoot.domain.repository.GoogleMemberRepository;
+import Cook.Cookify_SpringBoot.domain.security.OAuthAttributes;
+import Cook.Cookify_SpringBoot.domain.security.SessionMember;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -37,10 +37,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                 .getUserInfoEndpoint().getUserNameAttributeName();
 
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
-        log.trace("Attributes: {}", attributes);
 
         GoogleMember member = saveOrUpdate(attributes);
-        log.trace("member :{}", member);
         httpSession.setAttribute("user", new SessionMember(member));    // 세션에 저장
 
         return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(member.getRoleKey())),
