@@ -20,8 +20,8 @@ public class RecipeController {
     private final RecipeService recipeService;
 
     @PostMapping
-    public ResponseEntity<Recipe> createRecipe(@RequestBody Recipe recipe){
-        Recipe createRecipe = recipeService.saveRecipe(recipe);
+    public ResponseEntity<Recipe> createRecipe(@RequestBody RecipeRequestDto dto){
+        Recipe createRecipe = recipeService.saveRecipe(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createRecipe);
     }
 
@@ -44,6 +44,6 @@ public class RecipeController {
 
     @GetMapping("/{recipeId}")
     public Recipe getRecipe(@PathVariable("recipeId") Long id){
-        return recipeService.findOne(id).orElse(null);
+        return recipeService.findOne(id);
     }
 }

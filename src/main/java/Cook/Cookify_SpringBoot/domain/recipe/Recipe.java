@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Builder
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -36,10 +36,20 @@ public class Recipe extends BaseTimeEntity {
     private List<Comment> comments = new ArrayList<>();
 
 
+    //생성 메서드//
+    public static Recipe createRecipe(GoogleMember member, String title, String content){
+        Recipe recipe = new Recipe();
+        recipe.confirmMember(member);
+        recipe.setTitle(title);
+        recipe.setContent(content);
+
+        return recipe;
+    }
+
     //== 연관관계 편의 메서드 ==//
-    public void confirmWriter(GoogleMember member) {
+    public void confirmMember(GoogleMember member) {
         this.member = member;
-        member.addPost(this);
+        member.addRecipe(this);
     }
 
     public void addComment(Comment comment){

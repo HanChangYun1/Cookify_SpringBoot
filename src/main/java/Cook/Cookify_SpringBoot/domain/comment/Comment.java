@@ -40,12 +40,11 @@ public class Comment extends BaseTimeEntity {
     private List<Comment> children = new ArrayList<>();
 
 
-    //생성메서드
-    public static Comment createComment(GoogleMember member, Recipe recipe, String content, Comment parent) {
+    //생성메서드//
+    public static Comment createComment(GoogleMember member, Recipe recipe, String content) {
         Comment comment = new Comment();
         comment.confirmMember(member);
         comment.confirmRecipe(recipe);
-        comment.confirmParent(parent);
         comment.setContent(content);
 
         return comment;
