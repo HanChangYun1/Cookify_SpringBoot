@@ -16,6 +16,8 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -65,13 +67,17 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public void update(Long commentId, CommentRequestDto commentRequestDto) {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
-        comment.setContent(commentRequestDto.getContent());
+        comment.updateContent(commentRequestDto.getContent());
     }
 
 
 
     @Override
     public void remove(Long commentId) throws CommentException {
-        commentRepository.deleteById(commentId);
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
+
+        comment.remove();
+        List<Comment> removableCommentList = comment.findRemovableList();
+        commentRepository.deleteAll(removableCommentList);
     }
 }
