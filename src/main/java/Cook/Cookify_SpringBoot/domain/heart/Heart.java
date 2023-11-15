@@ -2,14 +2,17 @@ package Cook.Cookify_SpringBoot.domain.heart;
 
 import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 
 
 @Getter
+@Setter
 @NoArgsConstructor
 @Entity
 public class Heart {
@@ -26,4 +29,13 @@ public class Heart {
     @ManyToOne()
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
+
+    //생성 메서드
+
+    public static Heart createHeart(GoogleMember member, Recipe recipe){
+        Heart heart = new Heart();
+        heart.setMember(member);
+        heart.setRecipe(recipe);
+        return heart;
+    }
 }

@@ -5,25 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c77760c-afd7-4a7d-89b5-88d4f06523df" name="변경" comment="변경">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/follow/controller/FollowController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/follow/dto/FollowRequestDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/follow/repository/FollowRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/follow/service/FollowService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/follow/service/FollowServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/heart/controller/HeartController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/heart/dto/HeartRequestDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/heart/repository/HeartRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/heart/service/HeartService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/heart/service/HeartServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/controller/OrderController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/dto/OrderRequestDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/repository/OrderRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/service/OrderService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/service/OrderServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/delivery/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/delivery/Address.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/Recipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/service/RecipeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/service/RecipeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/heart/Heart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/heart/Heart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/heart/controller/HeartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/heart/controller/HeartController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/heart/repository/HeartRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/heart/repository/HeartRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/heart/service/HeartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/heart/service/HeartService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/heart/service/HeartServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/heart/service/HeartServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +154,8 @@
       <workItem from="1699864571190" duration="4253000" />
       <workItem from="1699924751618" duration="8908000" />
       <workItem from="1699938412464" duration="12184000" />
-      <workItem from="1700015079308" duration="1941000" />
+      <workItem from="1700015079308" duration="5032000" />
+      <workItem from="1700024086334" duration="1351000" />
     </task>
     <servers />
   </component>
