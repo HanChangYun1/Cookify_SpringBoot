@@ -5,6 +5,7 @@ import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeRequestDto;
 import Cook.Cookify_SpringBoot.domain.BaseTimeEntity;
 import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -34,6 +35,12 @@ public class Recipe extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
+
+    @ColumnDefault("0")
+    private Long recipeCount;
+
+    @ColumnDefault("0")
+    private Long HeartCount;
 
 
     //생성 메서드//

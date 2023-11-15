@@ -46,5 +46,8 @@ public class RecipeServiceImpl implements RecipeService{
 
     public List<Recipe> findRecipes(){ return  recipeRepository.findAll();}
 
-    public Recipe findOne(Long recipeId){ return  recipeRepository.findById(recipeId).orElse(null);}
+    public Recipe findOne(Long recipeId){
+        Recipe recipe = recipeRepository.findById(recipeId).orElse(null);
+        recipe.setRecipeCount(recipe.getRecipeCount() + 1);
+        return  recipe;}
 }
