@@ -1,4 +1,10 @@
 package Cook.Cookify_SpringBoot.domain.follow.service;
 
-public class FollowService {
+import Cook.Cookify_SpringBoot.domain.follow.dto.FollowResponseDto;
+
+public interface FollowService {
+
+    void addFollow(Long memberId);
+
+    FollowResponseDto getFollow();
 }
