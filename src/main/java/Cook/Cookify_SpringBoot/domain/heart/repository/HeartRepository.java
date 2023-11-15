@@ -14,5 +14,5 @@ public interface HeartRepository extends JpaRepository<Heart, Long> {
 
     void deleteByMemberAndRecipe(GoogleMember member, Recipe recipe);
 
-    List<Heart> findByMember(GoogleMember member);
+    List<Heart> findAllByMember(GoogleMember member);
 }

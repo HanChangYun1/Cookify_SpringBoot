@@ -41,7 +41,7 @@ public class HeartServiceImpl implements HeartService{
         String email = SecurityUtil.getLoginUserEmail();
         GoogleMember member = googleMemberRepository.findByEmail(email).orElse(null);
 
-        List<Heart> recipes = heartRepository.findByMember(member);
+        List<Heart> recipes = heartRepository.findAllByMember(member);
         return recipes;
     }
 }
