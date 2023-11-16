@@ -1,6 +1,7 @@
 package Cook.Cookify_SpringBoot.domain.comment;
 
-import Cook.Cookify_SpringBoot.domain.BaseTimeEntity;
+import Cook.Cookify_SpringBoot.global.Entity.BaseEntity;
+import Cook.Cookify_SpringBoot.global.Entity.BaseTimeEntity;
 import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
 import lombok.*;
@@ -14,7 +15,7 @@ import java.util.Optional;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Comment extends BaseTimeEntity {
+public class Comment extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

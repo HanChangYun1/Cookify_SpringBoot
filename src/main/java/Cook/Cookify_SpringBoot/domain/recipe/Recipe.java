@@ -2,7 +2,8 @@ package Cook.Cookify_SpringBoot.domain.recipe;
 
 import Cook.Cookify_SpringBoot.domain.comment.Comment;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeRequestDto;
-import Cook.Cookify_SpringBoot.domain.BaseTimeEntity;
+import Cook.Cookify_SpringBoot.global.Entity.BaseEntity;
+import Cook.Cookify_SpringBoot.global.Entity.BaseTimeEntity;
 import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -16,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Recipe extends BaseTimeEntity {
+public class Recipe extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

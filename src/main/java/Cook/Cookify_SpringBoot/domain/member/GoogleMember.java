@@ -2,7 +2,8 @@ package Cook.Cookify_SpringBoot.domain.member;
 
 
 import Cook.Cookify_SpringBoot.domain.comment.Comment;
-import Cook.Cookify_SpringBoot.domain.BaseTimeEntity;
+import Cook.Cookify_SpringBoot.global.Entity.BaseEntity;
+import Cook.Cookify_SpringBoot.global.Entity.BaseTimeEntity;
 import Cook.Cookify_SpringBoot.domain.order.Order;
 import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
 import lombok.*;
@@ -16,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Builder
-public class GoogleMember extends BaseTimeEntity {
+public class GoogleMember extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

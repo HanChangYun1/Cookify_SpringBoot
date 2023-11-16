@@ -1,6 +1,7 @@
 package Cook.Cookify_SpringBoot.domain.delivery;
 
 import Cook.Cookify_SpringBoot.domain.order.Order;
+import Cook.Cookify_SpringBoot.global.Entity.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Delivery {
+public class Delivery extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
