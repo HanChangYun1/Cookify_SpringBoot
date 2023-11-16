@@ -15,9 +15,6 @@ import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeExceptionType;
 import Cook.Cookify_SpringBoot.domain.recipe.repository.RecipeRepository;
 import Cook.Cookify_SpringBoot.global.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,7 +36,7 @@ public class CommentServiceImpl implements CommentService{
         String loginUserEmail = SecurityUtil.getLoginUserEmail();
         GoogleMember member = memberRepository.findByEmail(loginUserEmail).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
 
-        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe))
+        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
 
         Comment comment = Comment.createComment(member, recipe, commentRequestDto.getContent());
 
@@ -51,7 +48,7 @@ public class CommentServiceImpl implements CommentService{
     public Comment saveReComment(Long recipeId, Long parentId, CommentRequestDto commentRequestDto) {
         String loginUserEmail = SecurityUtil.getLoginUserEmail();
         GoogleMember member = memberRepository.findByEmail(loginUserEmail).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
-        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe))
+        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
         Comment parent = commentRepository.findByParentId(parentId).orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
 
         Comment comment = Comment.createComment(member, recipe, commentRequestDto.getContent());

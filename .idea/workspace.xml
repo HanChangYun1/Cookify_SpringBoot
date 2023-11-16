@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c77760c-afd7-4a7d-89b5-88d4f06523df" name="변경" comment="변경">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/exception/MemberException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/exception/MemberExceptionType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/exception/RecipeException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/exception/RecipeExceptionType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/service/CommentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/service/CommentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/security/OAuthAttributes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/security/OAuthAttributes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/service/RecipeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/service/RecipeServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,7 +153,7 @@
       <workItem from="1700024086334" duration="10522000" />
       <workItem from="1700097726921" duration="603000" />
       <workItem from="1700113086505" duration="110000" />
-      <workItem from="1700113203798" duration="3950000" />
+      <workItem from="1700113203798" duration="4639000" />
     </task>
     <servers />
   </component>
