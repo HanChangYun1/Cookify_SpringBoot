@@ -4,10 +4,12 @@ import Cook.Cookify_SpringBoot.domain.order.Order;
 import Cook.Cookify_SpringBoot.global.Entity.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @Entity
 public class Delivery extends BaseEntity {

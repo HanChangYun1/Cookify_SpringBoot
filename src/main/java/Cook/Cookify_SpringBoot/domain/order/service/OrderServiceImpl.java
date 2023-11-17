@@ -1,4 +1,11 @@
 package Cook.Cookify_SpringBoot.domain.order.service;
 
-public class OrderServiceImpl {
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional(readOnly = true)
+@RequiredArgsConstructor
+public class OrderServiceImpl implements OrderService{
 }

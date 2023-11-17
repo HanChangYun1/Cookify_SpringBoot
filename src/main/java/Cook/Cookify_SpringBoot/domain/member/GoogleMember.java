@@ -2,6 +2,7 @@ package Cook.Cookify_SpringBoot.domain.member;
 
 
 import Cook.Cookify_SpringBoot.domain.comment.Comment;
+import Cook.Cookify_SpringBoot.domain.delivery.Address;
 import Cook.Cookify_SpringBoot.global.Entity.BaseEntity;
 import Cook.Cookify_SpringBoot.global.Entity.BaseTimeEntity;
 import Cook.Cookify_SpringBoot.domain.order.Order;
@@ -48,6 +49,9 @@ public class GoogleMember extends BaseEntity {
     @Builder.Default
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Order> orders =new ArrayList<>();
+
+    @Embedded
+    private Address address;
 
 
     //== 연관관계 메서드 ==//
