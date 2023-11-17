@@ -2,7 +2,9 @@ package Cook.Cookify_SpringBoot.domain.member;
 
 
 import Cook.Cookify_SpringBoot.domain.comment.Comment;
-import Cook.Cookify_SpringBoot.domain.BaseTimeEntity;
+import Cook.Cookify_SpringBoot.domain.delivery.Address;
+import Cook.Cookify_SpringBoot.global.Entity.BaseEntity;
+import Cook.Cookify_SpringBoot.global.Entity.BaseTimeEntity;
 import Cook.Cookify_SpringBoot.domain.order.Order;
 import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
 import lombok.*;
@@ -16,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Builder
-public class GoogleMember extends BaseTimeEntity {
+public class GoogleMember extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,9 +50,12 @@ public class GoogleMember extends BaseTimeEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Order> orders =new ArrayList<>();
 
+    @Embedded
+    private Address address;
+
 
     //== 연관관계 메서드 ==//
-    public void addPost(Recipe recipe){
+    public void addRecipe(Recipe recipe){
         //post의 writer 설정은 post에서 함
         recipes.add(recipe);
     }

@@ -10,31 +10,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-@Transactional(readOnly = true)
-@RequiredArgsConstructor
-public class RecipeService {
 
-    private final RecipeRepository recipeRepository;
+public interface RecipeService {
+    Recipe saveRecipe(RecipeRequestDto dto);
 
-    @Transactional
-    public Recipe saveRecipe(Recipe recipe){
-        return recipeRepository.save(recipe);
-    }
+    Recipe updateRecipe(Long id, RecipeRequestDto dto);
 
-    @Transactional
-    public Recipe updateRecipe(Long id, RecipeRequestDto dto){
-        Recipe recipe = recipeRepository.findById(id).orElse(null);
-        recipe.update(dto);
-        return recipe;
-    }
+    void deleteRecipe(Long id);
 
-    @Transactional
-    public void deleteRecipe(Long id){
-        recipeRepository.deleteById(id);
-    }
+    List<Recipe> findRecipes();
 
-    public List<Recipe> findRecipes(){ return  recipeRepository.findAll();}
-
-    public Optional<Recipe> findOne(Long recipeId){ return  recipeRepository.findById(recipeId);}
+    Recipe findOne(Long recipeId);
 }

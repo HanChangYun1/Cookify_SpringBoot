@@ -1,23 +1,24 @@
 package Cook.Cookify_SpringBoot.domain.comment.service;
 
 import Cook.Cookify_SpringBoot.domain.comment.Comment;
-import Cook.Cookify_SpringBoot.domain.comment.dto.CommentSaveDto;
-import Cook.Cookify_SpringBoot.domain.comment.dto.CommentUpdateDto;
+import Cook.Cookify_SpringBoot.domain.comment.dto.CommentRequestDto;
 import Cook.Cookify_SpringBoot.domain.comment.exception.CommentException;
 import Cook.Cookify_SpringBoot.domain.comment.exception.CommentExceptionType;
 import Cook.Cookify_SpringBoot.domain.comment.repository.CommentRepository;
 import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
+import Cook.Cookify_SpringBoot.domain.member.exception.MemberException;
+import Cook.Cookify_SpringBoot.domain.member.exception.MemberExceptionType;
 import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;
+import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
+import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeException;
+import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeExceptionType;
 import Cook.Cookify_SpringBoot.domain.recipe.repository.RecipeRepository;
+import Cook.Cookify_SpringBoot.global.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
@@ -30,53 +31,60 @@ public class CommentServiceImpl implements CommentService{
     private final RecipeRepository recipeRepository;
 
     @Override
-    public void save(Long recipeId, CommentSaveDto commentSaveDto) {
+    public Comment save(Long recipeId, CommentRequestDto commentRequestDto) {
 
-        SecurityContextHolder.getContext().getAuthentication()
+        String loginUserEmail = SecurityUtil.getLoginUserEmail();
+        GoogleMember member = memberRepository.findByEmail(loginUserEmail).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
 
-        Optional<GoogleMember> member = memberRepository.findByEmail();
+        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
 
-        comment.confirmMember(member);
+        Comment comment = Comment.createComment(member, recipe, commentRequestDto.getContent());
 
-        comment.confirmRecipe(recipeRepository.findById(recipeId).orElse(null));
-
-
-        commentRepository.save(comment);
+         return commentRepository.save(comment);
 
     }
 
     @Override
-    public void saveReComment(Long postId, Long parentId, CommentSaveDto commentSaveDto) {
-        Comment comment = commentSaveDto.toEntity();
+    public Comment saveReComment(Long recipeId, Long parentId, CommentRequestDto commentRequestDto) {
+        String loginUserEmail = SecurityUtil.getLoginUserEmail();
+        GoogleMember member = memberRepository.findByEmail(loginUserEmail).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
+        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
+        Comment parent = commentRepository.findByParentId(parentId).orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
 
-        comment.confirmMember(memberRepository.findByUsername());
+        Comment comment = Comment.createComment(member, recipe, commentRequestDto.getContent());
+        comment.confirmParent(parent);
 
-        comment.confirmRecipe(recipeRepository.findById(postId).orElseThrow(() -> new PostException(PostExceptionType.POST_NOT_POUND)));
-
-        comment.confirmParent(commentRepository.findById(parentId).orElseThrow(() -> new CommentException(CommentExceptionType.NOT_POUND_COMMENT)));
-
-        commentRepository.save(comment);
-
+        return commentRepository.save(comment);
     }
 
-
-
     @Override
-    public void update(Long id, CommentUpdateDto commentUpdateDto) {
-
-        Comment comment = commentRepository.findById(id).orElseThrow(() -> new CommentException(CommentExceptionType.NOT_POUND_COMMENT));
-
-
-
-        commentUpdateDto.getContent().ifPresent(comment::updateContent);
+    public List<Comment> getComments(Long recipeId){
+        List<Comment> comments = commentRepository.findByRecipeId(recipeId);
+        return comments;
     }
 
 
 
     @Override
-    public void remove(Long id) throws CommentException {
-        Comment comment = commentRepository.findById(id).orElseThrow(() -> new CommentException(CommentExceptionType.NOT_POUND_COMMENT));
+    public void update(Long commentId, CommentRequestDto commentRequestDto) {
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
 
+        if (!comment.getMember().getId().equals(memberRepository.findByEmail(SecurityUtil.getLoginUserEmail()).get().getId())){
+            throw new CommentException(CommentExceptionType.NOT_AUTHORITY_UPDATE_COMMENT);
+        }
+
+        comment.updateContent(commentRequestDto.getContent());
+    }
+
+
+
+    @Override
+    public void remove(Long commentId) throws CommentException {
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
+
+        if (!comment.getMember().getId().equals(memberRepository.findByEmail(SecurityUtil.getLoginUserEmail()).get().getId())){
+            throw new CommentException(CommentExceptionType.NOT_AUTHORITY_DELETE_COMMENT);
+        }
 
         comment.remove();
         List<Comment> removableCommentList = comment.findRemovableList();

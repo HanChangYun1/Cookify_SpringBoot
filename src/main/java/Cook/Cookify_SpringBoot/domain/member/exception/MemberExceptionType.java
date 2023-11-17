@@ -1,25 +1,24 @@
-package Cook.Cookify_SpringBoot.domain.comment.exception;
+package Cook.Cookify_SpringBoot.domain.member.exception;
 
 import Cook.Cookify_SpringBoot.global.exception.BaseExceptionType;
 import org.springframework.http.HttpStatus;
 
-public enum CommentExceptionType implements BaseExceptionType {
+public enum MemberExceptionType implements BaseExceptionType {
 
-    NOT_FOUND_COMMENT(800, HttpStatus.NOT_FOUND, "찾으시는 댓글이 없습니다"),
-    NOT_AUTHORITY_UPDATE_COMMENT(801, HttpStatus.FORBIDDEN, "댓글을 업데이트할 권한이 없습니다."),
-    NOT_AUTHORITY_DELETE_COMMENT(802, HttpStatus.FORBIDDEN, "댓글을 삭제할 권한이 없습니다.");
+    NOT_FOUND_Member(800, HttpStatus.NOT_FOUND, "찾으시는 멤버가 없습니다"),
+    NOT_AUTHORITY_UPDATE_Member(801, HttpStatus.FORBIDDEN, "멤버를 업데이트할 권한이 없습니다."),
+    NOT_AUTHORITY_DELETE_Member(802, HttpStatus.FORBIDDEN, "멤버를 삭제할 권한이 없습니다.");
 
 
     private int errorCode;
     private HttpStatus httpStatus;
     private String errorMessage;
 
-    CommentExceptionType(int errorCode, HttpStatus httpStatus, String errorMessage) {
+    MemberExceptionType(int errorCode, HttpStatus httpStatus, String errorMessage) {
         this.errorCode = errorCode;
         this.httpStatus = httpStatus;
         this.errorMessage = errorMessage;
     }
-
 
     @Override
     public int getErrorCode() {

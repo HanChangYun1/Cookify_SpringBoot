@@ -9,15 +9,15 @@ import javax.persistence.Embeddable;
 @Getter
 @NoArgsConstructor
 public class Address {
-
-    private String city;
     private String street;
-    private String  zipcode;
+    private String postalCode;
 
-    public Address(String city, String street, String  zipcode) {
-        this.city = city;
+    private String detailAddress;
+
+    public Address(String street, String  postalCode, String detailAddress) {
         this.street = street;
-        this.zipcode = zipcode;
+        this.postalCode = postalCode;
+        this.detailAddress = detailAddress;
     }
 }
 

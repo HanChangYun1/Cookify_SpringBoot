@@ -43,9 +43,7 @@ public class OAuthAttributes {
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }
-    //User 엔티티를 생성한다.
-    //OAuthAttributes에서 엔티티를 생성하는 시점은 처음 가입할 때
-    //가입할 때 기본 권한을 GUEST로 주기 위해 ROLE 빌더 값에는 Role.GUEST 사용
+
     public GoogleMember toEntity(){
         return GoogleMember.builder()
                 .name(name)

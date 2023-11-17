@@ -1,20 +1,22 @@
 package Cook.Cookify_SpringBoot.domain.comment.service;
 
 
-import Cook.Cookify_SpringBoot.domain.comment.dto.CommentSaveDto;
-import Cook.Cookify_SpringBoot.domain.comment.dto.CommentUpdateDto;
+import Cook.Cookify_SpringBoot.domain.comment.Comment;
+import Cook.Cookify_SpringBoot.domain.comment.dto.CommentRequestDto;
 import Cook.Cookify_SpringBoot.domain.comment.exception.CommentException;
-import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 
 public interface CommentService {
-    void save(Long postId, CommentSaveDto commentSaveDto);
+    Comment save(Long recipeId, CommentRequestDto commentRequestDto);
 
-    void saveReComment(Long postId, Long parentId, CommentSaveDto commentSaveDto);
+    Comment saveReComment(Long recipeId, Long parentId, CommentRequestDto commentRequestDto);
 
-    void update(Long id, CommentUpdateDto commentUpdateDto);
+    List<Comment> getComments(Long recipeId);
+
+
+    void update(Long id, CommentRequestDto commentRequestDto);
 
     void remove(Long id) throws CommentException;
 }

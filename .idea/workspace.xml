@@ -5,38 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c77760c-afd7-4a7d-89b5-88d4f06523df" name="변경" comment="변경">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/category/Category.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/item/Item.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/item/exception/NotEnoughStockException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order_item/OrderItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/Comment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/controller/CommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/dto/CommentInfoDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/dto/CommentInfoDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/dto/CommentSaveDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/dto/CommentSaveDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/dto/CommentUpdateDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/dto/CommentUpdateDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/dto/ReCommentInfoDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/dto/ReCommentInfoDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/repository/CommentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/repository/CommentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/service/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/service/CommentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/service/CommentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/service/CommentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/controller/GoogleMemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/controller/GoogleMemberController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/controller/RecipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/controller/RecipeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/controller/RecipeRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/dto/RecipeRequestDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/entity/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/delivery/Address.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/entity/BaseTimeEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/BaseTimeEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/entity/Delivery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/delivery/Delivery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/entity/DeliveryStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/delivery/DeliveryStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/entity/Follow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/follow/Follow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/entity/GoogleMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/GoogleMember.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/entity/Heart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/heart/Heart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/entity/OrderStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/OrderStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/entity/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/dto/MemberInfoDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/dto/MemberInfoDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/Recipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/repository/GoogleMemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/repository/GoogleMemberRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/repository/RecipeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/repository/RecipeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/security/OAuthAttributes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/security/OAuthAttributes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/security/SessionMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/security/SessionMember.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/service/CustomOAuth2UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/service/CustomOAuth2UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/service/RecipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/service/RecipeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/delivery/Delivery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/delivery/Delivery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/GoogleMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/GoogleMember.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/repository/OrderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/service/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/service/OrderServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,8 +59,8 @@
         <option value="HTML File" />
         <option value="Enum" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="AnnotationType" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -117,7 +97,7 @@
     "WebServerToolWindowFactoryState": "false",
     "android.gradle.sync.needed": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/codingmbair/Desktop/Cookify_SpringBoot/src/main/java/Cook/Cookify_SpringBoot/domain/delivery",
+    "last_opened_file_path": "/Users/codingmbair/Desktop/Cookify_SpringBoot/src/main/java/Cook/Cookify_SpringBoot/domain/order_item",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -138,11 +118,11 @@
       <recent name="Cook.Cookify_SpringBoot.websocket" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order_item" />
+      <recent name="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/item" />
+      <recent name="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/category" />
       <recent name="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/delivery" />
       <recent name="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member" />
-      <recent name="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/order" />
-      <recent name="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/follow" />
-      <recent name="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/heart" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -178,7 +158,14 @@
       <workItem from="1699863843384" duration="512000" />
       <workItem from="1699864365111" duration="198000" />
       <workItem from="1699864571190" duration="4253000" />
-      <workItem from="1699924751618" duration="4644000" />
+      <workItem from="1699924751618" duration="8908000" />
+      <workItem from="1699938412464" duration="12184000" />
+      <workItem from="1700015079308" duration="5032000" />
+      <workItem from="1700024086334" duration="10522000" />
+      <workItem from="1700097726921" duration="603000" />
+      <workItem from="1700113086505" duration="110000" />
+      <workItem from="1700113203798" duration="7505000" />
+      <workItem from="1700184187222" duration="3753000" />
     </task>
     <servers />
   </component>
