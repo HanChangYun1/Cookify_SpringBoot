@@ -10,12 +10,28 @@ import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeException;
 import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeExceptionType;
 import Cook.Cookify_SpringBoot.domain.recipe.repository.RecipeRepository;
 import Cook.Cookify_SpringBoot.global.util.SecurityUtil;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.TreeNode;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nimbusds.jose.shaded.json.JSONArray;
+import com.nimbusds.jose.shaded.json.JSONObject;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import net.minidev.json.parser.JSONParser;
+import net.minidev.json.parser.ParseException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -28,7 +44,7 @@ public class RecipeServiceImpl implements RecipeService{
         String loginUserEmail = SecurityUtil.getLoginUserEmail();
         GoogleMember member = memberRepository.findByEmail(loginUserEmail).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
 
-        Recipe recipe = Recipe.createRecipe(member, dto.getTitle(), dto.getContent());
+        Recipe recipe = Recipe.createRecipe(member, dto);
         return recipeRepository.save(recipe);
     }
 
@@ -53,7 +69,6 @@ public class RecipeServiceImpl implements RecipeService{
         }
 
         recipeRepository.deleteById(id);
-
     }
 
     public List<Recipe> findRecipes(){ return  recipeRepository.findAll();}
@@ -61,5 +76,6 @@ public class RecipeServiceImpl implements RecipeService{
     public Recipe findOne(Long recipeId){
         Recipe recipe = recipeRepository.findById(recipeId).orElse(null);
         recipe.setRecipeCount(recipe.getRecipeCount() + 1);
-        return  recipe;}
+        return  recipe;
+    }
 }

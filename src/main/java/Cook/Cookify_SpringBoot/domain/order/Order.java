@@ -3,7 +3,6 @@ package Cook.Cookify_SpringBoot.domain.order;
 import Cook.Cookify_SpringBoot.domain.delivery.DeliveryStatus;
 import Cook.Cookify_SpringBoot.domain.order_item.OrderItem;
 import Cook.Cookify_SpringBoot.global.Entity.BaseEntity;
-import Cook.Cookify_SpringBoot.global.Entity.BaseTimeEntity;
 import Cook.Cookify_SpringBoot.domain.delivery.Delivery;
 import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
 import lombok.Getter;
@@ -42,19 +41,28 @@ public class Order extends BaseEntity {
     private List<OrderItem> orderItems = new ArrayList<>();
 
     //생성 메서드//
-    public static Order createOrder(GoogleMember member, Delivery delivery, OrderItem... orderItems){
+    public static Order createBasket(GoogleMember member, Delivery delivery, OrderItem... orderItems){
         Order order = new Order();
         order.setMember(member);
         order.setDelivery(delivery);
         for (OrderItem orderItem: orderItems){
             order.addOrderItems(orderItem);
         }
-        order.setStatus(OrderStatus.ORDER);
+        order.setStatus(OrderStatus.BASKET);
         return order;
+    }
+
+    //장바구니 결제
+    public void order(){
+        this.setStatus(OrderStatus.ORDER);
+        for (OrderItem orderItem : orderItems){
+            orderItem.order();
+        }
     }
 
 
     //연관관계 메서드//
+
     public void confirmMember(GoogleMember member){
         this.member = member;
         member.getOrders().add(this);
@@ -69,6 +77,7 @@ public class Order extends BaseEntity {
         this.delivery = delivery;
         delivery.setOrder(this);
     }
+
 
 
     //주문 취소//
