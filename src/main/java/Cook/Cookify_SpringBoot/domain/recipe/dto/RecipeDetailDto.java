@@ -1,17 +1,18 @@
 package Cook.Cookify_SpringBoot.domain.recipe.dto;
 
 import lombok.Data;
-import lombok.Getter;
 
+import javax.persistence.Column;
 @Data
-public class RecipeRequestDto {
+public class RecipeDetailDto {
+
     private String title;
     private String ingredients;
     private String ingredients2;
     private String steps;
     private String thumbnail;
 
-    public RecipeRequestDto(String title, String ingredients, String ingredients2, String steps, String thumbnail) {
+    public RecipeDetailDto(String title, String ingredients, String ingredients2, String steps, String thumbnail) {
         this.title = title;
         this.ingredients = ingredients;
         this.ingredients2 = ingredients2;
