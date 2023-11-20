@@ -1,6 +1,7 @@
 package Cook.Cookify_SpringBoot.domain.heart.controller;
 
 import Cook.Cookify_SpringBoot.domain.heart.Heart;
+import Cook.Cookify_SpringBoot.domain.heart.dto.HeartRecipeDto;
 import Cook.Cookify_SpringBoot.domain.heart.service.HeartService;
 import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,8 @@ public class HeartController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Heart>> getHeartRecipe(){
-        List<Heart> recipes = heartService.getHeartRecipe();
+    public ResponseEntity<List<HeartRecipeDto>> getHeartRecipe(){
+        List<HeartRecipeDto> recipes = heartService.getHeartRecipe();
         return ResponseEntity.ok().body(recipes);
     }
 }
