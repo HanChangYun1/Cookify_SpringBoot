@@ -27,8 +27,10 @@ public class Recipe extends BaseEntity {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
-    private String Content;
+    private String ingredients1;
+    private String ingredients2;
+    private String steps;
+    private String thumbnail;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
@@ -45,11 +47,14 @@ public class Recipe extends BaseEntity {
 
 
     //생성 메서드//
-    public static Recipe createRecipe(GoogleMember member, String title, String content){
+    public static Recipe createRecipe(GoogleMember member, RecipeRequestDto recipeRequestDto){
         Recipe recipe = new Recipe();
         recipe.confirmMember(member);
-        recipe.setTitle(title);
-        recipe.setContent(content);
+        recipe.setTitle(recipeRequestDto.getTitle());
+        recipe.setIngredients1(recipeRequestDto.getIngredients1());
+        recipe.setIngredients2(recipeRequestDto.getIngredients2());
+        recipe.setSteps(recipeRequestDto.getSteps());
+        recipe.setThumbnail(recipeRequestDto.getThumbnail());
 
         return recipe;
     }
@@ -68,7 +73,10 @@ public class Recipe extends BaseEntity {
 
     public void update(RecipeRequestDto recipeRequestDto){
         this.title = recipeRequestDto.getTitle();
-        this.Content = recipeRequestDto.getContent();
+        this.ingredients1 = recipeRequestDto.getIngredients1();
+        this.ingredients2 = recipeRequestDto.getIngredients2();
+        this.steps = recipeRequestDto.getSteps();
+        this.thumbnail = recipeRequestDto.getThumbnail();
     }
 
 }
