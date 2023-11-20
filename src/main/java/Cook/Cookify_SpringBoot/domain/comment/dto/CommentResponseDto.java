@@ -6,11 +6,11 @@ import lombok.Data;
 public class CommentResponseDto {
     private Long id;
     private String content;
-    private String  membername;
+    private String  memberName;
 
-    public CommentResponseDto(Long id, String content, String  membername) {
+    public CommentResponseDto(Long id, String content, String memberName) {
         this.id = id;
         this.content = content;
-        this.membername = membername;
+        this.memberName = memberName;
     }
 }
