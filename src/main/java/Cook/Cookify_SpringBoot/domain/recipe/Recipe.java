@@ -15,7 +15,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Recipe extends BaseEntity {
 
@@ -27,10 +26,14 @@ public class Recipe extends BaseEntity {
     @Column(nullable = false)
     private String title;
 
-    private String ingredients1;
+    private String ingredients;
     private String ingredients2;
     private String steps;
     private String thumbnail;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "recipe_docs_id")
+    private RecipeDocs recipeDocs;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
@@ -51,7 +54,7 @@ public class Recipe extends BaseEntity {
         Recipe recipe = new Recipe();
         recipe.confirmMember(member);
         recipe.setTitle(recipeRequestDto.getTitle());
-        recipe.setIngredients1(recipeRequestDto.getIngredients1());
+        recipe.setIngredients(recipeRequestDto.getIngredients());
         recipe.setIngredients2(recipeRequestDto.getIngredients2());
         recipe.setSteps(recipeRequestDto.getSteps());
         recipe.setThumbnail(recipeRequestDto.getThumbnail());
@@ -73,7 +76,7 @@ public class Recipe extends BaseEntity {
 
     public void update(RecipeRequestDto recipeRequestDto){
         this.title = recipeRequestDto.getTitle();
-        this.ingredients1 = recipeRequestDto.getIngredients1();
+        this.ingredients = recipeRequestDto.getIngredients();
         this.ingredients2 = recipeRequestDto.getIngredients2();
         this.steps = recipeRequestDto.getSteps();
         this.thumbnail = recipeRequestDto.getThumbnail();

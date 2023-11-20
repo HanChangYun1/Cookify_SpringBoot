@@ -1,15 +1,25 @@
 package Cook.Cookify_SpringBoot.domain.recipe.controller;
 
 import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
+import Cook.Cookify_SpringBoot.domain.recipe.RecipeDocs;
+import Cook.Cookify_SpringBoot.domain.recipe.dto.BriefRecipeDto;
+import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeDetailDto;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeRequestDto;
+import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeException;
+import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeExceptionType;
+import Cook.Cookify_SpringBoot.domain.recipe.repository.RecipeDocsRepository;
 import Cook.Cookify_SpringBoot.domain.recipe.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -18,6 +28,7 @@ import java.util.List;
 public class RecipeController {
 
     private final RecipeService recipeService;
+    private final RecipeDocsRepository recipeDocsRepository;
 
     @PostMapping
     public ResponseEntity<Recipe> createRecipe(@RequestBody RecipeRequestDto dto){
@@ -42,8 +53,23 @@ public class RecipeController {
         return recipeService.findRecipes();
     }
 
+    @GetMapping("/recipe_docs")
+    public List<BriefRecipeDto> getRecipeDocs() {
+        List<RecipeDocs> recipes = recipeDocsRepository.findAll(PageRequest.of(0, 20)).getContent();
+        List<BriefRecipeDto> recipeDtos = recipes.stream().map(m -> new BriefRecipeDto(m.getTitle(), m.getThumbnail()))
+                .collect(Collectors.toList());
+        return recipeDtos;
+    }
+
+    @GetMapping("/recipe_docs/{recipeId}")
+    public RecipeDetailDto getRecipeDetail(@PathVariable("recipeId") Long id){
+        RecipeDocs recipe = recipeDocsRepository.findById(id).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
+        return new RecipeDetailDto(recipe.getTitle(), recipe.getIngredients(), recipe.getIngredients2(), recipe.getSteps(), recipe.getThumbnail());
+    }
+
     @GetMapping("/{recipeId}")
     public Recipe getRecipe(@PathVariable("recipeId") Long id){
         return recipeService.findOne(id);
     }
+
 }
