@@ -49,27 +49,27 @@ public class RecipeController {
     }
 
     @GetMapping
-    public List<Recipe> getRecipes(){
+    public List<BriefRecipeDto> getRecipes(){
         return recipeService.findRecipes();
     }
 
     @GetMapping("/recipe_docs")
     public List<BriefRecipeDto> getRecipeDocs() {
         List<RecipeDocs> recipes = recipeDocsRepository.findAll(PageRequest.of(0, 20)).getContent();
-        List<BriefRecipeDto> recipeDtos = recipes.stream().map(m -> new BriefRecipeDto(m.getTitle(), m.getThumbnail()))
+        List<BriefRecipeDto> recipeDtos = recipes.stream().map(m -> new BriefRecipeDto(m.getId(), m.getTitle(), m.getThumbnail()))
                 .collect(Collectors.toList());
         return recipeDtos;
     }
 
     @GetMapping("/recipe_docs/{recipeId}")
-    public RecipeDetailDto getRecipeDetail(@PathVariable("recipeId") Long id){
-        RecipeDocs recipe = recipeDocsRepository.findById(id).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
+    public RecipeDetailDto getRecipeDocsDetail(@PathVariable("recipeId") Long recipeId){
+        RecipeDocs recipe = recipeDocsRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
         return new RecipeDetailDto(recipe.getTitle(), recipe.getIngredients(), recipe.getIngredients2(), recipe.getSteps(), recipe.getThumbnail());
     }
 
     @GetMapping("/{recipeId}")
-    public Recipe getRecipe(@PathVariable("recipeId") Long id){
-        return recipeService.findOne(id);
+    public RecipeDetailDto getRecipeDetail(@PathVariable("recipeId") Long recipeId){
+        return recipeService.findOne(recipeId);
     }
 
 }

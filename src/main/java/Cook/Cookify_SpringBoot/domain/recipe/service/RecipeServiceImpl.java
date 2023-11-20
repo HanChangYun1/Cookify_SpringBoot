@@ -5,6 +5,9 @@ import Cook.Cookify_SpringBoot.domain.member.exception.MemberException;
 import Cook.Cookify_SpringBoot.domain.member.exception.MemberExceptionType;
 import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;
 import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
+import Cook.Cookify_SpringBoot.domain.recipe.RecipeDocs;
+import Cook.Cookify_SpringBoot.domain.recipe.dto.BriefRecipeDto;
+import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeDetailDto;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeRequestDto;
 import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeException;
 import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeExceptionType;
@@ -30,6 +33,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -71,11 +75,15 @@ public class RecipeServiceImpl implements RecipeService{
         recipeRepository.deleteById(id);
     }
 
-    public List<Recipe> findRecipes(){ return  recipeRepository.findAll();}
+    public List<BriefRecipeDto> findRecipes(){
+        List<Recipe> recipes = recipeRepository.findAll();
+        List<BriefRecipeDto> collects = recipes.stream().map(r -> new BriefRecipeDto(r.getId(), r.getTitle(), r.getThumbnail())).collect(Collectors.toList());
+        return collects;
+    }
 
-    public Recipe findOne(Long recipeId){
+    public RecipeDetailDto findOne(Long recipeId){
         Recipe recipe = recipeRepository.findById(recipeId).orElse(null);
-        recipe.setRecipeCount(recipe.getRecipeCount() + 1);
-        return  recipe;
+        RecipeDetailDto recipeDto = new RecipeDetailDto(recipe.getTitle(), recipe.getIngredients(), recipe.getIngredients2(), recipe.getSteps(), recipe.getThumbnail());
+        return  recipeDto;
     }
 }

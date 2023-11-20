@@ -2,6 +2,7 @@ package Cook.Cookify_SpringBoot.domain.comment.service;
 
 import Cook.Cookify_SpringBoot.domain.comment.Comment;
 import Cook.Cookify_SpringBoot.domain.comment.dto.CommentRequestDto;
+import Cook.Cookify_SpringBoot.domain.comment.dto.CommentResponseDto;
 import Cook.Cookify_SpringBoot.domain.comment.exception.CommentException;
 import Cook.Cookify_SpringBoot.domain.comment.exception.CommentExceptionType;
 import Cook.Cookify_SpringBoot.domain.comment.repository.CommentRepository;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -58,9 +60,10 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public List<Comment> getComments(Long recipeId){
+    public List<CommentResponseDto> getComments(Long recipeId){
         List<Comment> comments = commentRepository.findByRecipeId(recipeId);
-        return comments;
+        List<CommentResponseDto> commentDtos = comments.stream().map(c -> new CommentResponseDto(c.getId(), c.getContent(), c.getMember().getName())).collect(Collectors.toList());
+        return commentDtos;
     }
 
 
