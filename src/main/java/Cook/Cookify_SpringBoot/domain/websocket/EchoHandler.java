@@ -29,7 +29,7 @@ public class EchoHandler extends TextWebSocketHandler {
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         log.info("Socket 연결");
         sessions.add(session);
-        log.info(sendPushUsername(session));				//현재 접속한 사람의 username이 출력됨
+        log.info(sendPushUsername(session));
         String senderId = sendPushUsername(session);
         userSessionMap.put(senderId, session);
     }
@@ -52,22 +52,22 @@ public class EchoHandler extends TextWebSocketHandler {
 
                 WebSocketSession sendedPushSession = userSessionMap.get(sendedPushUser);	//로그인상태일때 알람 보냄
 
-                //부모댓글
-                if ("reply".equals(pushCategory) && sendedPushSession != null) {
-                    TextMessage textMsg = new TextMessage(replyWriter + " 님이 " + "<a href='/porfolDetail/" + boardId + "' style=\"color:black\"><strong>" + title + "</strong> 에 댓글을 남겼습니다.</a>");
+                if ("like".equals(pushCategory) && sendedPushSession != null) {
+                    TextMessage textMsg = new TextMessage(replyWriter + "님이 회원님의 게시물을 좋아합니다: " +
+                            "<a href='/porfolDetail/" + boardId + "' style=\"color:black\"><strong>" + title + "</strong></a>");
                     sendedPushSession.sendMessage(textMsg);
-                }
 
-                //좋아요
-                else if ("like".equals(pushCategory) && sendedPushSession != null) {
-                    TextMessage textMsg = new TextMessage(replyWriter + " 님이 " + "<a href='/porfolDetail/" + boardId + "' style=\"color:black\"><strong>" + title + "</strong> 을 좋아요♡ 했습니다.</a>");
+                } else if ("follow".equals(pushCategory) && sendedPushSession != null) {
+                    TextMessage textMsg = new TextMessage(replyWriter + "님이 회원님을 팔로우하기 시작했습니다.");
                     sendedPushSession.sendMessage(textMsg);
-                }
 
-                //자식댓글
-                else if ("reReply".equals(pushCategory) && sendedPushSession != null) {
-                    TextMessage textMsg = new TextMessage(replyWriter + " 님이 " + "<a href='/porfolDetail/" + boardId + "' style=\"color:black\"><strong>" + title + "</strong> 글의 회원님 댓글에 답글을 남겼습니다.</a>");
-                    sendedPushSession.sendMessage(textMsg);
+                } else if ("directMessage".equals(pushCategory) && sendedPushSession != null) {
+                    String receiverId = strs[5];
+                    WebSocketSession receiverSession = userSessionMap.get(receiverId);
+                    if (receiverSession != null) {
+                        TextMessage textMsg = new TextMessage(replyWriter + "님으로부터 새로운 메시지: " + msg);
+                        receiverSession.sendMessage(textMsg);
+                    }
                 }
             }
         }
