@@ -26,13 +26,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-	implementation 'io.jsonwebtoken:jjwt:0.9.1'
-	//spring websocket
+
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	implementation 'org.springframework.security:spring-security-messaging'
-//	implementation 'org.webjars:webjars-locator-core'
-//	implementation 'org.webjars:sockjs-client'
-//	implementation 'org.webjars:stomp-websocket'
 
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'

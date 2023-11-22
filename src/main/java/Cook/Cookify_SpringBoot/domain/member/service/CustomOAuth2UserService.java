@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
@@ -28,6 +29,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException{
+
+
         OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
 
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
@@ -39,11 +42,15 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
         GoogleMember member = saveOrUpdate(attributes);
-        httpSession.setAttribute("user", new SessionMember(member));    // 세션에 저장
+        if (RequestContextHolder.getRequestAttributes() != null) {
+            httpSession.setAttribute("user", new SessionMember(member));    // 세션에 저장
+        }
+//        httpSession.setAttribute("user", new SessionMember(member));    // 세션에 저장
 
         return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(member.getRoleKey())),
                 attributes.getAttributes(),
                 attributes.getNameAttributeKey());
+
     }
 
     private GoogleMember saveOrUpdate(OAuthAttributes attributes) {
