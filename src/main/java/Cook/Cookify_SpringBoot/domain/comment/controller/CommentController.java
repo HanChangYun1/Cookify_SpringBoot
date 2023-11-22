@@ -2,6 +2,7 @@ package Cook.Cookify_SpringBoot.domain.comment.controller;
 
 import Cook.Cookify_SpringBoot.domain.comment.Comment;
 import Cook.Cookify_SpringBoot.domain.comment.dto.CommentRequestDto;
+import Cook.Cookify_SpringBoot.domain.comment.dto.CommentResponseDto;
 import Cook.Cookify_SpringBoot.domain.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,7 @@ public class CommentController {
     }
 
     @GetMapping("/{recipeId}")
-    public List<Comment> getComments(@PathVariable("recipeId") Long recipeId){
+    public List<CommentResponseDto> getComments(@PathVariable("recipeId") Long recipeId){
         return commentService.getComments(recipeId);
     }
 

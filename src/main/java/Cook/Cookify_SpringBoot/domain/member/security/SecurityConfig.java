@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.web.context.request.RequestContextListener;
 
 @Configuration
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-         http.csrf().disable().headers().frameOptions().disable()
+        return http.csrf().disable().headers().frameOptions().disable()
                 .and()
                     .authorizeRequests().antMatchers("/","/css/**", "/images/**", "/js/**", "/h2-console/**","/signup", "/recipe/**").permitAll()
                     .antMatchers("/api/v1/**").hasRole(Role.USER.name())
@@ -31,13 +32,19 @@ public class SecurityConfig {
                 .and()
                     .oauth2Login()
                         .userInfoEndpoint()
-                            .userService(customOAuth2UserService);
-         return http.build();
+                            .userService(customOAuth2UserService)
+                .and()
+                .successHandler(successHandler()).and().build();
+    }
+
+    @Bean
+    public RequestContextListener requestContextListener() {
+        return new RequestContextListener();
     }
 
     private AuthenticationSuccessHandler successHandler(){
         return (request, response, authentication) -> {
-            response.sendRedirect("/userInfo");
+            response.sendRedirect("/");
         };
     }
 }

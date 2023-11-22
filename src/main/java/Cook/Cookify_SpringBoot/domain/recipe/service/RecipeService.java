@@ -1,5 +1,7 @@
 package Cook.Cookify_SpringBoot.domain.recipe.service;
 
+import Cook.Cookify_SpringBoot.domain.recipe.dto.BriefRecipeDto;
+import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeDetailDto;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeRequestDto;
 import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
 import Cook.Cookify_SpringBoot.domain.recipe.repository.RecipeRepository;
@@ -18,9 +20,9 @@ public interface RecipeService {
 
     void deleteRecipe(Long id);
 
-    List<Recipe> findRecipes();
+    List<BriefRecipeDto> findRecipes();
 
-    Recipe findOne(Long recipeId);
+    RecipeDetailDto findOne(Long recipeId);
 
 //    void loadJsonData();
 }

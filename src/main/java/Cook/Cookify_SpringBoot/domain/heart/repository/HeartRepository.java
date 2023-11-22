@@ -4,6 +4,8 @@ import Cook.Cookify_SpringBoot.domain.heart.Heart;
 import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,5 +16,6 @@ public interface HeartRepository extends JpaRepository<Heart, Long> {
 
     void deleteByMemberAndRecipe(GoogleMember member, Recipe recipe);
 
-    List<Heart> findAllByMember(GoogleMember member);
+    @Query("select h from Heart h left join fetch h.recipe where h.member = :member")
+    List<Heart> findAllByMember(@Param("member") GoogleMember member);
 }
