@@ -56,7 +56,6 @@ public class GoogleMember extends BaseEntity {
 
     //== 연관관계 메서드 ==//
     public void addRecipe(Recipe recipe){
-        //post의 writer 설정은 post에서 함
         recipes.add(recipe);
     }
 

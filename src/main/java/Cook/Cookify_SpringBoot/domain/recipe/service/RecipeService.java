@@ -24,5 +24,5 @@ public interface RecipeService {
 
     RecipeDetailDto findOne(Long recipeId);
 
-//    void loadJsonData();
+
 }

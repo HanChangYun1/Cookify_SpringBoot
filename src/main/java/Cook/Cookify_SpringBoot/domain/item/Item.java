@@ -24,8 +24,6 @@ public class Item {
 
     private int stockQuantity;
 
-    @ManyToMany(mappedBy = "items")
-    private List<Category> categories = new ArrayList<>();
 
 
     //생성 메서드//
@@ -50,8 +48,4 @@ public class Item {
         this.stockQuantity = restStock;
     }
 
-    //연관관계 메서드//
-    public void addCategory(Category category){
-        this.categories.add(category);
-    }
 }

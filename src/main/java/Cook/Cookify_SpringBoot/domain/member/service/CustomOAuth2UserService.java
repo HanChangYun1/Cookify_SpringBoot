@@ -43,9 +43,9 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         GoogleMember member = saveOrUpdate(attributes);
         if (RequestContextHolder.getRequestAttributes() != null) {
-            httpSession.setAttribute("user", new SessionMember(member));    // 세션에 저장
+            httpSession.setAttribute("user", new SessionMember(member));
         }
-//        httpSession.setAttribute("user", new SessionMember(member));    // 세션에 저장
+
 
         return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(member.getRoleKey())),
                 attributes.getAttributes(),
