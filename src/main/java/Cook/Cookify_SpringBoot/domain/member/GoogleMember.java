@@ -2,11 +2,8 @@ package Cook.Cookify_SpringBoot.domain.member;
 
 
 import Cook.Cookify_SpringBoot.domain.comment.Comment;
-import Cook.Cookify_SpringBoot.domain.delivery.Address;
-import Cook.Cookify_SpringBoot.global.Entity.BaseEntity;
-import Cook.Cookify_SpringBoot.global.Entity.BaseTimeEntity;
-import Cook.Cookify_SpringBoot.domain.order.Order;
 import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
+import Cook.Cookify_SpringBoot.global.Entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -46,12 +43,7 @@ public class GoogleMember extends BaseEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
-    @Builder.Default
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Order> orders =new ArrayList<>();
 
-    @Embedded
-    private Address address;
 
 
     //== 연관관계 메서드 ==//
@@ -63,9 +55,6 @@ public class GoogleMember extends BaseEntity {
         comments.add(comment);
     }
 
-    public void addOrder(Order order){
-        orders.add(order);
-    }
 
     @Builder
     public GoogleMember(String name, String email, String picture, Role role){
