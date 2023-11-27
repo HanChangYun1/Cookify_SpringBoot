@@ -1,0 +1,141 @@
+# schema.graphqls
+
+# Recipe Entity
+type Recipe {
+    id: ID!
+    title: String!
+    ingredients: String
+    ingredients2: String
+    steps: String
+    thumbnail: String
+    recipeDocs: RecipeDocs
+    member: GoogleMember!
+    comments: [Comment]
+    recipeCount: Int
+    HeartCount: Int
+}
+
+# RecipeDocs Entity
+type RecipeDocs {
+    id: ID!
+    title: String!
+    ingredients: String
+    ingredients2: String
+    steps: String
+    thumbnail: String
+}
+
+# Comment Entity
+type Comment {
+    id: ID!
+    content: String!
+    member: GoogleMember!
+    recipe: Recipe!
+    parent: Comment
+    children: [Comment]
+    isRemoved: Boolean
+}
+
+# GoogleMember Entity
+type GoogleMember {
+    id: ID!
+    name: String!
+    email: String!
+    picture: String
+    role: Role!
+    recipes: [Recipe]
+    comments: [Comment]
+}
+
+# Follow Entity
+type Follow {
+    id: ID!
+    follower: GoogleMember!
+    following: GoogleMember!
+}
+
+# Heart Entity
+type Heart {
+    id: ID!
+    member: GoogleMember!
+    recipe: Recipe!
+}
+
+# Enum for Role
+enum Role {
+    GUEST
+    USER
+}
+
+# BriefRecipeDto
+type BriefRecipeDto {
+    id: ID!
+    title: String!
+    thumbnail: String
+}
+
+# RecipeDetailDto
+type RecipeDetailDto {
+    title: String!
+    ingredients: String
+    ingredients2: String
+    steps: String
+    thumbnail: String
+}
+
+# RecipeRequestDto
+input RecipeRequestDto {
+    title: String!
+    ingredients: String
+    ingredients2: String
+    steps: String
+    thumbnail: String
+}
+
+# CommentRequestDto
+input CommentRequestDto {
+    content: String!
+}
+
+# CommentResponseDto
+type CommentResponseDto {
+    id: ID!
+    content: String!
+    memberName: String!
+}
+
+# HeartRecipeDto
+type HeartRecipeDto {
+    title: String!
+    thumbnail: String
+}
+
+# FollowResponseDto
+type FollowResponseDto {
+    followerCount: Int!
+    followingCount: Int!
+    followerList: [Follow]!
+    followingList: [Follow]!
+}
+
+# GraphQL Queries
+type Query {
+    findRecipes: [BriefRecipeDto]!
+    findOne(recipeId: ID!): RecipeDetailDto
+    getComments(recipeId: ID!): [CommentResponseDto]!
+    getHeartRecipe: [HeartRecipeDto]!
+    getFollow: FollowResponseDto
+}
+
+# GraphQL Mutations
+type Mutation {
+    saveRecipe(dto: RecipeRequestDto!): Recipe
+    updateRecipe(id: ID!, dto: RecipeRequestDto!): Recipe
+    deleteRecipe(id: ID!): Boolean
+    saveComment(recipeId: ID!, commentRequestDto: CommentRequestDto!): CommentResponseDto
+    saveReComment(recipeId: ID!, parentId: ID!, commentRequestDto: CommentRequestDto!): CommentResponseDto
+    updateComment(commentId: ID!, commentRequestDto: CommentRequestDto!): Boolean
+    removeComment(commentId: ID!): Boolean
+    addHeart(recipeId: ID!): Boolean
+    addFollow(memberId: ID!): Boolean
+}
