@@ -5,24 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c77760c-afd7-4a7d-89b5-88d4f06523df" name="변경" comment="변경">
+      <change afterPath="$PROJECT_DIR$/src/test/java/Cook/Cookify_SpringBoot/domain/comment/service/CommentServiceImplTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/Cook/Cookify_SpringBoot/domain/recipe/service/RecipeServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/category/Category.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/delivery/Address.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/delivery/Delivery.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/delivery/DeliveryStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/item/Item.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/item/exception/NotEnoughStockException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/item/repository/ItemRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/GoogleMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/GoogleMember.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/Order.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/OrderStatus.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/controller/OrderController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/dto/OrderRequestDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/exception/OrderException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/repository/OrderRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/service/OrderService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order/service/OrderServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/order_item/OrderItem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/dto/CommentRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/dto/CommentRequestDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/service/CommentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/service/CommentServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +57,7 @@
         <option value="AnnotationType" />
         <option value="HTML File" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -102,6 +93,8 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/codingmbair/Desktop/Cookify_SpringBoot/build.gradle&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -111,7 +104,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;fa9f13383ab77f50f98579ffd91877e3&quot;,
     &quot;ts.external.directory.path&quot;: &quot;/Applications/IntelliJ IDEA.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -135,8 +128,167 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="Cook.Cookify_SpringBoot.domain.comment.service" />
+      <recent name="Cook.Cookify_SpringBoot.domain.recipe.service" />
+      <recent name="Cook.Cookify_SpringBoot.domain.member.service" />
+    </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.CommentServiceImplTest.댓글조회">
+    <configuration name="RecipeServiceImplTest.레시피작성" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;Cook.Cookify_SpringBoot.domain.recipe.service.RecipeServiceImplTest.레시피작성&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="CommentServiceImplTest.댓글조회" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Cookify_SpringBoot.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Cook.Cookify_SpringBoot.domain.comment.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Cook.Cookify_SpringBoot.domain.comment.service" />
+      <option name="MAIN_CLASS_NAME" value="Cook.Cookify_SpringBoot.domain.comment.service.CommentServiceImplTest" />
+      <option name="METHOD_NAME" value="댓글조회" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CommentServiceImplTest.대댓글작성" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Cookify_SpringBoot.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Cook.Cookify_SpringBoot.domain.comment.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Cook.Cookify_SpringBoot.domain.comment.service" />
+      <option name="MAIN_CLASS_NAME" value="Cook.Cookify_SpringBoot.domain.comment.service.CommentServiceImplTest" />
+      <option name="METHOD_NAME" value="대댓글작성" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CommentServiceImplTest.댓글수정" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Cookify_SpringBoot.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Cook.Cookify_SpringBoot.domain.comment.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Cook.Cookify_SpringBoot.domain.comment.service" />
+      <option name="MAIN_CLASS_NAME" value="Cook.Cookify_SpringBoot.domain.comment.service.CommentServiceImplTest" />
+      <option name="METHOD_NAME" value="댓글수정" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CommentServiceImplTest.댓글삭제" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Cookify_SpringBoot.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Cook.Cookify_SpringBoot.domain.comment.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Cook.Cookify_SpringBoot.domain.comment.service" />
+      <option name="MAIN_CLASS_NAME" value="Cook.Cookify_SpringBoot.domain.comment.service.CommentServiceImplTest" />
+      <option name="METHOD_NAME" value="댓글삭제" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CommentServiceImplTest.댓글전부삭제" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Cookify_SpringBoot.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Cook.Cookify_SpringBoot.domain.comment.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Cook.Cookify_SpringBoot.domain.comment.service" />
+      <option name="MAIN_CLASS_NAME" value="Cook.Cookify_SpringBoot.domain.comment.service.CommentServiceImplTest" />
+      <option name="METHOD_NAME" value="댓글전부삭제" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RecipeServiceImplTest.레시피삭제" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Cookify_SpringBoot.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Cook.Cookify_SpringBoot.domain.recipe.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Cook.Cookify_SpringBoot.domain.recipe.service" />
+      <option name="MAIN_CLASS_NAME" value="Cook.Cookify_SpringBoot.domain.recipe.service.RecipeServiceImplTest" />
+      <option name="METHOD_NAME" value="레시피삭제" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RecipeServiceImplTest.레시피목록조회" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Cookify_SpringBoot.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Cook.Cookify_SpringBoot.domain.recipe.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Cook.Cookify_SpringBoot.domain.recipe.service" />
+      <option name="MAIN_CLASS_NAME" value="Cook.Cookify_SpringBoot.domain.recipe.service.RecipeServiceImplTest" />
+      <option name="METHOD_NAME" value="레시피목록조회" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RecipeServiceImplTest.레시피상세조회" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Cookify_SpringBoot.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Cook.Cookify_SpringBoot.domain.recipe.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Cook.Cookify_SpringBoot.domain.recipe.service" />
+      <option name="MAIN_CLASS_NAME" value="Cook.Cookify_SpringBoot.domain.recipe.service.RecipeServiceImplTest" />
+      <option name="METHOD_NAME" value="레시피상세조회" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="CookifySpringBootApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <option name="ACTIVE_PROFILES" />
       <module name="Cookify_SpringBoot.main" />
@@ -145,6 +297,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.CommentServiceImplTest.댓글조회" />
+        <item itemvalue="JUnit.CommentServiceImplTest.댓글전부삭제" />
+        <item itemvalue="JUnit.CommentServiceImplTest.댓글삭제" />
+        <item itemvalue="JUnit.CommentServiceImplTest.댓글수정" />
+        <item itemvalue="JUnit.CommentServiceImplTest.대댓글작성" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -184,7 +345,10 @@
       <workItem from="1700620349947" duration="13612000" />
       <workItem from="1700640397826" duration="1226000" />
       <workItem from="1700703627647" duration="1222000" />
-      <workItem from="1700716688541" duration="2396000" />
+      <workItem from="1700716688541" duration="3012000" />
+      <workItem from="1701049186154" duration="597000" />
+      <workItem from="1701054740770" duration="9843000" />
+      <workItem from="1701071224581" duration="2163000" />
     </task>
     <servers />
   </component>

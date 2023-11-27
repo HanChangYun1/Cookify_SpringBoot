@@ -51,7 +51,7 @@ public class CommentServiceImpl implements CommentService{
         String loginUserEmail = SecurityUtil.getLoginUserEmail();
         GoogleMember member = memberRepository.findByEmail(loginUserEmail).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
         Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
-        Comment parent = commentRepository.findByParentId(parentId).orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
+        Comment parent = commentRepository.findById(parentId).orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
 
         Comment comment = Comment.createComment(member, recipe, commentRequestDto.getContent());
         comment.confirmParent(parent);
