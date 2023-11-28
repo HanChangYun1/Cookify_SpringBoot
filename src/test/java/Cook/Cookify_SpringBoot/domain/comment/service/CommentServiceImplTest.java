@@ -1,18 +1,15 @@
 package Cook.Cookify_SpringBoot.domain.comment.service;
 
-import Cook.Cookify_SpringBoot.domain.comment.Comment;
-import Cook.Cookify_SpringBoot.domain.comment.dto.CommentRequestDto;
+import Cook.Cookify_SpringBoot.domain.comment.entity.Comment;
 import Cook.Cookify_SpringBoot.domain.comment.dto.CommentResponseDto;
 import Cook.Cookify_SpringBoot.domain.comment.exception.CommentException;
 import Cook.Cookify_SpringBoot.domain.comment.exception.CommentExceptionType;
 import Cook.Cookify_SpringBoot.domain.comment.repository.CommentRepository;
-import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
-import Cook.Cookify_SpringBoot.domain.member.Role;
+import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
+import Cook.Cookify_SpringBoot.domain.member.entity.Role;
 import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;
-import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
+import Cook.Cookify_SpringBoot.domain.recipe.entity.Recipe;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeRequestDto;
-import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeException;
-import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeExceptionType;
 import Cook.Cookify_SpringBoot.domain.recipe.repository.RecipeRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

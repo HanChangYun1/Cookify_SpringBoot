@@ -1,7 +1,7 @@
 package Cook.Cookify_SpringBoot.domain.follow.repository;
 
-import Cook.Cookify_SpringBoot.domain.follow.Follow;
-import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
+import Cook.Cookify_SpringBoot.domain.follow.entity.Follow;
+import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -1,6 +1,6 @@
 package Cook.Cookify_SpringBoot.domain.member.service;
 
-import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
+import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;
 import Cook.Cookify_SpringBoot.domain.member.security.OAuthAttributes;
 import Cook.Cookify_SpringBoot.domain.member.security.SessionMember;

@@ -2,6 +2,7 @@ package Cook.Cookify_SpringBoot.domain.comment;
 
 import Cook.Cookify_SpringBoot.domain.comment.dto.CommentRequestDto;
 import Cook.Cookify_SpringBoot.domain.comment.dto.CommentResponseDto;
+import Cook.Cookify_SpringBoot.domain.comment.entity.Comment;
 import Cook.Cookify_SpringBoot.domain.comment.service.CommentService;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import graphql.kickstart.tools.GraphQLQueryResolver;

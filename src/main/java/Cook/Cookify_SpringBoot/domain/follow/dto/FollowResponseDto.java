@@ -1,8 +1,7 @@
 package Cook.Cookify_SpringBoot.domain.follow.dto;
 
-import Cook.Cookify_SpringBoot.domain.follow.Follow;
+import Cook.Cookify_SpringBoot.domain.follow.entity.Follow;
 import lombok.Data;
-import lombok.Getter;
 
 import java.util.List;
 

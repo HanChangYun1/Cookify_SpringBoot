@@ -1,6 +1,6 @@
 package Cook.Cookify_SpringBoot.domain.member.dto;
 
-import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
+import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;

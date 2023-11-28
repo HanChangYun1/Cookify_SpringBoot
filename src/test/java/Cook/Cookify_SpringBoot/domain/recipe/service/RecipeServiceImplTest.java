@@ -1,9 +1,9 @@
 package Cook.Cookify_SpringBoot.domain.recipe.service;
 
-import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
-import Cook.Cookify_SpringBoot.domain.member.Role;
+import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
+import Cook.Cookify_SpringBoot.domain.member.entity.Role;
 import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;
-import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
+import Cook.Cookify_SpringBoot.domain.recipe.entity.Recipe;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.BriefRecipeDto;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeDetailDto;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeRequestDto;

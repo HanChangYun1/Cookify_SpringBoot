@@ -3,6 +3,7 @@ package Cook.Cookify_SpringBoot.domain.recipe;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.BriefRecipeDto;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeDetailDto;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeRequestDto;
+import Cook.Cookify_SpringBoot.domain.recipe.entity.Recipe;
 import Cook.Cookify_SpringBoot.domain.recipe.service.RecipeService;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import graphql.kickstart.tools.GraphQLQueryResolver;
