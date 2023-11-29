@@ -31,7 +31,6 @@ public class Heart extends BaseEntity {
     private Recipe recipe;
 
     //생성 메서드
-
     public static Heart createHeart(GoogleMember member, Recipe recipe){
         Heart heart = new Heart();
         heart.setMember(member);

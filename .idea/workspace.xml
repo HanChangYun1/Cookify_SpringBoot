@@ -5,14 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a24b6aea-8b7f-46c8-956e-e7fb4bd22b57" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/Cook/Cookify_SpringBoot/domain/follow/service/FollowServiceImplTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/Cook/Cookify_SpringBoot/domain/heart/service/HeartServiceImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/follow/FollowResolver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/heart/HeartResolver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/global/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/global/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/graphql/schema.graphqls" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/heart/entity/Heart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/heart/entity/Heart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/controller/GoogleMemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/controller/GoogleMemberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/websocket/EchoHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/websocket/EchoHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/hello.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/recipeList.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/userInfo.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Cook/Cookify_SpringBoot/domain/heart/service/HeartServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Cook/Cookify_SpringBoot/domain/heart/service/HeartServiceImplTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +62,7 @@
       <recent name="Cook.Cookify_SpringBoot.domain.heart.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.FollowServiceImplTest">
+  <component name="RunManager" selected="Spring Boot.CookifySpringBootApplication">
     <configuration name="FollowServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Cookify_SpringBoot.test" />
       <extension name="coverage">
@@ -132,10 +134,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.FollowServiceImplTest" />
-        <item itemvalue="JUnit.HeartServiceImplTest" />
-        <item itemvalue="JUnit.FollowServiceImplTest.팔로우테스" />
         <item itemvalue="JUnit.HeartServiceImplTest.좋아요테스트" />
+        <item itemvalue="JUnit.HeartServiceImplTest" />
+        <item itemvalue="JUnit.FollowServiceImplTest" />
+        <item itemvalue="JUnit.FollowServiceImplTest.팔로우테스" />
       </list>
     </recent_temporary>
   </component>

@@ -7,13 +7,14 @@ import Cook.Cookify_SpringBoot.domain.member.entity.Role;
 import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeRequestDto;
 import Cook.Cookify_SpringBoot.domain.recipe.entity.Recipe;
+import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeException;
+import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeExceptionType;
 import Cook.Cookify_SpringBoot.domain.recipe.repository.RecipeRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 @SpringBootTest
 @Transactional
@@ -36,15 +37,23 @@ class HeartServiceImplTest {
         Recipe saveRecipe = recipeRepository.save(recipe);
 
         //when
-//        recipe.setHeartCount(recipe.getHeartCount() + 1);
-        recipeRepository.findById(recipe.getId()).orElse(null).setHeartCount(recipe.getHeartCount() + 1);
-        Heart heart = heartRepository.save(Heart.createHeart(member, recipe));
-        recipeRepository.flush();
-        heartRepository.flush();
+        Long recipeId = saveRecipe.getId();
+        System.out.println("Recipe ID: " + recipeId);
+
+        Recipe findRecipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
+        System.out.println("Found Recipe: " + findRecipe);
+//        Recipe findRecipe = recipeRepository.findById(saveRecipe.getId()).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
+        findRecipe.setHeartCount(findRecipe.getHeartCount() + 1);
+        Heart heart = Heart.createHeart(saveMember, saveRecipe);
+        Heart saveHeart = heartRepository.save(heart);
+        heartRepository.findById(heart.getId()).orElseThrow();
+        System.out.println("heart = " + heart);
 
         //then
-        Assertions.assertEquals(member, heartRepository.findById(heart.getId()).orElse(null).getMember());
-        Assertions.assertEquals(recipe, heartRepository.findById(heart.getId()).orElse(null).getRecipe());
-        Assertions.assertEquals(1, recipeRepository.findById(recipe.getId()).orElse(null).getHeartCount());
+        Heart heart1 = heartRepository.findById(heart.getId()).orElseThrow();
+        Recipe recipe1 = recipeRepository.findById(saveRecipe.getId()).orElseThrow();
+        Assertions.assertEquals(member, heart1.getMember());
+        Assertions.assertEquals(recipe, heart1.getRecipe());
+        Assertions.assertEquals(1, recipe1.getHeartCount());
     }
 }
