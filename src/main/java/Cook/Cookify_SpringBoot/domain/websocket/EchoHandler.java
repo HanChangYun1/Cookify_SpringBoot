@@ -3,11 +3,11 @@ package Cook.Cookify_SpringBoot.domain.websocket;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import org.thymeleaf.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;

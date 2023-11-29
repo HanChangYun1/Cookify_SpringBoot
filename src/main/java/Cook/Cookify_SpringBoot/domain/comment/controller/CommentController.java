@@ -1,6 +1,5 @@
 package Cook.Cookify_SpringBoot.domain.comment.controller;
 
-import Cook.Cookify_SpringBoot.domain.comment.Comment;
 import Cook.Cookify_SpringBoot.domain.comment.dto.CommentRequestDto;
 import Cook.Cookify_SpringBoot.domain.comment.dto.CommentResponseDto;
 import Cook.Cookify_SpringBoot.domain.comment.service.CommentService;

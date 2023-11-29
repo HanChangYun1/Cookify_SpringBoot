@@ -1,13 +1,13 @@
 package Cook.Cookify_SpringBoot.domain.heart.service;
 
-import Cook.Cookify_SpringBoot.domain.heart.Heart;
+import Cook.Cookify_SpringBoot.domain.heart.entity.Heart;
 import Cook.Cookify_SpringBoot.domain.heart.dto.HeartRecipeDto;
 import Cook.Cookify_SpringBoot.domain.heart.repository.HeartRepository;
-import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
+import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.member.exception.MemberException;
 import Cook.Cookify_SpringBoot.domain.member.exception.MemberExceptionType;
 import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;
-import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
+import Cook.Cookify_SpringBoot.domain.recipe.entity.Recipe;
 import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeException;
 import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeExceptionType;
 import Cook.Cookify_SpringBoot.domain.recipe.repository.RecipeRepository;

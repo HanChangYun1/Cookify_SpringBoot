@@ -1,10 +1,9 @@
-package Cook.Cookify_SpringBoot.domain.recipe;
+package Cook.Cookify_SpringBoot.domain.recipe.entity;
 
-import Cook.Cookify_SpringBoot.domain.comment.Comment;
+import Cook.Cookify_SpringBoot.domain.comment.entity.Comment;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeRequestDto;
 import Cook.Cookify_SpringBoot.global.Entity.BaseEntity;
-import Cook.Cookify_SpringBoot.global.Entity.BaseTimeEntity;
-import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
+import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 

@@ -1,7 +1,7 @@
 package Cook.Cookify_SpringBoot.domain.recipe.controller;
 
-import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
-import Cook.Cookify_SpringBoot.domain.recipe.RecipeDocs;
+import Cook.Cookify_SpringBoot.domain.recipe.entity.Recipe;
+import Cook.Cookify_SpringBoot.domain.recipe.entity.RecipeDocs;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.BriefRecipeDto;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeDetailDto;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeRequestDto;
@@ -12,10 +12,8 @@ import Cook.Cookify_SpringBoot.domain.recipe.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

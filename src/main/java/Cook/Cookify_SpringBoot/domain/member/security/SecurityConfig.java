@@ -1,6 +1,6 @@
 package Cook.Cookify_SpringBoot.domain.member.security;
 
-import Cook.Cookify_SpringBoot.domain.member.Role;
+import Cook.Cookify_SpringBoot.domain.member.entity.Role;
 import Cook.Cookify_SpringBoot.domain.member.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +22,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         return http.csrf().disable().headers().frameOptions().disable()
                 .and()
-                    .authorizeRequests().antMatchers("/","/css/**", "/images/**", "/js/**", "/h2-console/**","/signup", "/recipe/**").permitAll()
+                    .authorizeRequests().antMatchers("/","/css/**", "/images/**", "/js/**", "/h2-console/**","/start", "/recipe/**").permitAll()
                     .antMatchers("/api/v1/**").hasRole(Role.USER.name())
                     .anyRequest().authenticated()
                 .and()

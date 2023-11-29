@@ -1,9 +1,9 @@
 package Cook.Cookify_SpringBoot.domain.follow.service;
 
-import Cook.Cookify_SpringBoot.domain.follow.Follow;
+import Cook.Cookify_SpringBoot.domain.follow.entity.Follow;
 import Cook.Cookify_SpringBoot.domain.follow.dto.FollowResponseDto;
 import Cook.Cookify_SpringBoot.domain.follow.repository.FollowRepository;
-import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
+import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.member.exception.MemberException;
 import Cook.Cookify_SpringBoot.domain.member.exception.MemberExceptionType;
 import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;

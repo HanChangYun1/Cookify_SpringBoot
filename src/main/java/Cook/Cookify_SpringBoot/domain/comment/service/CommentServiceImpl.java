@@ -1,16 +1,16 @@
 package Cook.Cookify_SpringBoot.domain.comment.service;
 
-import Cook.Cookify_SpringBoot.domain.comment.Comment;
+import Cook.Cookify_SpringBoot.domain.comment.entity.Comment;
 import Cook.Cookify_SpringBoot.domain.comment.dto.CommentRequestDto;
 import Cook.Cookify_SpringBoot.domain.comment.dto.CommentResponseDto;
 import Cook.Cookify_SpringBoot.domain.comment.exception.CommentException;
 import Cook.Cookify_SpringBoot.domain.comment.exception.CommentExceptionType;
 import Cook.Cookify_SpringBoot.domain.comment.repository.CommentRepository;
-import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
+import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.member.exception.MemberException;
 import Cook.Cookify_SpringBoot.domain.member.exception.MemberExceptionType;
 import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;
-import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
+import Cook.Cookify_SpringBoot.domain.recipe.entity.Recipe;
 import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeException;
 import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeExceptionType;
 import Cook.Cookify_SpringBoot.domain.recipe.repository.RecipeRepository;
@@ -51,7 +51,7 @@ public class CommentServiceImpl implements CommentService{
         String loginUserEmail = SecurityUtil.getLoginUserEmail();
         GoogleMember member = memberRepository.findByEmail(loginUserEmail).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
         Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
-        Comment parent = commentRepository.findByParentId(parentId).orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
+        Comment parent = commentRepository.findById(parentId).orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
 
         Comment comment = Comment.createComment(member, recipe, commentRequestDto.getContent());
         comment.confirmParent(parent);

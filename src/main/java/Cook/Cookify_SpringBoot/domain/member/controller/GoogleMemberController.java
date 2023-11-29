@@ -15,10 +15,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/member")
 public class GoogleMemberController {
-
-    @GetMapping("/userInfo")
-    public String userInfo(@AuthenticationPrincipal SessionMember sessionMember, Model model) {
-        model.addAttribute("user", sessionMember);
-        return "userInfo";
-    }
 }

@@ -1,9 +1,8 @@
-package Cook.Cookify_SpringBoot.domain.comment;
+package Cook.Cookify_SpringBoot.domain.comment.entity;
 
 import Cook.Cookify_SpringBoot.global.Entity.BaseEntity;
-import Cook.Cookify_SpringBoot.global.Entity.BaseTimeEntity;
-import Cook.Cookify_SpringBoot.domain.member.GoogleMember;
-import Cook.Cookify_SpringBoot.domain.recipe.Recipe;
+import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
+import Cook.Cookify_SpringBoot.domain.recipe.entity.Recipe;
 import lombok.*;
 
 import javax.persistence.*;
