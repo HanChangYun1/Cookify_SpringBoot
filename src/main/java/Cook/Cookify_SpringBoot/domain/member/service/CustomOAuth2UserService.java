@@ -28,11 +28,9 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     private final HttpSession httpSession;
 
     @Override
-    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException{
-
+    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 
         OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
-
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
@@ -41,16 +39,22 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
+        // Ensure the 'id' attribute is present in the attributes
+        String userId = attributes.getId();
+        if (userId == null) {
+            throw new IllegalArgumentException("Missing 'id' attribute in OAuth2 user attributes");
+        }
+
         GoogleMember member = saveOrUpdate(attributes);
         if (RequestContextHolder.getRequestAttributes() != null) {
             httpSession.setAttribute("user", new SessionMember(member));
         }
 
-
-        return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(member.getRoleKey())),
+        return new DefaultOAuth2User(
+                Collections.singleton(new SimpleGrantedAuthority(member.getRoleKey())),
                 attributes.getAttributes(),
-                attributes.getNameAttributeKey());
-
+                attributes.getNameAttributeKey()
+        );
     }
 
     private GoogleMember saveOrUpdate(OAuthAttributes attributes) {
@@ -59,5 +63,4 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                 .orElse(attributes.toEntity());
         return googleMemberRepository.save(member);
     }
-
 }
