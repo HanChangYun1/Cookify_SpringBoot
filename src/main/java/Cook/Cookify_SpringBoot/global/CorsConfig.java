@@ -15,10 +15,10 @@ public class CorsConfig {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("http://localhost:3000");  // 프론트엔드 도메인을 여기에 추가
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
-        config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
