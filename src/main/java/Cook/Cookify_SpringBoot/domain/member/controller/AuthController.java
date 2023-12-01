@@ -1,14 +1,15 @@
 package Cook.Cookify_SpringBoot.domain.member.controller;
 
 import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
-import Cook.Cookify_SpringBoot.domain.member.service.CustomOAuth2UserService;
 import Cook.Cookify_SpringBoot.domain.member.security.SessionMember;
+import Cook.Cookify_SpringBoot.domain.member.service.CustomOAuth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -30,6 +31,12 @@ public class AuthController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(new SessionMember(user));
+    }
+
+    @GetMapping("/userByEmail")
+    public ResponseEntity<GoogleMember> getUserByEmail(@RequestParam String email) {
+        Optional<GoogleMember> user = customOAuth2UserService.getUserByEmail(email);
+        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/login")
