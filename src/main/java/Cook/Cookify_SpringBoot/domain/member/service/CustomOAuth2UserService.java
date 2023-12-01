@@ -19,6 +19,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -69,5 +70,10 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     @Transactional
     public void saveOrUpdateUser(GoogleMember user) {
         googleMemberRepository.save(user);
+    }
+
+    @Transactional
+    public Optional<GoogleMember> getUserByEmail(String email) {
+        return googleMemberRepository.findByEmail(email);
     }
 }
