@@ -24,11 +24,13 @@ public class Recipe extends BaseEntity {
 
     @Column(nullable = false)
     private String title;
-
-    private String ingredients;
-    private String ingredients2;
-    private String steps;
-    private String thumbnail;
+    @ElementCollection
+    private List<String> ingredients;
+    @ElementCollection
+    private List<String> ingredients2;
+    @ElementCollection
+    private List<String> steps;
+    private String  thumbnail;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_docs_id")
@@ -41,11 +43,10 @@ public class Recipe extends BaseEntity {
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
-    @ColumnDefault("0")
-    private Long recipeCount;
 
-    @ColumnDefault("0")
-    private Long HeartCount;
+    private int recipeCount;
+
+    private int HeartCount;
 
 
     //생성 메서드//

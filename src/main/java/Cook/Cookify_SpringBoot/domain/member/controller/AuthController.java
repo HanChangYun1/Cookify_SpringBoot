@@ -3,14 +3,21 @@ package Cook.Cookify_SpringBoot.domain.member.controller;
 import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.member.security.SessionMember;
 import Cook.Cookify_SpringBoot.domain.member.service.CustomOAuth2UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = "http://localhost:3000") // CORS 설정
@@ -26,11 +33,10 @@ public class AuthController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<SessionMember> getUser(@AuthenticationPrincipal GoogleMember user) {
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(new SessionMember(user));
+    public ResponseEntity<SessionMember> getUser(HttpSession session) {
+        SessionMember sessionUser = (SessionMember) session.getAttribute("user");
+        return ResponseEntity.ok().body(sessionUser);
+
     }
 
     @GetMapping("/userByEmail")
@@ -49,8 +55,6 @@ public class AuthController {
             // 로그인 로직을 수행하고 세션에 사용자 정보를 저장
             httpSession.setAttribute("user", new SessionMember(user));
 
-            // Save or update user in the database using the service
-            customOAuth2UserService.saveOrUpdateUser(user);
 
             return ResponseEntity.ok().build();
         } catch (Exception e) {

@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,7 +39,7 @@ class CommentServiceImplTest {
         //given
         GoogleMember member = GoogleMember.builder().name("test").email("test@gmail.com").picture("https://test.com/test.jpg").role(Role.USER).build();
         GoogleMember saveMember = googleMemberRepository.save(member);
-        Recipe recipe = Recipe.createRecipe(member, new RecipeRequestDto("title", "ing1", "ing2", "step", "thumb"));
+        Recipe recipe = Recipe.createRecipe(member, new RecipeRequestDto("tt", Arrays.asList("tt"), Arrays.asList("tt"), Arrays.asList("tt"), "tt"));
         Recipe saveRecipe = recipeRepository.save(recipe);
 
         //when
@@ -56,7 +57,7 @@ class CommentServiceImplTest {
         //given
         GoogleMember member = GoogleMember.builder().name("test").email("test@gmail.com").picture("https://test.com/test.jpg").role(Role.USER).build();
         GoogleMember saveMember = googleMemberRepository.save(member);
-        Recipe recipe = Recipe.createRecipe(member, new RecipeRequestDto("title", "ing1", "ing2", "step", "thumb"));
+        Recipe recipe = Recipe.createRecipe(member, new RecipeRequestDto("tt", Arrays.asList("tt"), Arrays.asList("tt"), Arrays.asList("tt"), "tt"));
         Recipe saveRecipe = recipeRepository.save(recipe);
 
         Comment parentComment = Comment.createComment(saveMember, saveRecipe, "부모 댓글");
@@ -79,7 +80,7 @@ class CommentServiceImplTest {
         //given
         GoogleMember member = GoogleMember.builder().name("test").email("test@gmail.com").picture("https://test.com/test.jpg").role(Role.USER).build();
         GoogleMember saveMember = googleMemberRepository.save(member);
-        Recipe recipe = Recipe.createRecipe(saveMember, new RecipeRequestDto("title", "ing1", "ing2", "step", "thumb"));
+        Recipe recipe = Recipe.createRecipe(member, new RecipeRequestDto("tt", Arrays.asList("tt"), Arrays.asList("tt"), Arrays.asList("tt"), "tt"));
         Recipe saveRecipe = recipeRepository.save(recipe);
 
         Comment comment = Comment.createComment(saveMember, saveRecipe, "원래 댓글");
@@ -98,7 +99,7 @@ class CommentServiceImplTest {
         //given
         GoogleMember member = GoogleMember.builder().name("test").email("test@gmail.com").picture("https://test.com/test.jpg").role(Role.USER).build();
         GoogleMember saveMember = googleMemberRepository.save(member);
-        Recipe recipe = Recipe.createRecipe(saveMember, new RecipeRequestDto("title", "ing1", "ing2", "step", "thumb"));
+        Recipe recipe = Recipe.createRecipe(member, new RecipeRequestDto("tt", Arrays.asList("tt"), Arrays.asList("tt"), Arrays.asList("tt"), "tt"));
         Recipe saveRecipe = recipeRepository.save(recipe);
 
         Comment comment = Comment.createComment(saveMember, saveRecipe, "삭제할 댓글");
@@ -124,7 +125,7 @@ class CommentServiceImplTest {
         //given
         GoogleMember member = GoogleMember.builder().name("test").email("test@gmail.com").picture("https://test.com/test.jpg").role(Role.USER).build();
         GoogleMember saveMember = googleMemberRepository.save(member);
-        Recipe recipe = Recipe.createRecipe(saveMember, new RecipeRequestDto("title", "ing1", "ing2", "step", "thumb"));
+        Recipe recipe = Recipe.createRecipe(member, new RecipeRequestDto("tt", Arrays.asList("tt"), Arrays.asList("tt"), Arrays.asList("tt"), "tt"));
         Recipe saveRecipe = recipeRepository.save(recipe);
 
         Comment comment = Comment.createComment(saveMember, saveRecipe, "삭제할 댓글");
@@ -154,7 +155,7 @@ class CommentServiceImplTest {
         //given
         GoogleMember member = GoogleMember.builder().name("test").email("test@gmail.com").picture("https://test.com/test.jpg").role(Role.USER).build();
         GoogleMember saveMember = googleMemberRepository.save(member);
-        Recipe recipe = Recipe.createRecipe(saveMember, new RecipeRequestDto("title", "ing1", "ing2", "step", "thumb"));
+        Recipe recipe = Recipe.createRecipe(member, new RecipeRequestDto("tt", Arrays.asList("tt"), Arrays.asList("tt"), Arrays.asList("tt"), "tt"));
         Recipe saveRecipe = recipeRepository.save(recipe);
 
         Comment comment1 = Comment.createComment(saveMember, saveRecipe, "댓글1");
