@@ -33,9 +33,11 @@ public class RecipeServiceImpl implements RecipeService{
     @Transactional
     public Recipe saveRecipe(RecipeRequestDto dto){
         String loginUserEmail = SecurityUtil.getLoginUserEmail(httpSession);
+        log.info("loginUserEmail:{}", loginUserEmail);
         GoogleMember member = memberRepository.findByEmail(loginUserEmail).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
-
+        log.info("member:{}", member);
         Recipe recipe = Recipe.createRecipe(member, dto);
+        log.info("Recipe:{}", recipe);
         return recipeRepository.save(recipe);
     }
 
@@ -63,7 +65,7 @@ public class RecipeServiceImpl implements RecipeService{
     }
 
     public List<BriefRecipeDto> findRecipes(){
-        List<Recipe> recipes = recipeRepository.findAll();
+        List<Recipe> recipes = recipeRepository.findAllWithMemberComment();
         List<BriefRecipeDto> collects = recipes.stream().map(r -> new BriefRecipeDto(r.getId(), r.getTitle(), r.getThumbnail())).collect(Collectors.toList());
         return collects;
     }
@@ -72,5 +74,11 @@ public class RecipeServiceImpl implements RecipeService{
         Recipe recipe = recipeRepository.findById(recipeId).orElse(null);
         RecipeDetailDto recipeDto = new RecipeDetailDto(recipe.getTitle(), recipe.getIngredients(), recipe.getIngredients2(), recipe.getSteps(), recipe.getThumbnail());
         return  recipeDto;
+    }
+
+    public List<Recipe> findTestRecipes(){
+        List<Recipe> all = recipeRepository.findAllWithMemberComment();
+        log.info("all:{}", all);
+        return all;
     }
 }

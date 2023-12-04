@@ -32,6 +32,7 @@ public class RecipeController {
     @PostMapping
     public ResponseEntity<Recipe> createRecipe(@RequestBody RecipeRequestDto dto){
         Recipe createRecipe = recipeService.saveRecipe(dto);
+        log.info("createRecipe:{}", createRecipe);
         return ResponseEntity.status(HttpStatus.CREATED).body(createRecipe);
     }
 
@@ -48,6 +49,11 @@ public class RecipeController {
     }
 
     @GetMapping
+    public List<Recipe> getTestRecipes(){
+        return recipeService.findTestRecipes();
+    }
+
+    @GetMapping("/brief")
     public List<BriefRecipeDto> getRecipes(){
         return recipeService.findRecipes();
     }
