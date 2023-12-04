@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+
 @SpringBootTest
 @Transactional
 class HeartServiceImplTest {
@@ -33,7 +35,7 @@ class HeartServiceImplTest {
         //given
         GoogleMember member = GoogleMember.builder().name("test").email("test@gmail.com").picture("https://test.com/test.jpg").role(Role.USER).build();
         GoogleMember saveMember = googleMemberRepository.save(member);
-        Recipe recipe = Recipe.createRecipe(member, new RecipeRequestDto("tt", "tt", "tt", "tt", "tt"));
+        Recipe recipe = Recipe.createRecipe(member, new RecipeRequestDto("tt", Arrays.asList("tt"), Arrays.asList("tt"), Arrays.asList("tt"), "tt"));
         Recipe saveRecipe = recipeRepository.save(recipe);
 
         //when

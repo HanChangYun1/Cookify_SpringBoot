@@ -1,5 +1,6 @@
 package Cook.Cookify_SpringBoot.domain.recipe.controller;
 
+import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeDocsDetailDto;
 import Cook.Cookify_SpringBoot.domain.recipe.entity.Recipe;
 import Cook.Cookify_SpringBoot.domain.recipe.entity.RecipeDocs;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.BriefRecipeDto;
@@ -60,9 +61,9 @@ public class RecipeController {
     }
 
     @GetMapping("/recipe_docs/{recipeId}")
-    public RecipeDetailDto getRecipeDocsDetail(@PathVariable("recipeId") Long recipeId){
+    public RecipeDocsDetailDto getRecipeDocsDetail(@PathVariable("recipeId") Long recipeId){
         RecipeDocs recipe = recipeDocsRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
-        return new RecipeDetailDto(recipe.getTitle(), recipe.getIngredients(), recipe.getIngredients2(), recipe.getSteps(), recipe.getThumbnail());
+        return new RecipeDocsDetailDto(recipe.getTitle(), recipe.getIngredients(), recipe.getIngredients2(), recipe.getSteps(), recipe.getThumbnail());
     }
 
     @GetMapping("/{recipeId}")
