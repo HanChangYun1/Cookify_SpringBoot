@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
-    @Query("select r from Recipe r join fetch r.member m join fetch r.comments c")
+    @Query("select r from Recipe r join fetch r.member m")
     List<Recipe> findAllWithMemberComment();
 }
