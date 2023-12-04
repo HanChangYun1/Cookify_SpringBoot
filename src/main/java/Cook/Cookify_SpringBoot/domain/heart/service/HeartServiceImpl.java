@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,13 +25,14 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class HeartServiceImpl implements HeartService{
 
-    private RecipeRepository recipeRepository;
-    private HeartRepository heartRepository;
-    private GoogleMemberRepository googleMemberRepository;
+    private final RecipeRepository recipeRepository;
+    private final HeartRepository heartRepository;
+    private final GoogleMemberRepository googleMemberRepository;
+    private final HttpSession httpSession;
 
     @Transactional
     public void addHeart(Long recipeId){
-        String email = SecurityUtil.getLoginUserEmail();
+        String email = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
 
         Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
@@ -45,7 +47,7 @@ public class HeartServiceImpl implements HeartService{
     }
 
     public List<HeartRecipeDto> getHeartRecipe(){
-        String email = SecurityUtil.getLoginUserEmail();
+        String email = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
 
         List<Heart> recipes = heartRepository.findAllByMember(member);

@@ -33,8 +33,8 @@ public class AuthController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<SessionMember> getUser(HttpSession session) {
-        SessionMember sessionUser = (SessionMember) session.getAttribute("user");
+    public ResponseEntity<SessionMember> getUser() {
+        SessionMember sessionUser = (SessionMember) httpSession.getAttribute("user");
         return ResponseEntity.ok().body(sessionUser);
 
     }

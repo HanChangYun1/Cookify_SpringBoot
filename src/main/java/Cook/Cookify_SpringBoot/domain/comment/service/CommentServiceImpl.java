@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,10 +33,12 @@ public class CommentServiceImpl implements CommentService{
     private final GoogleMemberRepository memberRepository;
     private final RecipeRepository recipeRepository;
 
+    private final HttpSession httpSession;
+
     @Override
     public Comment save(Long recipeId, CommentRequestDto commentRequestDto) {
 
-        String loginUserEmail = SecurityUtil.getLoginUserEmail();
+        String loginUserEmail = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember member = memberRepository.findByEmail(loginUserEmail).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
 
         Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
@@ -48,7 +51,7 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public Comment saveReComment(Long recipeId, Long parentId, CommentRequestDto commentRequestDto) {
-        String loginUserEmail = SecurityUtil.getLoginUserEmail();
+        String loginUserEmail = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember member = memberRepository.findByEmail(loginUserEmail).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
         Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
         Comment parent = commentRepository.findById(parentId).orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
@@ -72,7 +75,7 @@ public class CommentServiceImpl implements CommentService{
     public void update(Long commentId, CommentRequestDto commentRequestDto) {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
 
-        if (!comment.getMember().getId().equals(memberRepository.findByEmail(SecurityUtil.getLoginUserEmail()).get().getId())){
+        if (!comment.getMember().getId().equals(memberRepository.findByEmail(SecurityUtil.getLoginUserEmail(httpSession)).get().getId())){
             throw new CommentException(CommentExceptionType.NOT_AUTHORITY_UPDATE_COMMENT);
         }
 
@@ -85,7 +88,7 @@ public class CommentServiceImpl implements CommentService{
     public void remove(Long commentId) throws CommentException {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
 
-        if (!comment.getMember().getId().equals(memberRepository.findByEmail(SecurityUtil.getLoginUserEmail()).get().getId())){
+        if (!comment.getMember().getId().equals(memberRepository.findByEmail(SecurityUtil.getLoginUserEmail(httpSession)).get().getId())){
             throw new CommentException(CommentExceptionType.NOT_AUTHORITY_DELETE_COMMENT);
         }
 
