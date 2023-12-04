@@ -1,11 +1,8 @@
 package Cook.Cookify_SpringBoot.domain.recipe.controller;
 
-import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeDocsDetailDto;
+import Cook.Cookify_SpringBoot.domain.recipe.dto.*;
 import Cook.Cookify_SpringBoot.domain.recipe.entity.Recipe;
 import Cook.Cookify_SpringBoot.domain.recipe.entity.RecipeDocs;
-import Cook.Cookify_SpringBoot.domain.recipe.dto.BriefRecipeDto;
-import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeDetailDto;
-import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeRequestDto;
 import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeException;
 import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeExceptionType;
 import Cook.Cookify_SpringBoot.domain.recipe.repository.RecipeDocsRepository;
@@ -75,6 +72,16 @@ public class RecipeController {
     @GetMapping("/{recipeId}")
     public RecipeDetailDto getRecipeDetail(@PathVariable("recipeId") Long recipeId){
         return recipeService.findOne(recipeId);
+    }
+
+    @GetMapping("/myRecipe")
+    public List<BriefRecipeDto> getMyRecipes(){
+        return recipeService.findAllByMember();
+    }
+
+    @GetMapping("/all")
+    public List<RecipeAndDocsDto> getAllRecipeAndDocs(){
+        return recipeService.findAllRecipeAndDocs();
     }
 
 }
