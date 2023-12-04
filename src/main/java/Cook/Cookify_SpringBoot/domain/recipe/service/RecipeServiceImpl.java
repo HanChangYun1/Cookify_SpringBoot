@@ -71,18 +71,18 @@ public class RecipeServiceImpl implements RecipeService{
     public List<BriefRecipeDto> findRecipes(){
         List<Recipe> recipes = recipeRepository.findAllWithMemberComment();
         List<BriefRecipeDto> collects = recipes.stream().map(r -> new BriefRecipeDto(r.getId(), r.getTitle(), r.getThumbnail())).collect(Collectors.toList());
+
         return collects;
     }
 
     public RecipeDetailDto findOne(Long recipeId){
-        Recipe recipe = recipeRepository.findById(recipeId).orElse(null);
-        RecipeDetailDto recipeDto = new RecipeDetailDto(recipe.getTitle(), recipe.getIngredients(), recipe.getIngredients2(), recipe.getSteps(), recipe.getThumbnail());
+        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
+        RecipeDetailDto recipeDto = new RecipeDetailDto(recipe.getTitle(), recipe.getIngredients(), recipe.getIngredients2(), recipe.getSteps(), recipe.getThumbnail(), recipe.getComments());
         return  recipeDto;
     }
 
     public List<Recipe> findTestRecipes(){
         List<Recipe> all = recipeRepository.findAllWithMemberComment();
-        log.info("all:{}", all);
         return all;
     }
 
