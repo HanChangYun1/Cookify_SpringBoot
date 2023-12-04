@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,10 +28,11 @@ import java.util.stream.Collectors;
 public class RecipeServiceImpl implements RecipeService{
     private final RecipeRepository recipeRepository;
     private final GoogleMemberRepository memberRepository;
+    private final HttpSession httpSession;
 
     @Transactional
     public Recipe saveRecipe(RecipeRequestDto dto){
-        String loginUserEmail = SecurityUtil.getLoginUserEmail();
+        String loginUserEmail = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember member = memberRepository.findByEmail(loginUserEmail).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
 
         Recipe recipe = Recipe.createRecipe(member, dto);
@@ -41,7 +43,7 @@ public class RecipeServiceImpl implements RecipeService{
     public Recipe updateRecipe(Long id, RecipeRequestDto dto){
         Recipe recipe = recipeRepository.findById(id).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
 
-        if (!recipe.getMember().getId().equals(memberRepository.findByEmail(SecurityUtil.getLoginUserEmail()).get().getId())){
+        if (!recipe.getMember().getId().equals(memberRepository.findByEmail(SecurityUtil.getLoginUserEmail(httpSession)).get().getId())){
             throw new RecipeException(RecipeExceptionType.NOT_AUTHORITY_UPDATE_Recipe);
         }
 
@@ -53,7 +55,7 @@ public class RecipeServiceImpl implements RecipeService{
     public void deleteRecipe(Long id){
         Recipe recipe = recipeRepository.findById(id).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
 
-        if (!recipe.getMember().getId().equals(memberRepository.findByEmail(SecurityUtil.getLoginUserEmail()).get().getId())){
+        if (!recipe.getMember().getId().equals(memberRepository.findByEmail(SecurityUtil.getLoginUserEmail(httpSession)).get().getId())){
             throw new RecipeException(RecipeExceptionType.NOT_AUTHORITY_DELETE_Recipe);
         }
 

@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -21,9 +22,10 @@ public class FollowServiceImpl implements FollowService{
 
     private final FollowRepository followRepository;
     private final GoogleMemberRepository googleMemberRepository;
+    private final HttpSession httpSession;
 
     public void addFollow(Long memberId){
-        String email = SecurityUtil.getLoginUserEmail();
+        String email = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember follower = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
         GoogleMember following = googleMemberRepository.findById(memberId).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
 
@@ -35,7 +37,7 @@ public class FollowServiceImpl implements FollowService{
     }
 
     public FollowResponseDto getFollow(){
-        String email = SecurityUtil.getLoginUserEmail();
+        String email = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
         Long followerCount = followRepository.countByFollower(member);
         Long followingCount = followRepository.countByFollowing(member);
