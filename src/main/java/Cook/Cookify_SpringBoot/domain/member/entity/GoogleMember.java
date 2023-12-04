@@ -4,6 +4,7 @@ package Cook.Cookify_SpringBoot.domain.member.entity;
 import Cook.Cookify_SpringBoot.domain.comment.entity.Comment;
 import Cook.Cookify_SpringBoot.domain.recipe.entity.Recipe;
 import Cook.Cookify_SpringBoot.global.Entity.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -37,10 +38,12 @@ public class GoogleMember extends BaseEntity {
 
     @Builder.Default
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Recipe> recipes = new ArrayList<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Comment> comments = new ArrayList<>();
 
 

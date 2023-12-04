@@ -19,5 +19,5 @@ public interface RecipeService {
 
     RecipeDetailDto findOne(Long recipeId);
 
-
+    List<Recipe> findTestRecipes();
 }
