@@ -1,5 +1,7 @@
 package Cook.Cookify_SpringBoot.domain.recipe.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.Getter;
 
@@ -13,7 +15,12 @@ public class RecipeRequestDto {
     private List<String> steps;
     private String thumbnail;
 
-    public RecipeRequestDto(String title, List<String> ingredients, List<String> ingredients2, List<String> steps, String thumbnail) {
+    @JsonCreator
+    public RecipeRequestDto(@JsonProperty("title") String title,
+                            @JsonProperty("ingredients") List<String> ingredients,
+                            @JsonProperty("ingredients2") List<String> ingredients2,
+                            @JsonProperty("steps") List<String> steps,
+                            @JsonProperty("thumbnail") String thumbnail) {
         this.title = title;
         this.ingredients = ingredients;
         this.ingredients2 = ingredients2;
