@@ -4,20 +4,25 @@ import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.member.exception.MemberException;
 import Cook.Cookify_SpringBoot.domain.member.exception.MemberExceptionType;
 import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;
+import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeAndDocsDto;
 import Cook.Cookify_SpringBoot.domain.recipe.entity.Recipe;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.BriefRecipeDto;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeDetailDto;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeRequestDto;
+import Cook.Cookify_SpringBoot.domain.recipe.entity.RecipeDocs;
 import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeException;
 import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeExceptionType;
+import Cook.Cookify_SpringBoot.domain.recipe.repository.RecipeDocsRepository;
 import Cook.Cookify_SpringBoot.domain.recipe.repository.RecipeRepository;
 import Cook.Cookify_SpringBoot.global.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,17 +32,16 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RecipeServiceImpl implements RecipeService{
     private final RecipeRepository recipeRepository;
+    private final RecipeDocsRepository recipeDocsRepository;
     private final GoogleMemberRepository memberRepository;
     private final HttpSession httpSession;
 
     @Transactional
     public Recipe saveRecipe(RecipeRequestDto dto){
         String loginUserEmail = SecurityUtil.getLoginUserEmail(httpSession);
-        log.info("loginUserEmail:{}", loginUserEmail);
         GoogleMember member = memberRepository.findByEmail(loginUserEmail).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
-        log.info("member:{}", member);
         Recipe recipe = Recipe.createRecipe(member, dto);
-        log.info("Recipe:{}", recipe);
+
         return recipeRepository.save(recipe);
     }
 
@@ -80,5 +84,39 @@ public class RecipeServiceImpl implements RecipeService{
         List<Recipe> all = recipeRepository.findAllWithMemberComment();
         log.info("all:{}", all);
         return all;
+    }
+
+    public List<BriefRecipeDto> findAllByMember(){
+        String loginUserEmail = SecurityUtil.getLoginUserEmail(httpSession);
+        GoogleMember googleMember = memberRepository.findByEmail(loginUserEmail).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
+        List<Recipe> recipes = recipeRepository.findAllByMember(googleMember.getId());
+        List<BriefRecipeDto> collects = recipes.stream().map(r -> new BriefRecipeDto(r.getId(), r.getTitle(), r.getThumbnail())).collect(Collectors.toList());
+
+        return collects;
+    }
+
+    public List<RecipeAndDocsDto> findAllRecipeAndDocs(){
+        List<Recipe> recipes = recipeRepository.findAllWithMemberComment();
+        List<RecipeDocs> recipeDocs = recipeDocsRepository.findAll(PageRequest.of(0, 30)).getContent();
+        List<RecipeAndDocsDto> collects = new ArrayList<>();
+
+        for (Recipe recipe : recipes){
+            RecipeAndDocsDto dto = new RecipeAndDocsDto();
+            dto.setRecipeId(recipe.getId());
+            dto.setRecipeTitle(recipe.getTitle());
+            dto.setRecipeThumbnail(recipe.getThumbnail());
+
+            collects.add(dto);
+        }
+
+        for (RecipeDocs recipe: recipeDocs){
+            RecipeAndDocsDto dto = new RecipeAndDocsDto();
+            dto.setRecipeDocsId(recipe.getId());
+            dto.setRecipeTitle(recipe.getTitle());
+            dto.setRecipeThumbnail(recipe.getThumbnail());
+
+            collects.add(dto);
+        }
+        return  collects;
     }
 }
