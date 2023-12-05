@@ -14,5 +14,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     @Query("select c from Comment c left join fetch c.member m where c.recipe.id = :recipeId ")
     List<Comment> findByRecipeId(@Param("recipeId") Long recipeId);
 
-    Optional<Comment> findByParentId(Long parentId);
+    @Query("select c from Comment c left join fetch c.member m where c.parent.id = :parentId")
+    List<Comment> findByParentId(@Param("parentId") Long parentId);
 }

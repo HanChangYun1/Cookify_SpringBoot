@@ -6,12 +6,12 @@ import javax.persistence.Column;
 @Data
 public class BriefRecipeDto {
 
-    private Long id;
+    private Long recipeId;
     private String title;
     private String thumbnail;
 
     public BriefRecipeDto(Long id, String title, String thumbnail) {
-        this.id = id;
+        this.recipeId = id;
         this.title = title;
         this.thumbnail = thumbnail;
     }

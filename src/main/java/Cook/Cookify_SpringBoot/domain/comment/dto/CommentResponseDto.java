@@ -8,9 +8,12 @@ public class CommentResponseDto {
     private String content;
     private String  memberName;
 
-    public CommentResponseDto(Long id, String content, String memberName) {
+    private boolean isRemoved;
+
+    public CommentResponseDto(Long id, String content, String memberName, boolean isRemoved) {
         this.id = id;
         this.content = content;
         this.memberName = memberName;
+        this.isRemoved = isRemoved;
     }
 }

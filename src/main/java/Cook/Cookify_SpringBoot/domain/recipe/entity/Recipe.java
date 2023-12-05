@@ -4,6 +4,7 @@ import Cook.Cookify_SpringBoot.domain.comment.entity.Comment;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeRequestDto;
 import Cook.Cookify_SpringBoot.global.Entity.BaseEntity;
 import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -41,6 +42,7 @@ public class Recipe extends BaseEntity {
     private GoogleMember member;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Comment> comments = new ArrayList<>();
 
 
