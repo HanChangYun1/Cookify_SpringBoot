@@ -5,15 +5,11 @@ import Cook.Cookify_SpringBoot.domain.member.security.SessionMember;
 import Cook.Cookify_SpringBoot.domain.member.service.CustomOAuth2UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.Cookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.net.CookieStore;
 import java.util.Optional;
 
 @Slf4j
@@ -63,12 +59,15 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(HttpSession session) {
+    public ResponseEntity<Void> logout() {
         try {
-            session.invalidate();
+            // 세션 무효화
+            httpSession.invalidate();
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.status(500).build();
+            // Handle exceptions appropriately (e.g., log them)
+            return ResponseEntity.status(500).build(); // Internal Server Error
         }
     }
+
 }

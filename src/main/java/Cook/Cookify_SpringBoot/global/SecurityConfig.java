@@ -17,7 +17,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 
 @Slf4j
@@ -51,12 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/oauth2/**", "/login/**", "/api/**", "/start/**", "/mypage/**", "/").permitAll()
                 .anyRequest().authenticated()
-                .and()
-                .logout()
-                .logoutUrl("/api/auth/logout") // Specify the logout URL
-                .logoutSuccessUrl("/") // Redirect to home page after logout
-                .invalidateHttpSession(true) // Invalidate the HTTP session
-                .deleteCookies("JSESSIONID") // Delete cookies if any
                 .and()
                 .csrf().disable() // Disable CSRF (only for testing environment)
                 .cors(); // Enable CORS
