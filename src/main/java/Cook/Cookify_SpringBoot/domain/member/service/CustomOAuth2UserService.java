@@ -1,9 +1,13 @@
 package Cook.Cookify_SpringBoot.domain.member.service;
 
+import Cook.Cookify_SpringBoot.domain.member.dto.MemberInfoDto;
 import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
+import Cook.Cookify_SpringBoot.domain.member.exception.MemberException;
+import Cook.Cookify_SpringBoot.domain.member.exception.MemberExceptionType;
 import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;
 import Cook.Cookify_SpringBoot.domain.member.security.OAuthAttributes;
 import Cook.Cookify_SpringBoot.domain.member.security.SessionMember;
+import Cook.Cookify_SpringBoot.global.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,6 +27,7 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     private final GoogleMemberRepository googleMemberRepository;
@@ -30,7 +35,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
 
     @Override
-    @Transactional
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
 
@@ -44,7 +48,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
-        GoogleMember member = saveOrUpdate(attributes);
+        GoogleMember member = findOrSave(attributes);
+
         httpSession.setAttribute("user", new SessionMember(member));
 
         return new DefaultOAuth2User(
@@ -54,16 +59,16 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         );
     }
 
-    @Transactional
-    public GoogleMember saveOrUpdate(OAuthAttributes attributes) {
+
+    public GoogleMember findOrSave(OAuthAttributes attributes) {
         GoogleMember member = googleMemberRepository.findByEmail(attributes.getEmail())
-                .map(entity -> entity.update(attributes.getName(), attributes.getPicture()))
                 .orElse(attributes.toEntity());
         return googleMemberRepository.save(member);
     }
 
-    @Transactional
-    public Optional<GoogleMember> getUserByEmail(String email) {
-        return googleMemberRepository.findByEmail(email);
+    public void update(MemberInfoDto dto){
+        String email = SecurityUtil.getLoginUserEmail(httpSession);
+        GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
+        member.update(dto);
     }
 }

@@ -1,20 +1,16 @@
 package Cook.Cookify_SpringBoot.domain.member.controller;
 
+import Cook.Cookify_SpringBoot.domain.member.dto.MemberInfoDto;
 import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.member.security.SessionMember;
 import Cook.Cookify_SpringBoot.domain.member.service.CustomOAuth2UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -36,13 +32,6 @@ public class AuthController {
     public ResponseEntity<SessionMember> getUser() {
         SessionMember sessionUser = (SessionMember) httpSession.getAttribute("user");
         return ResponseEntity.ok().body(sessionUser);
-
-    }
-
-    @GetMapping("/userByEmail")
-    public ResponseEntity<GoogleMember> getUserByEmail(@RequestParam String email) {
-        Optional<GoogleMember> user = customOAuth2UserService.getUserByEmail(email);
-        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/login")
@@ -73,5 +62,11 @@ public class AuthController {
             // Handle exceptions appropriately (e.g., log them)
             return ResponseEntity.status(500).build(); // Internal Server Error
         }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Void> update(@RequestBody MemberInfoDto dto){
+        customOAuth2UserService.update(dto);
+        return ResponseEntity.ok().build();
     }
 }
