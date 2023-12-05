@@ -52,14 +52,14 @@ public class Recipe extends BaseEntity {
 
 
     //생성 메서드//
-    public static Recipe createRecipe(GoogleMember member, RecipeRequestDto recipeRequestDto){
+    public static Recipe createRecipe(GoogleMember member, RecipeRequestDto recipeRequestDto, String imgUrl){
         Recipe recipe = new Recipe();
         recipe.confirmMember(member);
         recipe.setTitle(recipeRequestDto.getTitle());
         recipe.setIngredients(recipeRequestDto.getIngredients());
         recipe.setIngredients2(recipeRequestDto.getIngredients2());
         recipe.setSteps(recipeRequestDto.getSteps());
-        recipe.setThumbnail(recipeRequestDto.getThumbnail());
+        recipe.setThumbnail(imgUrl);
 
         return recipe;
     }
@@ -76,12 +76,12 @@ public class Recipe extends BaseEntity {
 
 
 
-    public void update(RecipeRequestDto recipeRequestDto){
+    public void update(RecipeRequestDto recipeRequestDto, String imgUrl){
         this.title = recipeRequestDto.getTitle();
         this.ingredients = recipeRequestDto.getIngredients();
         this.ingredients2 = recipeRequestDto.getIngredients2();
         this.steps = recipeRequestDto.getSteps();
-        this.thumbnail = recipeRequestDto.getThumbnail();
+        this.thumbnail = imgUrl;
     }
 
 }

@@ -1,6 +1,6 @@
 package Cook.Cookify_SpringBoot.domain.member.controller;
 
-import Cook.Cookify_SpringBoot.domain.member.dto.MemberInfoDto;
+import Cook.Cookify_SpringBoot.domain.member.dto.MemberUpdateRequest;
 import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.member.security.SessionMember;
 import Cook.Cookify_SpringBoot.domain.member.service.CustomOAuth2UserService;
@@ -11,7 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
+import java.io.IOException;
 
 @Slf4j
 @RestController
@@ -65,7 +65,8 @@ public class AuthController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Void> update(@RequestBody MemberInfoDto dto){
+    public ResponseEntity<Void> update(MemberUpdateRequest dto) throws IOException {
+        log.info("dto:{}", dto);
         customOAuth2UserService.update(dto);
         return ResponseEntity.ok().build();
     }
