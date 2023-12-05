@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,14 +28,15 @@ public class RecipeController {
     private final RecipeDocsRepository recipeDocsRepository;
 
     @PostMapping
-    public ResponseEntity<Recipe> createRecipe(@RequestBody RecipeRequestDto dto){
+    public ResponseEntity<Recipe> createRecipe(@RequestPart RecipeRequestDto dto) throws IOException {
+        log.info("dto:{}", dto);
         Recipe createRecipe = recipeService.saveRecipe(dto);
         log.info("createRecipe:{}", createRecipe);
         return ResponseEntity.status(HttpStatus.CREATED).body(createRecipe);
     }
 
     @PutMapping("/{recipeId}")
-    public ResponseEntity<Recipe> updateRecipe(@PathVariable("recipeId") Long recipeId, @RequestBody RecipeRequestDto dto){
+    public ResponseEntity<Recipe> updateRecipe(@PathVariable("recipeId") Long recipeId, @RequestBody RecipeRequestDto dto) throws IOException {
         Recipe updateRecipe = recipeService.updateRecipe(recipeId, dto);
         return ResponseEntity.ok(updateRecipe);
     }

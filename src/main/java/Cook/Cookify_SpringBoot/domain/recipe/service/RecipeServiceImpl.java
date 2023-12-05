@@ -15,15 +15,20 @@ import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeExceptionType;
 import Cook.Cookify_SpringBoot.domain.recipe.repository.RecipeDocsRepository;
 import Cook.Cookify_SpringBoot.domain.recipe.repository.RecipeRepository;
 import Cook.Cookify_SpringBoot.global.util.SecurityUtil;
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Storage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -35,25 +40,53 @@ public class RecipeServiceImpl implements RecipeService{
     private final RecipeDocsRepository recipeDocsRepository;
     private final GoogleMemberRepository memberRepository;
     private final HttpSession httpSession;
+    private final Storage storage;
+    @Value("${spring.cloud.gcp.storage.bucket}")
+    private String bucketName;
 
     @Transactional
-    public Recipe saveRecipe(RecipeRequestDto dto){
+    public Recipe saveRecipe(RecipeRequestDto dto) throws IOException {
         String loginUserEmail = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember member = memberRepository.findByEmail(loginUserEmail).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
-        Recipe recipe = Recipe.createRecipe(member, dto);
+
+        // !!!!!!!!!!!이미지 업로드 관련 부분!!!!!!!!!!!!!!!
+        String uuid = UUID.randomUUID().toString(); // Google Cloud Storage에 저장될 파일 이름
+        String ext = dto.getThumbnail().getContentType(); // 파일의 형식 ex) JPG
+
+        // Cloud에 이미지 업로드
+        BlobInfo blobInfo = storage.create(
+                BlobInfo.newBuilder(bucketName, uuid)
+                        .setContentType(ext)
+                        .build(),
+                dto.getThumbnail().getInputStream()
+        );
+
+        Recipe recipe = Recipe.createRecipe(member, dto, uuid);
 
         return recipeRepository.save(recipe);
     }
 
     @Transactional
-    public Recipe updateRecipe(Long id, RecipeRequestDto dto){
+    public Recipe updateRecipe(Long id, RecipeRequestDto dto) throws IOException {
         Recipe recipe = recipeRepository.findById(id).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
 
         if (!recipe.getMember().getId().equals(memberRepository.findByEmail(SecurityUtil.getLoginUserEmail(httpSession)).get().getId())){
             throw new RecipeException(RecipeExceptionType.NOT_AUTHORITY_UPDATE_Recipe);
         }
 
-        recipe.update(dto);
+        // !!!!!!!!!!!이미지 업로드 관련 부분!!!!!!!!!!!!!!!
+        String uuid = UUID.randomUUID().toString(); // Google Cloud Storage에 저장될 파일 이름
+        String ext = dto.getThumbnail().getContentType(); // 파일의 형식 ex) JPG
+
+        // Cloud에 이미지 업로드
+        BlobInfo blobInfo = storage.create(
+                BlobInfo.newBuilder(bucketName, uuid)
+                        .setContentType(ext)
+                        .build(),
+                dto.getThumbnail().getInputStream()
+        );
+
+        recipe.update(dto, uuid);
         return recipe;
     }
 

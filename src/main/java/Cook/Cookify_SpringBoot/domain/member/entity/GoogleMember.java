@@ -2,6 +2,8 @@ package Cook.Cookify_SpringBoot.domain.member.entity;
 
 
 import Cook.Cookify_SpringBoot.domain.comment.entity.Comment;
+import Cook.Cookify_SpringBoot.domain.member.dto.MemberInfoDto;
+import Cook.Cookify_SpringBoot.domain.member.dto.MemberUpdateRequest;
 import Cook.Cookify_SpringBoot.domain.recipe.entity.Recipe;
 import Cook.Cookify_SpringBoot.global.Entity.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -67,9 +69,9 @@ public class GoogleMember extends BaseEntity {
         this.role = role;
     }
 
-    public GoogleMember update(String name, String picture){
-        this.name = name;
-        this.picture = picture;
+    public GoogleMember update(MemberUpdateRequest dto, String  imgUrl){
+        this.name = dto.getName();
+        this.picture = imgUrl;
 
         return this;
     }

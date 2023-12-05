@@ -1,11 +1,20 @@
 package Cook.Cookify_SpringBoot.domain.member.service;
 
+import Cook.Cookify_SpringBoot.domain.member.dto.MemberInfoDto;
+import Cook.Cookify_SpringBoot.domain.member.dto.MemberUpdateRequest;
 import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
+import Cook.Cookify_SpringBoot.domain.member.exception.MemberException;
+import Cook.Cookify_SpringBoot.domain.member.exception.MemberExceptionType;
 import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;
 import Cook.Cookify_SpringBoot.domain.member.security.OAuthAttributes;
 import Cook.Cookify_SpringBoot.domain.member.security.SessionMember;
+import Cook.Cookify_SpringBoot.global.GoogleCloudStorageConfig;
+import Cook.Cookify_SpringBoot.global.util.SecurityUtil;
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Storage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -17,20 +26,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     private final GoogleMemberRepository googleMemberRepository;
     private final HttpSession httpSession;
+    private final Storage storage;
+
+    @Value("${spring.cloud.gcp.storage.bucket}")
+    private String bucketName;
 
 
     @Override
-    @Transactional
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
 
@@ -44,7 +59,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
-        GoogleMember member = saveOrUpdate(attributes);
+        GoogleMember member = findOrSave(attributes);
+
         httpSession.setAttribute("user", new SessionMember(member));
 
         return new DefaultOAuth2User(
@@ -54,16 +70,29 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         );
     }
 
-    @Transactional
-    public GoogleMember saveOrUpdate(OAuthAttributes attributes) {
+
+    public GoogleMember findOrSave(OAuthAttributes attributes) {
         GoogleMember member = googleMemberRepository.findByEmail(attributes.getEmail())
-                .map(entity -> entity.update(attributes.getName(), attributes.getPicture()))
                 .orElse(attributes.toEntity());
         return googleMemberRepository.save(member);
     }
 
-    @Transactional
-    public Optional<GoogleMember> getUserByEmail(String email) {
-        return googleMemberRepository.findByEmail(email);
+    public void update(MemberUpdateRequest dto) throws IOException {
+        String email = SecurityUtil.getLoginUserEmail(httpSession);
+        GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
+
+        // !!!!!!!!!!!이미지 업로드 관련 부분!!!!!!!!!!!!!!!
+        String uuid = UUID.randomUUID().toString(); // Google Cloud Storage에 저장될 파일 이름
+        String ext = dto.getImage().getContentType(); // 파일의 형식 ex) JPG
+
+        // Cloud에 이미지 업로드
+        BlobInfo blobInfo = storage.create(
+                BlobInfo.newBuilder(bucketName, uuid)
+                        .setContentType(ext)
+                        .build(),
+                dto.getImage().getInputStream()
+        );
+
+        member.update(dto, uuid);
     }
 }
