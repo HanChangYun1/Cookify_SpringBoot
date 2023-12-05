@@ -53,10 +53,10 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(HttpSession session) {
+    public ResponseEntity<Void> logout() {
         try {
-            // 로그아웃 로직을 수행하고 세션에서 사용자 정보를 제거
-            session.invalidate();
+            // 세션 무효화
+            httpSession.invalidate();
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             // Handle exceptions appropriately (e.g., log them)

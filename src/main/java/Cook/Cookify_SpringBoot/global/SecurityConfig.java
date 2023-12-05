@@ -17,9 +17,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.Arrays;
-import java.util.Map;
 
 @Slf4j
 @Configuration
@@ -42,15 +40,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 // Your existing configurations
                 .oauth2Login()
-                    .userInfoEndpoint()
-                        .userService(customOAuth2UserService)
+                .userInfoEndpoint()
+                .userService(customOAuth2UserService)
                 .and()
                 .successHandler((request, response, authentication) -> {
                     response.sendRedirect("http://localhost:3000"); // Redirect URL
                 })
                 .and()
                 .authorizeRequests()
-                .antMatchers("/oauth2/**", "/login/**", "/logout/**","/api/**", "/start/**", "/mypage/**", "/").permitAll()
+                .antMatchers("/oauth2/**", "/login/**", "/api/**", "/start/**", "/mypage/**", "/").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable() // Disable CSRF (only for testing environment)
