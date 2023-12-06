@@ -1,5 +1,6 @@
 package Cook.Cookify_SpringBoot.domain.heart.controller;
 
+import Cook.Cookify_SpringBoot.domain.heart.dto.HeartCountDto;
 import Cook.Cookify_SpringBoot.domain.heart.dto.HeartRecipeDto;
 import Cook.Cookify_SpringBoot.domain.heart.service.HeartService;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +21,19 @@ public class HeartController {
 
     @PostMapping("/{recipeId}")
     public ResponseEntity addHeart(@PathVariable("recipeId") Long recipeId){
-        heartService.addHeart(recipeId);
+        heartService.handlingHeart(recipeId);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping()
-    public ResponseEntity<List<HeartRecipeDto>> getHeartRecipe(){
-        List<HeartRecipeDto> recipes = heartService.getHeartRecipe();
+    @GetMapping("/{recipeId}")
+    public ResponseEntity<HeartCountDto> getHeartCount(@PathVariable("recipeId") Long recipeId){
+        HeartCountDto heartCount = heartService.getHeartCount(recipeId);
+        return ResponseEntity.ok().body(heartCount);
+    }
+
+    @GetMapping("myRecipe")
+    public ResponseEntity<List<HeartRecipeDto>> getMyRecipe(){
+        List<HeartRecipeDto> recipes = heartService.getMyRecipe();
         return ResponseEntity.ok().body(recipes);
     }
 }

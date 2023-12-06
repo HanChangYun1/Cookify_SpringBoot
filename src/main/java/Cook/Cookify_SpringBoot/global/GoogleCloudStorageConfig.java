@@ -9,13 +9,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
-@Slf4j
+
 @Configuration
 public class GoogleCloudStorageConfig {
 
     @Bean
     public Storage storage() throws IOException {
-        log.debug("Connecting to Google Cloud Storage...");
         ClassPathResource resource = new ClassPathResource("cookify-springboot-c14a851f04f1.json");
         GoogleCredentials credentials = GoogleCredentials.fromStream(resource.getInputStream());
         String projectId = "cookify-springboot";
