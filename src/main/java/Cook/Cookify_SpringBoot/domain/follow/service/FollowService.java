@@ -4,7 +4,7 @@ import Cook.Cookify_SpringBoot.domain.follow.dto.FollowResponseDto;
 
 public interface FollowService {
 
-    void addFollow(Long memberId);
+    void handlingFollow(Long memberId);
 
-    FollowResponseDto getFollow();
+    FollowResponseDto getMyFollow();
 }

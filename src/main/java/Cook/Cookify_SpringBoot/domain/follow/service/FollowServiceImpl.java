@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +26,8 @@ public class FollowServiceImpl implements FollowService{
     private final GoogleMemberRepository googleMemberRepository;
     private final HttpSession httpSession;
 
-    public void addFollow(Long memberId){
+    @Transactional
+    public void handlingFollow(Long memberId){
         String email = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember follower = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
         GoogleMember following = googleMemberRepository.findById(memberId).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
@@ -36,13 +39,26 @@ public class FollowServiceImpl implements FollowService{
         }
     }
 
-    public FollowResponseDto getFollow(){
+    public FollowResponseDto getMyFollow(){
         String email = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
-        Long followerCount = followRepository.countByFollower(member);
+
         Long followingCount = followRepository.countByFollowing(member);
         List<Follow> followers = followRepository.findAllByFollower(member);   //사용자가 팔로잉 한 사람들
         List<Follow> followings = followRepository.findAllByFollowing(member);   //사용자를 팔로우한 사람들
-        return new FollowResponseDto(followerCount,followingCount,followers,followings);
+        List<Follow> follow4follow = new ArrayList<>();
+        for (Follow following : followings){
+            for (Follow follower : followers){
+                if(following.getFollower().equals(follower.getFollowing()) ){
+                    follow4follow.add(following);
+                    break;
+                }
+            }
+        }
+        List<Follow> deduplicatingFollowing = followings.stream().filter(following -> follow4follow.stream().noneMatch(f4f -> f4f.equals(following))).collect(Collectors.toList());
+        return FollowResponseDto.builder()
+                .followingCount(followingCount)
+                .follow4follow(follow4follow)
+                .followingList(deduplicatingFollowing).build();
     }
 }

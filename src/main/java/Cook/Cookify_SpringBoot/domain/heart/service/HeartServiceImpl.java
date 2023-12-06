@@ -1,5 +1,6 @@
 package Cook.Cookify_SpringBoot.domain.heart.service;
 
+import Cook.Cookify_SpringBoot.domain.heart.dto.HeartCountDto;
 import Cook.Cookify_SpringBoot.domain.heart.entity.Heart;
 import Cook.Cookify_SpringBoot.domain.heart.dto.HeartRecipeDto;
 import Cook.Cookify_SpringBoot.domain.heart.repository.HeartRepository;
@@ -31,7 +32,7 @@ public class HeartServiceImpl implements HeartService{
     private final HttpSession httpSession;
 
     @Transactional
-    public void addHeart(Long recipeId){
+    public void handlingHeart(Long recipeId){
         String email = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
 
@@ -46,12 +47,27 @@ public class HeartServiceImpl implements HeartService{
         }
     }
 
-    public List<HeartRecipeDto> getHeartRecipe(){
+    public HeartCountDto getHeartCount(Long recipeId){
+        String email = SecurityUtil.getLoginUserEmail(httpSession);
+        GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
+
+        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
+
+        return HeartCountDto.builder().heartCount(recipe.getHeartCount()).build();
+    }
+
+    public List<HeartRecipeDto> getMyRecipe(){
         String email = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
 
         List<Heart> recipes = heartRepository.findAllByMember(member);
-        List<HeartRecipeDto> recipeDto = recipes.stream().map(h -> new HeartRecipeDto(h.getRecipe().getTitle(), h.getRecipe().getThumbnail())).collect(Collectors.toList());
+        List<HeartRecipeDto> recipeDto = recipes.stream().map(h -> HeartRecipeDto.builder()
+                                                                .id(h.getId())
+                                                                .title(h.getRecipe().getTitle())
+                                                                .thumbnail(h.getRecipe().getThumbnail())
+                                                                .heartCount(h.getRecipe().getHeartCount())
+                                                                .build())
+                                                            .collect(Collectors.toList());
         return recipeDto;
     }
 }
