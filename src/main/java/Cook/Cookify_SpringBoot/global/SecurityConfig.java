@@ -1,15 +1,15 @@
 package Cook.Cookify_SpringBoot.global;
 
-import Cook.Cookify_SpringBoot.domain.member.security.SessionMember;
 import Cook.Cookify_SpringBoot.domain.member.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.filters.CorsFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.header.HeaderWriter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .userService(customOAuth2UserService)
                 .and()
                 .successHandler((request, response, authentication) -> {
-                    response.sendRedirect("http://localhost:3000"); // Redirect URL
+                    response.sendRedirect("http://localhost:3000");
                 })
                 .and()
                 .authorizeRequests()
