@@ -4,20 +4,19 @@ import Cook.Cookify_SpringBoot.domain.heart.dto.HeartCountDto;
 import Cook.Cookify_SpringBoot.domain.heart.dto.HeartRecipeDto;
 import Cook.Cookify_SpringBoot.domain.heart.service.HeartService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Slf4j
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/heart")
 public class HeartController {
 
-    private HeartService heartService;
+    private final HeartService heartService;
 
     @PostMapping("/{recipeId}")
     public ResponseEntity addHeart(@PathVariable("recipeId") Long recipeId){
