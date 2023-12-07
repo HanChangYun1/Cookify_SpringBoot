@@ -45,48 +45,48 @@ public class RecipeServiceImpl implements RecipeService{
     private String bucketName;
 
     @Transactional
-    public Recipe saveRecipe(RecipeRequestDto dto) throws IOException {
+    public Recipe saveRecipe(RecipeRequestDto dto)  {
         String loginUserEmail = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember member = memberRepository.findByEmail(loginUserEmail).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
 
-        // !!!!!!!!!!!이미지 업로드 관련 부분!!!!!!!!!!!!!!!
-        String uuid = UUID.randomUUID().toString(); // Google Cloud Storage에 저장될 파일 이름
-        String ext = dto.getThumbnail().getContentType(); // 파일의 형식 ex) JPG
+//        // !!!!!!!!!!!이미지 업로드 관련 부분!!!!!!!!!!!!!!!
+//        String uuid = UUID.randomUUID().toString(); // Google Cloud Storage에 저장될 파일 이름
+//        String ext = dto.getThumbnail().getContentType(); // 파일의 형식 ex) JPG
+//
+//        // Cloud에 이미지 업로드
+//        BlobInfo blobInfo = storage.create(
+//                BlobInfo.newBuilder(bucketName, uuid)
+//                        .setContentType(ext)
+//                        .build(),
+//                dto.getThumbnail().getInputStream()
+//        );
 
-        // Cloud에 이미지 업로드
-        BlobInfo blobInfo = storage.create(
-                BlobInfo.newBuilder(bucketName, uuid)
-                        .setContentType(ext)
-                        .build(),
-                dto.getThumbnail().getInputStream()
-        );
-
-        Recipe recipe = Recipe.createRecipe(member, dto, uuid);
+        Recipe recipe = Recipe.createRecipe(member, dto);
 
         return recipeRepository.save(recipe);
     }
 
     @Transactional
-    public Recipe updateRecipe(Long id, RecipeRequestDto dto) throws IOException {
+    public Recipe updateRecipe(Long id, RecipeRequestDto dto) {
         Recipe recipe = recipeRepository.findById(id).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
 
         if (!recipe.getMember().getId().equals(memberRepository.findByEmail(SecurityUtil.getLoginUserEmail(httpSession)).get().getId())){
             throw new RecipeException(RecipeExceptionType.NOT_AUTHORITY_UPDATE_Recipe);
         }
 
-        // !!!!!!!!!!!이미지 업로드 관련 부분!!!!!!!!!!!!!!!
-        String uuid = UUID.randomUUID().toString(); // Google Cloud Storage에 저장될 파일 이름
-        String ext = dto.getThumbnail().getContentType(); // 파일의 형식 ex) JPG
+//        // !!!!!!!!!!!이미지 업로드 관련 부분!!!!!!!!!!!!!!!
+//        String uuid = UUID.randomUUID().toString(); // Google Cloud Storage에 저장될 파일 이름
+//        String ext = dto.getThumbnail().getContentType(); // 파일의 형식 ex) JPG
+//
+//        // Cloud에 이미지 업로드
+//        BlobInfo blobInfo = storage.create(
+//                BlobInfo.newBuilder(bucketName, uuid)
+//                        .setContentType(ext)
+//                        .build(),
+//                dto.getThumbnail().getInputStream()
+//        );
 
-        // Cloud에 이미지 업로드
-        BlobInfo blobInfo = storage.create(
-                BlobInfo.newBuilder(bucketName, uuid)
-                        .setContentType(ext)
-                        .build(),
-                dto.getThumbnail().getInputStream()
-        );
-
-        recipe.update(dto, uuid);
+        recipe.update(dto);
         return recipe;
     }
 

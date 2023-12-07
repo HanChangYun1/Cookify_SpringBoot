@@ -12,8 +12,6 @@ public class MemberInfoDto {
     private String name;
     private String picture;
 
-
-
     @Builder
     public MemberInfoDto(GoogleMember member) {
         this.name = member.getName();

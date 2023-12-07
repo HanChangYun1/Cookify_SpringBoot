@@ -11,9 +11,9 @@ import java.util.List;
 
 
 public interface RecipeService {
-    Recipe saveRecipe(RecipeRequestDto dto) throws IOException;
+    Recipe saveRecipe(RecipeRequestDto dto);
 
-    Recipe updateRecipe(Long id, RecipeRequestDto dto) throws IOException;
+    Recipe updateRecipe(Long id, RecipeRequestDto dto);
 
     void deleteRecipe(Long id);
 

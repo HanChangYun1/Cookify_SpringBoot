@@ -69,9 +69,9 @@ public class GoogleMember extends BaseEntity {
         this.role = role;
     }
 
-    public GoogleMember update(MemberUpdateRequest dto, String  imgUrl){
+    public GoogleMember update(MemberInfoDto dto){
         this.name = dto.getName();
-        this.picture = imgUrl;
+        this.picture = dto.getPicture();
 
         return this;
     }

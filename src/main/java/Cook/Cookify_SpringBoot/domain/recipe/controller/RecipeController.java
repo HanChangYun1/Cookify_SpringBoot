@@ -28,7 +28,7 @@ public class RecipeController {
     private final RecipeDocsRepository recipeDocsRepository;
 
     @PostMapping
-    public ResponseEntity<Recipe> createRecipe(@RequestPart RecipeRequestDto dto) throws IOException {
+    public ResponseEntity<Recipe> createRecipe(@RequestBody RecipeRequestDto dto) {
         log.info("dto:{}", dto);
         Recipe createRecipe = recipeService.saveRecipe(dto);
         log.info("createRecipe:{}", createRecipe);
@@ -36,9 +36,9 @@ public class RecipeController {
     }
 
     @PutMapping("/{recipeId}")
-    public ResponseEntity<Recipe> updateRecipe(@PathVariable("recipeId") Long recipeId, @RequestBody RecipeRequestDto dto) throws IOException {
+    public ResponseEntity<Void> updateRecipe(@PathVariable("recipeId") Long recipeId, @RequestBody RecipeRequestDto dto){
         Recipe updateRecipe = recipeService.updateRecipe(recipeId, dto);
-        return ResponseEntity.ok(updateRecipe);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{recipeId}")

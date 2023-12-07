@@ -17,14 +17,14 @@ public class RecipeRequestDto {
     private List<String> ingredients;
     private List<String> ingredients2;
     private List<String> steps;
-    private MultipartFile thumbnail;
+    private String thumbnail;
 
     @Builder
     public RecipeRequestDto( String title,
                              List<String> ingredients,
                              List<String> ingredients2,
                              List<String> steps,
-                             MultipartFile thumbnail) {
+                             String thumbnail) {
         this.title = title;
         this.ingredients = ingredients;
         this.ingredients2 = ingredients2;

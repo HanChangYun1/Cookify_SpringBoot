@@ -77,22 +77,22 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         return googleMemberRepository.save(member);
     }
 
-    public void update(MemberUpdateRequest dto) throws IOException {
+    public void update(MemberInfoDto dto) throws IOException {
         String email = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
 
-        // !!!!!!!!!!!이미지 업로드 관련 부분!!!!!!!!!!!!!!!
-        String uuid = UUID.randomUUID().toString(); // Google Cloud Storage에 저장될 파일 이름
-        String ext = dto.getImage().getContentType(); // 파일의 형식 ex) JPG
+//        // !!!!!!!!!!!이미지 업로드 관련 부분!!!!!!!!!!!!!!!
+//        String uuid = UUID.randomUUID().toString(); // Google Cloud Storage에 저장될 파일 이름
+//        String ext = dto.getImage().getContentType(); // 파일의 형식 ex) JPG
+//
+//        // Cloud에 이미지 업로드
+//        BlobInfo blobInfo = storage.create(
+//                BlobInfo.newBuilder(bucketName, uuid)
+//                        .setContentType(ext)
+//                        .build(),
+//                dto.getImage().getInputStream()
+//        );
 
-        // Cloud에 이미지 업로드
-        BlobInfo blobInfo = storage.create(
-                BlobInfo.newBuilder(bucketName, uuid)
-                        .setContentType(ext)
-                        .build(),
-                dto.getImage().getInputStream()
-        );
-
-        member.update(dto, uuid);
+        member.update(dto);
     }
 }
