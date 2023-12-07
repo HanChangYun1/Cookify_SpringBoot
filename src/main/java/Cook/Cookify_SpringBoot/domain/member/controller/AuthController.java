@@ -1,5 +1,6 @@
 package Cook.Cookify_SpringBoot.domain.member.controller;
 
+import Cook.Cookify_SpringBoot.domain.member.dto.MemberInfoDto;
 import Cook.Cookify_SpringBoot.domain.member.dto.MemberUpdateRequest;
 import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.member.security.SessionMember;
@@ -65,8 +66,7 @@ public class AuthController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Void> update(MemberUpdateRequest dto) throws IOException {
-        log.info("dto:{}", dto);
+    public ResponseEntity<Void> update(@RequestBody MemberInfoDto dto) throws IOException {
         customOAuth2UserService.update(dto);
         return ResponseEntity.ok().build();
     }
