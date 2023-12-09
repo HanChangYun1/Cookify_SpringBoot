@@ -5,6 +5,7 @@ import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeAndDocsDto;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeDetailDto;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeRequestDto;
 import Cook.Cookify_SpringBoot.domain.recipe.entity.Recipe;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,4 +27,6 @@ public interface RecipeService {
     List<BriefRecipeDto> findAllByMember();
 
     List<RecipeAndDocsDto> findAllRecipeAndDocs();
+
+    String imageUpload(MultipartFile file) throws IOException;
 }

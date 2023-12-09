@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,7 +30,6 @@ public class RecipeController {
 
     @PostMapping
     public ResponseEntity<Recipe> createRecipe(@RequestBody RecipeRequestDto dto) {
-        log.info("dto:{}", dto);
         Recipe createRecipe = recipeService.saveRecipe(dto);
         log.info("createRecipe:{}", createRecipe);
         return ResponseEntity.status(HttpStatus.CREATED).body(createRecipe);
@@ -84,6 +84,13 @@ public class RecipeController {
     @GetMapping("/all")
     public List<RecipeAndDocsDto> getAllRecipeAndDocs(){
         return recipeService.findAllRecipeAndDocs();
+    }
+
+    @PostMapping("/image")
+    public ResponseEntity<String> imageUpload(@RequestParam("file")MultipartFile file) throws IOException{
+            String imageUrl = recipeService.imageUpload(file);
+            log.info("imageUrl:{}", imageUrl);
+            return ResponseEntity.ok(imageUrl);
     }
 
 }

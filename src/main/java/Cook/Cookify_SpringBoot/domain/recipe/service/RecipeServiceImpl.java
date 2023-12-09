@@ -23,8 +23,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -151,5 +153,23 @@ public class RecipeServiceImpl implements RecipeService{
             collects.add(dto);
         }
         return  collects;
+    }
+
+    public String imageUpload(MultipartFile file) throws IOException {
+
+        String uuid = UUID.randomUUID().toString();
+        String ext = file.getContentType();
+
+        // Cloud에 이미지 업로드
+        BlobInfo blobInfo = storage.create(
+                BlobInfo.newBuilder(bucketName, uuid)
+                        .setContentType(ext)
+                        .build(),
+                file.getInputStream()
+        );
+
+        String imageUrl = "https://storage.googleapis.com/" + bucketName + "/" + uuid;
+
+        return imageUrl;
     }
 }
