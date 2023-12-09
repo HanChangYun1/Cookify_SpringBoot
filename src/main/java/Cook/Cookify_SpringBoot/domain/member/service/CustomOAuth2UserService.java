@@ -24,6 +24,7 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -77,7 +78,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         return googleMemberRepository.save(member);
     }
 
-    public void update(MemberInfoDto dto) throws IOException {
+    public void update(MemberInfoDto dto){
         String email = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
 
@@ -94,5 +95,23 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 //        );
 
         member.update(dto);
+    }
+
+    public String imageUpload(MultipartFile file) throws IOException{
+
+        String uuid = UUID.randomUUID().toString();
+        String ext = file.getContentType();
+
+        // Cloud에 이미지 업로드
+        BlobInfo blobInfo = storage.create(
+                BlobInfo.newBuilder(bucketName, uuid)
+                        .setContentType(ext)
+                        .build(),
+                file.getInputStream()
+        );
+
+        String imageUrl = "https://storage.googleapis.com/" + bucketName + "/" + uuid;
+
+        return imageUrl;
     }
 }

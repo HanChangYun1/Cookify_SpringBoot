@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -66,8 +67,14 @@ public class AuthController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Void> update(@RequestBody MemberInfoDto dto) throws IOException {
+    public ResponseEntity<Void> update(@RequestBody MemberInfoDto dto) {
         customOAuth2UserService.update(dto);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/image")
+    public ResponseEntity<String> imageUpload(@RequestParam("file")MultipartFile file) throws IOException{
+        String imageUrl = customOAuth2UserService.imageUpload(file);
+        return ResponseEntity.ok(imageUrl);
     }
 }
