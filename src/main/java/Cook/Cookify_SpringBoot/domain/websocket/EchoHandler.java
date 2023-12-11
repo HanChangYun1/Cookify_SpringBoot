@@ -37,22 +37,22 @@ public class EchoHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         log.info("session = " + sendPushUsername(session));
-        String msg = message.getPayload();				//js에서 넘어온 메세지
+        String msg = message.getPayload();
         log.info("msg = " + msg);
 
         if (!StringUtils.isEmpty(msg)) {
             String[] strs = msg.split(",");
 
             if (strs != null && strs.length == 5) {
-                String pushCategory = strs[0];			//댓글, 좋아요 구분
-                String replyWriter = strs[1];			//댓글, 좋아요 보낸 유저
+                String pushCategory = strs[0];			//카테고리 분류
+                String replyWriter = strs[1];			//팔로우, 좋아요 보낸 유저
                 String sendedPushUser = strs[2];		//푸시 알림 받을 유저
-                String boardId = strs[3];				//게시글번호
-                String title = strs[4];					//게시글제목
 
                 WebSocketSession sendedPushSession = userSessionMap.get(sendedPushUser);	//로그인상태일때 알람 보냄
 
                 if ("like".equals(pushCategory) && sendedPushSession != null) {
+                    String boardId = strs[3];				//게시글번호
+                    String title = strs[4];					//게시글제목
                     TextMessage textMsg = new TextMessage(replyWriter + "님이 회원님의 게시물을 좋아합니다: " +
                             "<a href='/porfolDetail/" + boardId + "' style=\"color:black\"><strong>" + title + "</strong></a>");
                     sendedPushSession.sendMessage(textMsg);

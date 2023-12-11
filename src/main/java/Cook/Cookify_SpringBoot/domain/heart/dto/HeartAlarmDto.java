@@ -7,12 +7,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class HeartAlarmDto {
-    private String member;
-    private String recipe;
+    private String memberName;
+    private String recipeMemberName;
+    private String recipeName;
+    private Long recipeId;
 
     @Builder
-    public HeartAlarmDto(String member, String recipe) {
-        this.member = member;
-        this.recipe = recipe;
+    public HeartAlarmDto(String memberName, String recipeMemberName, String recipeName, Long recipeId) {
+        this.memberName = memberName;
+        this.recipeMemberName = recipeMemberName;
+        this.recipeName = recipeName;
+        this.recipeId = recipeId;
     }
 }
