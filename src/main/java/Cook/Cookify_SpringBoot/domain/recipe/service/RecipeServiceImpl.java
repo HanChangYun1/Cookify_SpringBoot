@@ -120,6 +120,7 @@ public class RecipeServiceImpl implements RecipeService{
 //        return  collects;
 //    }
 
+    @Transactional
     public String imageUpload(MultipartFile file) throws IOException {
         String uuid = UUID.randomUUID().toString();
         String ext = file.getContentType();
