@@ -18,15 +18,13 @@ public interface RecipeService {
 
     void deleteRecipe(Long id);
 
-    List<BriefRecipeDto> findRecipes();
+    List<BriefRecipeDto> findRecipes(String page);
 
     RecipeDetailDto findOne(Long recipeId);
 
-    List<Recipe> findTestRecipes();
-
     List<BriefRecipeDto> findAllByMember();
 
-    List<RecipeAndDocsDto> findAllRecipeAndDocs();
+//    List<RecipeAndDocsDto> findAllRecipeAndDocs();
 
     String imageUpload(MultipartFile file) throws IOException;
 }
