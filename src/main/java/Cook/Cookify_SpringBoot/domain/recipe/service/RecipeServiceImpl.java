@@ -50,19 +50,6 @@ public class RecipeServiceImpl implements RecipeService{
     public Recipe saveRecipe(RecipeRequestDto dto)  {
         String loginUserEmail = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember member = memberRepository.findByEmail(loginUserEmail).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
-
-//        // !!!!!!!!!!!이미지 업로드 관련 부분!!!!!!!!!!!!!!!
-//        String uuid = UUID.randomUUID().toString(); // Google Cloud Storage에 저장될 파일 이름
-//        String ext = dto.getThumbnail().getContentType(); // 파일의 형식 ex) JPG
-//
-//        // Cloud에 이미지 업로드
-//        BlobInfo blobInfo = storage.create(
-//                BlobInfo.newBuilder(bucketName, uuid)
-//                        .setContentType(ext)
-//                        .build(),
-//                dto.getThumbnail().getInputStream()
-//        );
-
         Recipe recipe = Recipe.createRecipe(member, dto);
 
         return recipeRepository.save(recipe);
@@ -75,19 +62,6 @@ public class RecipeServiceImpl implements RecipeService{
         if (!recipe.getMember().getId().equals(memberRepository.findByEmail(SecurityUtil.getLoginUserEmail(httpSession)).get().getId())){
             throw new RecipeException(RecipeExceptionType.NOT_AUTHORITY_UPDATE_Recipe);
         }
-
-//        // !!!!!!!!!!!이미지 업로드 관련 부분!!!!!!!!!!!!!!!
-//        String uuid = UUID.randomUUID().toString(); // Google Cloud Storage에 저장될 파일 이름
-//        String ext = dto.getThumbnail().getContentType(); // 파일의 형식 ex) JPG
-//
-//        // Cloud에 이미지 업로드
-//        BlobInfo blobInfo = storage.create(
-//                BlobInfo.newBuilder(bucketName, uuid)
-//                        .setContentType(ext)
-//                        .build(),
-//                dto.getThumbnail().getInputStream()
-//        );
-
         recipe.update(dto);
         return recipe;
     }
@@ -106,7 +80,6 @@ public class RecipeServiceImpl implements RecipeService{
     public List<BriefRecipeDto> findRecipes(){
         List<Recipe> recipes = recipeRepository.findAllWithMemberComment();
         List<BriefRecipeDto> collects = recipes.stream().map(r -> new BriefRecipeDto(r.getId(), r.getTitle(), r.getThumbnail())).collect(Collectors.toList());
-
         return collects;
     }
 
@@ -126,7 +99,6 @@ public class RecipeServiceImpl implements RecipeService{
         GoogleMember googleMember = memberRepository.findByEmail(loginUserEmail).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
         List<Recipe> recipes = recipeRepository.findAllByMember(googleMember.getId());
         List<BriefRecipeDto> collects = recipes.stream().map(r -> new BriefRecipeDto(r.getId(), r.getTitle(), r.getThumbnail())).collect(Collectors.toList());
-
         return collects;
     }
 
@@ -140,7 +112,6 @@ public class RecipeServiceImpl implements RecipeService{
             dto.setRecipeId(recipe.getId());
             dto.setRecipeTitle(recipe.getTitle());
             dto.setRecipeThumbnail(recipe.getThumbnail());
-
             collects.add(dto);
         }
 
@@ -149,14 +120,12 @@ public class RecipeServiceImpl implements RecipeService{
             dto.setRecipeDocsId(recipe.getId());
             dto.setRecipeTitle(recipe.getTitle());
             dto.setRecipeThumbnail(recipe.getThumbnail());
-
             collects.add(dto);
         }
         return  collects;
     }
 
     public String imageUpload(MultipartFile file) throws IOException {
-
         String uuid = UUID.randomUUID().toString();
         String ext = file.getContentType();
 

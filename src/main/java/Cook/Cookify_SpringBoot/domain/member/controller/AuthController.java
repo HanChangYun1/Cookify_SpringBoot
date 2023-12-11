@@ -1,6 +1,7 @@
 package Cook.Cookify_SpringBoot.domain.member.controller;
 
 import Cook.Cookify_SpringBoot.domain.member.dto.MemberInfoDto;
+import Cook.Cookify_SpringBoot.domain.member.dto.MemberResponseDto;
 import Cook.Cookify_SpringBoot.domain.member.dto.MemberUpdateRequest;
 import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.member.security.SessionMember;
@@ -31,9 +32,9 @@ public class AuthController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<SessionMember> getUser() {
-        SessionMember sessionUser = (SessionMember) httpSession.getAttribute("user");
-        return ResponseEntity.ok().body(sessionUser);
+    public ResponseEntity<MemberResponseDto> getUser() {
+        MemberResponseDto dto = customOAuth2UserService.getUser();
+        return ResponseEntity.ok().body(dto);
     }
 
     @PostMapping("/login")
@@ -42,27 +43,20 @@ public class AuthController {
             if (user == null) {
                 return ResponseEntity.badRequest().build();
             }
-
-            // 로그인 로직을 수행하고 세션에 사용자 정보를 저장
             httpSession.setAttribute("user", new SessionMember(user));
-
-
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            // Handle exceptions appropriately (e.g., log them)
-            return ResponseEntity.status(500).build(); // Internal Server Error
+            return ResponseEntity.status(500).build();
         }
     }
 
     @PostMapping("/logout")
     public ResponseEntity<Void> logout() {
         try {
-            // 세션 무효화
             httpSession.invalidate();
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            // Handle exceptions appropriately (e.g., log them)
-            return ResponseEntity.status(500).build(); // Internal Server Error
+            return ResponseEntity.status(500).build();
         }
     }
 

@@ -50,9 +50,6 @@ public class HeartServiceImpl implements HeartService{
     }
 
     public HeartCountDto getHeartCount(Long recipeId){
-        String email = SecurityUtil.getLoginUserEmail(httpSession);
-        GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
-
         Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
 
         return HeartCountDto.builder().heartCount(recipe.getHeartCount()).build();
