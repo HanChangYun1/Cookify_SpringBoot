@@ -109,6 +109,10 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         String email = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
 
-        return MemberResponseDto.builder().email(member.getEmail()).name(member.getName()).picture(member.getPicture()).build();
+        return MemberResponseDto.builder()
+                .email(member.getEmail())
+                .name(member.getName())
+                .picture(member.getPicture())
+                .build();
     }
 }
