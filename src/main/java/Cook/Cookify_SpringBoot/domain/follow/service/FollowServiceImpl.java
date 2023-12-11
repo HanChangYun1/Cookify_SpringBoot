@@ -9,6 +9,7 @@ import Cook.Cookify_SpringBoot.domain.member.exception.MemberExceptionType;
 import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;
 import Cook.Cookify_SpringBoot.global.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,15 +29,27 @@ public class FollowServiceImpl implements FollowService{
     private final HttpSession httpSession;
 
     @Transactional
-    public void handlingFollow(Long memberId){
+    public Follow addFollow(Long memberId){
         String email = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember follower = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
         GoogleMember following = googleMemberRepository.findById(memberId).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
 
-        if (!followRepository.existsByFollowerAndFollowing(follower, following)){
-            followRepository.save(Follow.createFollow(follower,following));
+        if (!followRepository.existsByFollowerAndFollowing(follower,following)){
+            Follow follow = followRepository.save(Follow.createFollow(follower, following));
+            return follow;
         }else {
-            followRepository.deleteByFollowerAndFollowing(follower,following);
+            throw  new DuplicateKeyException("follow is already exist.");
+        }
+    }
+
+    @Transactional
+    public void deleteFollow(Long memberId){
+        String email = SecurityUtil.getLoginUserEmail(httpSession);
+        GoogleMember follower = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
+        GoogleMember following = googleMemberRepository.findById(memberId).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
+
+        if (followRepository.existsByFollowerAndFollowing(follower, following)){
+            followRepository.deleteByFollowerAndFollowing(follower, following);
         }
     }
 
