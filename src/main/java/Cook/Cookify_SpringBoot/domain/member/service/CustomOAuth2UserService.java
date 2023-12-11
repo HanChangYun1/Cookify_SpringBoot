@@ -1,6 +1,7 @@
 package Cook.Cookify_SpringBoot.domain.member.service;
 
 import Cook.Cookify_SpringBoot.domain.member.dto.MemberInfoDto;
+import Cook.Cookify_SpringBoot.domain.member.dto.MemberResponseDto;
 import Cook.Cookify_SpringBoot.domain.member.dto.MemberUpdateRequest;
 import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.member.exception.MemberException;
@@ -82,17 +83,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         String email = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
 
-//        // !!!!!!!!!!!이미지 업로드 관련 부분!!!!!!!!!!!!!!!
-//        String uuid = UUID.randomUUID().toString(); // Google Cloud Storage에 저장될 파일 이름
-//        String ext = dto.getImage().getContentType(); // 파일의 형식 ex) JPG
-//
-//        // Cloud에 이미지 업로드
-//        BlobInfo blobInfo = storage.create(
-//                BlobInfo.newBuilder(bucketName, uuid)
-//                        .setContentType(ext)
-//                        .build(),
-//                dto.getImage().getInputStream()
-//        );
 
         member.update(dto);
     }
@@ -113,5 +103,12 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         String imageUrl = "https://storage.googleapis.com/" + bucketName + "/" + uuid;
 
         return imageUrl;
+    }
+
+    public MemberResponseDto getUser(){
+        String email = SecurityUtil.getLoginUserEmail(httpSession);
+        GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
+
+        return MemberResponseDto.builder().email(member.getEmail()).name(member.getName()).picture(member.getPicture()).build();
     }
 }

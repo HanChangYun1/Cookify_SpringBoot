@@ -31,7 +31,6 @@ public class RecipeController {
     @PostMapping
     public ResponseEntity<Recipe> createRecipe(@RequestBody RecipeRequestDto dto) {
         Recipe createRecipe = recipeService.saveRecipe(dto);
-        log.info("createRecipe:{}", createRecipe);
         return ResponseEntity.status(HttpStatus.CREATED).body(createRecipe);
     }
 
@@ -58,8 +57,9 @@ public class RecipeController {
     }
 
     @GetMapping("/recipe_docs")
-    public List<BriefRecipeDto> getRecipeDocs() {
-        List<RecipeDocs> recipes = recipeDocsRepository.findAll(PageRequest.of(0, 20)).getContent();
+    public List<BriefRecipeDto> getRecipeDocs(@RequestParam(defaultValue = "0") String page) {
+        int pageNum = Integer.parseInt(page);
+        List<RecipeDocs> recipes = recipeDocsRepository.findAll(PageRequest.of(pageNum, 20)).getContent();
         List<BriefRecipeDto> recipeDtos = recipes.stream().map(m -> new BriefRecipeDto(m.getId(), m.getTitle(), m.getThumbnail()))
                 .collect(Collectors.toList());
         return recipeDtos;
@@ -89,7 +89,6 @@ public class RecipeController {
     @PostMapping("/image")
     public ResponseEntity<String> imageUpload(@RequestParam("file")MultipartFile file) throws IOException{
             String imageUrl = recipeService.imageUpload(file);
-            log.info("imageUrl:{}", imageUrl);
             return ResponseEntity.ok(imageUrl);
     }
 

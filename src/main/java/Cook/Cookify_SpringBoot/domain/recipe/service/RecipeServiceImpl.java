@@ -106,7 +106,6 @@ public class RecipeServiceImpl implements RecipeService{
     public List<BriefRecipeDto> findRecipes(){
         List<Recipe> recipes = recipeRepository.findAllWithMemberComment();
         List<BriefRecipeDto> collects = recipes.stream().map(r -> new BriefRecipeDto(r.getId(), r.getTitle(), r.getThumbnail())).collect(Collectors.toList());
-
         return collects;
     }
 
@@ -126,7 +125,6 @@ public class RecipeServiceImpl implements RecipeService{
         GoogleMember googleMember = memberRepository.findByEmail(loginUserEmail).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
         List<Recipe> recipes = recipeRepository.findAllByMember(googleMember.getId());
         List<BriefRecipeDto> collects = recipes.stream().map(r -> new BriefRecipeDto(r.getId(), r.getTitle(), r.getThumbnail())).collect(Collectors.toList());
-
         return collects;
     }
 
@@ -140,7 +138,6 @@ public class RecipeServiceImpl implements RecipeService{
             dto.setRecipeId(recipe.getId());
             dto.setRecipeTitle(recipe.getTitle());
             dto.setRecipeThumbnail(recipe.getThumbnail());
-
             collects.add(dto);
         }
 
@@ -149,14 +146,12 @@ public class RecipeServiceImpl implements RecipeService{
             dto.setRecipeDocsId(recipe.getId());
             dto.setRecipeTitle(recipe.getTitle());
             dto.setRecipeThumbnail(recipe.getThumbnail());
-
             collects.add(dto);
         }
         return  collects;
     }
 
     public String imageUpload(MultipartFile file) throws IOException {
-
         String uuid = UUID.randomUUID().toString();
         String ext = file.getContentType();
 

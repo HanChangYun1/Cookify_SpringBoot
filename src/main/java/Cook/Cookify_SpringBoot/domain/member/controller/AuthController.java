@@ -1,6 +1,7 @@
 package Cook.Cookify_SpringBoot.domain.member.controller;
 
 import Cook.Cookify_SpringBoot.domain.member.dto.MemberInfoDto;
+import Cook.Cookify_SpringBoot.domain.member.dto.MemberResponseDto;
 import Cook.Cookify_SpringBoot.domain.member.dto.MemberUpdateRequest;
 import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.member.security.SessionMember;
@@ -31,9 +32,9 @@ public class AuthController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<SessionMember> getUser() {
-        SessionMember sessionUser = (SessionMember) httpSession.getAttribute("user");
-        return ResponseEntity.ok().body(sessionUser);
+    public ResponseEntity<MemberResponseDto> getUser() {
+        MemberResponseDto dto = customOAuth2UserService.getUser();
+        return ResponseEntity.ok().body(dto);
     }
 
     @PostMapping("/login")
