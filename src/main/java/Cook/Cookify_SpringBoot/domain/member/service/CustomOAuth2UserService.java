@@ -36,7 +36,7 @@ import java.util.UUID;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     private final GoogleMemberRepository googleMemberRepository;
@@ -48,6 +48,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
 
     @Override
+    @Transactional
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
 
@@ -72,13 +73,14 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         );
     }
 
-
+    @Transactional
     public GoogleMember findOrSave(OAuthAttributes attributes) {
         GoogleMember member = googleMemberRepository.findByEmail(attributes.getEmail())
                 .orElse(attributes.toEntity());
         return googleMemberRepository.save(member);
     }
 
+    @Transactional
     public void update(MemberInfoDto dto){
         String email = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
@@ -87,6 +89,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         member.update(dto);
     }
 
+    @Transactional
     public String imageUpload(MultipartFile file) throws IOException{
 
         String uuid = UUID.randomUUID().toString();

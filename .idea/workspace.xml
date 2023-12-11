@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a8fcd54c-300c-4581-aab7-294aa31f3b54" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/controller/RecipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/controller/RecipeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/repository/RecipeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/repository/RecipeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/service/RecipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/service/RecipeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/service/CommentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/comment/service/CommentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/service/CustomOAuth2UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/member/service/CustomOAuth2UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/service/RecipeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/recipe/service/RecipeServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -226,6 +225,7 @@
       <workItem from="1701827420647" duration="11113000" />
       <workItem from="1701847316642" duration="5512000" />
       <workItem from="1701913690994" duration="26421000" />
+      <workItem from="1702279107674" duration="1893000" />
     </task>
     <servers />
   </component>

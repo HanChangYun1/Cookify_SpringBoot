@@ -8,15 +8,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 public class RecipeRequestDto {
+    @NotBlank(message = "Title cannot be blank")
     private String title;
+    @NotNull(message = "Ingredients cannot be null")
     private List<String> ingredients;
     private List<String> ingredients2;
+    @NotNull(message = "Ingredients cannot be null")
     private List<String> steps;
+    @NotNull(message = "Ingredients cannot be null")
     private String thumbnail;
 
     @Builder

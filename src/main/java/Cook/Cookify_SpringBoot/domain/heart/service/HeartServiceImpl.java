@@ -1,8 +1,8 @@
 package Cook.Cookify_SpringBoot.domain.heart.service;
 
 import Cook.Cookify_SpringBoot.domain.heart.dto.HeartCountDto;
-import Cook.Cookify_SpringBoot.domain.heart.entity.Heart;
 import Cook.Cookify_SpringBoot.domain.heart.dto.HeartRecipeDto;
+import Cook.Cookify_SpringBoot.domain.heart.entity.Heart;
 import Cook.Cookify_SpringBoot.domain.heart.repository.HeartRepository;
 import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.member.exception.MemberException;
@@ -15,6 +15,7 @@ import Cook.Cookify_SpringBoot.domain.recipe.repository.RecipeRepository;
 import Cook.Cookify_SpringBoot.global.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,18 +35,31 @@ public class HeartServiceImpl implements HeartService{
     private final HttpSession httpSession;
 
     @Transactional
-    public void handlingHeart(Long recipeId){
+    public Heart addHeart(Long recipeId){
         String email = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
 
         Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
 
-        if (!heartRepository.existsByMemberAndRecipe(member, recipe)){
+        if(!heartRepository.existsByMemberAndRecipe(member,recipe)){
             recipe.setHeartCount(recipe.getHeartCount() + 1);
-            heartRepository.save(Heart.createHeart(member, recipe));
+            Heart heart = heartRepository.save(Heart.createHeart(member, recipe));
+            return heart;
         }else {
+            throw new DuplicateKeyException("Heart already exists for this recipe and member");
+        }
+    }
+
+    @Transactional
+    public void deleteHeart(Long recipeId){
+        String email = SecurityUtil.getLoginUserEmail(httpSession);
+        GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
+
+        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
+
+        if (heartRepository.existsByMemberAndRecipe(member, recipe)){
             recipe.setHeartCount(recipe.getHeartCount() - 1);
-            heartRepository.deleteByMemberAndRecipe(member, recipe);
+            heartRepository.deleteByMemberAndRecipe(member,recipe);
         }
     }
 
