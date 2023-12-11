@@ -46,14 +46,9 @@ public class RecipeController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping
-    public List<Recipe> getTestRecipes(){
-        return recipeService.findTestRecipes();
-    }
-
     @GetMapping("/brief")
-    public List<BriefRecipeDto> getRecipes(){
-        return recipeService.findRecipes();
+    public List<BriefRecipeDto> getRecipes(@RequestParam(defaultValue = "0") String page){
+        return recipeService.findRecipes(page);
     }
 
     @GetMapping("/recipe_docs")
@@ -81,10 +76,10 @@ public class RecipeController {
         return recipeService.findAllByMember();
     }
 
-    @GetMapping("/all")
-    public List<RecipeAndDocsDto> getAllRecipeAndDocs(){
-        return recipeService.findAllRecipeAndDocs();
-    }
+//    @GetMapping("/all")
+//    public List<RecipeAndDocsDto> getAllRecipeAndDocs(){
+//        return recipeService.findAllRecipeAndDocs();
+//    }
 
     @PostMapping("/image")
     public ResponseEntity<String> imageUpload(@RequestParam("file")MultipartFile file) throws IOException{

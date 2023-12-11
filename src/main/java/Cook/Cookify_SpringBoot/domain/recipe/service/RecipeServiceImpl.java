@@ -26,7 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,8 +76,9 @@ public class RecipeServiceImpl implements RecipeService{
         recipeRepository.deleteById(id);
     }
 
-    public List<BriefRecipeDto> findRecipes(){
-        List<Recipe> recipes = recipeRepository.findAllWithMemberComment();
+    public List<BriefRecipeDto> findRecipes(String page){
+        int pageNum = Integer.parseInt(page);
+        List<Recipe> recipes = recipeRepository.findAllWithMemberComment(PageRequest.of(pageNum ,20));
         List<BriefRecipeDto> collects = recipes.stream().map(r -> new BriefRecipeDto(r.getId(), r.getTitle(), r.getThumbnail())).collect(Collectors.toList());
         return collects;
     }
@@ -89,11 +89,6 @@ public class RecipeServiceImpl implements RecipeService{
         return  recipeDto;
     }
 
-    public List<Recipe> findTestRecipes(){
-        List<Recipe> all = recipeRepository.findAllWithMemberComment();
-        return all;
-    }
-
     public List<BriefRecipeDto> findAllByMember(){
         String loginUserEmail = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember googleMember = memberRepository.findByEmail(loginUserEmail).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
@@ -102,28 +97,28 @@ public class RecipeServiceImpl implements RecipeService{
         return collects;
     }
 
-    public List<RecipeAndDocsDto> findAllRecipeAndDocs(){
-        List<Recipe> recipes = recipeRepository.findAllWithMemberComment();
-        List<RecipeDocs> recipeDocs = recipeDocsRepository.findAll(PageRequest.of(0, 30)).getContent();
-        List<RecipeAndDocsDto> collects = new ArrayList<>();
-
-        for (Recipe recipe : recipes){
-            RecipeAndDocsDto dto = new RecipeAndDocsDto();
-            dto.setRecipeId(recipe.getId());
-            dto.setRecipeTitle(recipe.getTitle());
-            dto.setRecipeThumbnail(recipe.getThumbnail());
-            collects.add(dto);
-        }
-
-        for (RecipeDocs recipe: recipeDocs){
-            RecipeAndDocsDto dto = new RecipeAndDocsDto();
-            dto.setRecipeDocsId(recipe.getId());
-            dto.setRecipeTitle(recipe.getTitle());
-            dto.setRecipeThumbnail(recipe.getThumbnail());
-            collects.add(dto);
-        }
-        return  collects;
-    }
+//    public List<RecipeAndDocsDto> findAllRecipeAndDocs(){
+//        List<Recipe> recipes = recipeRepository.findAllWithMemberComment(PageRequest.of(pageNum, 20));
+//        List<RecipeDocs> recipeDocs = recipeDocsRepository.findAll(PageRequest.of(0, 30)).getContent();
+//        List<RecipeAndDocsDto> collects = new ArrayList<>();
+//
+//        for (Recipe recipe : recipes){
+//            RecipeAndDocsDto dto = new RecipeAndDocsDto();
+//            dto.setRecipeId(recipe.getId());
+//            dto.setRecipeTitle(recipe.getTitle());
+//            dto.setRecipeThumbnail(recipe.getThumbnail());
+//            collects.add(dto);
+//        }
+//
+//        for (RecipeDocs recipe: recipeDocs){
+//            RecipeAndDocsDto dto = new RecipeAndDocsDto();
+//            dto.setRecipeDocsId(recipe.getId());
+//            dto.setRecipeTitle(recipe.getTitle());
+//            dto.setRecipeThumbnail(recipe.getThumbnail());
+//            collects.add(dto);
+//        }
+//        return  collects;
+//    }
 
     public String imageUpload(MultipartFile file) throws IOException {
         String uuid = UUID.randomUUID().toString();
