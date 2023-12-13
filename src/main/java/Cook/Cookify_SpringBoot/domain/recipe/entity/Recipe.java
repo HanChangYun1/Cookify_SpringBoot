@@ -33,9 +33,9 @@ public class Recipe extends BaseEntity {
     private List<String> steps;
     private String  thumbnail;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "recipe_docs_id")
-    private RecipeDocs recipeDocs;
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "recipe_docs_id")
+//    private RecipeDocs recipeDocs;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)

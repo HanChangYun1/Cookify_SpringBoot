@@ -21,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -97,28 +98,47 @@ public class RecipeServiceImpl implements RecipeService{
         return collects;
     }
 
-//    public List<RecipeAndDocsDto> findAllRecipeAndDocs(){
-//        List<Recipe> recipes = recipeRepository.findAllWithMemberComment(PageRequest.of(pageNum, 20));
-//        List<RecipeDocs> recipeDocs = recipeDocsRepository.findAll(PageRequest.of(0, 30)).getContent();
-//        List<RecipeAndDocsDto> collects = new ArrayList<>();
-//
-//        for (Recipe recipe : recipes){
-//            RecipeAndDocsDto dto = new RecipeAndDocsDto();
-//            dto.setRecipeId(recipe.getId());
-//            dto.setRecipeTitle(recipe.getTitle());
-//            dto.setRecipeThumbnail(recipe.getThumbnail());
-//            collects.add(dto);
-//        }
-//
-//        for (RecipeDocs recipe: recipeDocs){
-//            RecipeAndDocsDto dto = new RecipeAndDocsDto();
-//            dto.setRecipeDocsId(recipe.getId());
-//            dto.setRecipeTitle(recipe.getTitle());
-//            dto.setRecipeThumbnail(recipe.getThumbnail());
-//            collects.add(dto);
-//        }
-//        return  collects;
-//    }
+
+    public List<RecipeAndDocsDto> findAllByKeyword(String keyword) {
+        List<Recipe> recipes = recipeRepository.findAllByTitleContaining(keyword, PageRequest.of(0, 10, Sort.Direction.DESC));
+        List<RecipeDocs> recipeDocs = recipeDocsRepository.findAllByTitleContaining(keyword, PageRequest.of(0, 10, Sort.Direction.DESC));
+        List<RecipeAndDocsDto> collects = new ArrayList<>();
+
+        for (Recipe recipe : recipes){
+            RecipeAndDocsDto dto = new RecipeAndDocsDto();
+            dto.setRecipeId(recipe.getId());
+            dto.setRecipeTitle(recipe.getTitle());
+            dto.setRecipeThumbnail(recipe.getThumbnail());
+            collects.add(dto);
+        }
+
+        for (RecipeDocs recipe: recipeDocs){
+            RecipeAndDocsDto dto = new RecipeAndDocsDto();
+            dto.setRecipeDocsId(recipe.getId());
+            dto.setRecipeTitle(recipe.getTitle());
+            dto.setRecipeThumbnail(recipe.getThumbnail());
+            collects.add(dto);
+        }
+        return  collects;
+    }
+    public List<RecipeAndDocsDto> findAllByKeyword2(String keyword, int pageNum) {
+        List<Object[]> allTitlesContaining = recipeRepository.findAllTitlesContaining(keyword, PageRequest.of(pageNum, 20));
+        List<RecipeAndDocsDto> collects = new ArrayList<>();
+
+        for (Object[] object : allTitlesContaining){
+            RecipeAndDocsDto dto = new RecipeAndDocsDto();
+            if(object[0] != null){
+                dto.setRecipeId(((Number) object[0]).longValue());
+            }else {
+                dto.setRecipeDocsId(((Number) object[1]).longValue());
+            }
+            dto.setRecipeTitle((String) object[2]);
+            dto.setRecipeThumbnail((String) object[3]);
+            collects.add(dto);
+        }
+
+        return  collects;
+    }
 
     @Transactional
     public String imageUpload(MultipartFile file) throws IOException {
