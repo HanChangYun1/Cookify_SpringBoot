@@ -22,12 +22,8 @@ public class HeartController {
 
     @PostMapping("/{recipeId}")
     public ResponseEntity<HeartAlarmDto> addHeart(@PathVariable("recipeId") Long recipeId){
-        Heart heart = heartService.addHeart(recipeId);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(HeartAlarmDto.builder()
-                .member(heart.getMember().getName())
-                .recipe(heart.getRecipe().getTitle())
-                .build());
+        HeartAlarmDto dto = heartService.addHeart(recipeId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
     @DeleteMapping("/{recipeId}")

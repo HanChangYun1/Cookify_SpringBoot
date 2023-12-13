@@ -60,6 +60,13 @@ public class RecipeController {
         return recipeDtos;
     }
 
+    @GetMapping("/search")
+    public List<RecipeAndDocsDto> getSearchRecipe(@RequestParam String keyword, @RequestParam(defaultValue = "0") String  page){
+        int pageNum = Integer.parseInt(page);
+        List<RecipeAndDocsDto> recipeAndDocsDtos = recipeService.findAllByKeyword(keyword, pageNum);
+        return recipeAndDocsDtos;
+    }
+
     @GetMapping("/recipe_docs/{recipeId}")
     public RecipeDocsDetailDto getRecipeDocsDetail(@PathVariable("recipeId") Long recipeId){
         RecipeDocs recipe = recipeDocsRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));

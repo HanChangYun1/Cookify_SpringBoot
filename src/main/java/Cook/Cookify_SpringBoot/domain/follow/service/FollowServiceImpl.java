@@ -1,5 +1,6 @@
 package Cook.Cookify_SpringBoot.domain.follow.service;
 
+import Cook.Cookify_SpringBoot.domain.follow.dto.FollowAlarmDto;
 import Cook.Cookify_SpringBoot.domain.follow.dto.FollowResponseDto;
 import Cook.Cookify_SpringBoot.domain.follow.entity.Follow;
 import Cook.Cookify_SpringBoot.domain.follow.repository.FollowRepository;
@@ -29,14 +30,16 @@ public class FollowServiceImpl implements FollowService{
     private final HttpSession httpSession;
 
     @Transactional
-    public Follow addFollow(Long memberId){
+    public FollowAlarmDto addFollow(Long memberId){
         String email = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember follower = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
         GoogleMember following = googleMemberRepository.findById(memberId).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
 
         if (!followRepository.existsByFollowerAndFollowing(follower,following)){
             Follow follow = followRepository.save(Follow.createFollow(follower, following));
-            return follow;
+            return FollowAlarmDto.builder()
+                    .followerName(follow.getFollower().getName())
+                    .followingName(follow.getFollowing().getName()).build();
         }else {
             throw  new DuplicateKeyException("follow is already exist.");
         }

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RecipeAndDocsDto {
     private Long recipeId;
+    private Long recipeDocsId;
     private String recipeTitle;
     private String recipeThumbnail;
-    private Long recipeDocsId;
 }

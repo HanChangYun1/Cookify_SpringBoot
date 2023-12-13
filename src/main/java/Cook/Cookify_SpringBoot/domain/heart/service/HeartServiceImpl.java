@@ -1,5 +1,6 @@
 package Cook.Cookify_SpringBoot.domain.heart.service;
 
+import Cook.Cookify_SpringBoot.domain.heart.dto.HeartAlarmDto;
 import Cook.Cookify_SpringBoot.domain.heart.dto.HeartCountDto;
 import Cook.Cookify_SpringBoot.domain.heart.dto.HeartRecipeDto;
 import Cook.Cookify_SpringBoot.domain.heart.entity.Heart;
@@ -35,7 +36,7 @@ public class HeartServiceImpl implements HeartService{
     private final HttpSession httpSession;
 
     @Transactional
-    public Heart addHeart(Long recipeId){
+    public HeartAlarmDto addHeart(Long recipeId){
         String email = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
 
@@ -44,7 +45,12 @@ public class HeartServiceImpl implements HeartService{
         if(!heartRepository.existsByMemberAndRecipe(member,recipe)){
             recipe.setHeartCount(recipe.getHeartCount() + 1);
             Heart heart = heartRepository.save(Heart.createHeart(member, recipe));
-            return heart;
+
+            return HeartAlarmDto.builder()
+                    .memberName(member.getName())
+                    .recipeMemberName(recipe.getMember().getName())
+                    .recipeId(recipe.getId())
+                    .recipeName(recipe.getTitle()).build();
         }else {
             throw new DuplicateKeyException("Heart already exists for this recipe and member");
         }

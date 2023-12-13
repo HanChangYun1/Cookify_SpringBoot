@@ -24,7 +24,8 @@ public interface RecipeService {
 
     List<BriefRecipeDto> findAllByMember();
 
-//    List<RecipeAndDocsDto> findAllRecipeAndDocs();
+    List<RecipeAndDocsDto> findAllByKeyword(String keyword, int pageNum);
 
     String imageUpload(MultipartFile file) throws IOException;
+
 }
