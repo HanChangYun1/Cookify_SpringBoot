@@ -97,31 +97,8 @@ public class RecipeServiceImpl implements RecipeService{
         List<BriefRecipeDto> collects = recipes.stream().map(r -> new BriefRecipeDto(r.getId(), r.getTitle(), r.getThumbnail())).collect(Collectors.toList());
         return collects;
     }
-
-
-    public List<RecipeAndDocsDto> findAllByKeyword(String keyword) {
-        List<Recipe> recipes = recipeRepository.findAllByTitleContaining(keyword, PageRequest.of(0, 10, Sort.Direction.DESC));
-        List<RecipeDocs> recipeDocs = recipeDocsRepository.findAllByTitleContaining(keyword, PageRequest.of(0, 10, Sort.Direction.DESC));
-        List<RecipeAndDocsDto> collects = new ArrayList<>();
-
-        for (Recipe recipe : recipes){
-            RecipeAndDocsDto dto = new RecipeAndDocsDto();
-            dto.setRecipeId(recipe.getId());
-            dto.setRecipeTitle(recipe.getTitle());
-            dto.setRecipeThumbnail(recipe.getThumbnail());
-            collects.add(dto);
-        }
-
-        for (RecipeDocs recipe: recipeDocs){
-            RecipeAndDocsDto dto = new RecipeAndDocsDto();
-            dto.setRecipeDocsId(recipe.getId());
-            dto.setRecipeTitle(recipe.getTitle());
-            dto.setRecipeThumbnail(recipe.getThumbnail());
-            collects.add(dto);
-        }
-        return  collects;
-    }
-    public List<RecipeAndDocsDto> findAllByKeyword2(String keyword, int pageNum) {
+    
+    public List<RecipeAndDocsDto> findAllByKeyword(String keyword, int pageNum) {
         List<Object[]> allTitlesContaining = recipeRepository.findAllTitlesContaining(keyword, PageRequest.of(pageNum, 20));
         List<RecipeAndDocsDto> collects = new ArrayList<>();
 

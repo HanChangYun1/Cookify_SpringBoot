@@ -61,14 +61,9 @@ public class RecipeController {
     }
 
     @GetMapping("/search")
-    public List<RecipeAndDocsDto> getSearchRecipe(@RequestParam String keyword){
-        List<RecipeAndDocsDto> recipeAndDocsDtos = recipeService.findAllByKeyword(keyword);
-        return recipeAndDocsDtos;
-    }
-    @GetMapping("/search2")
-    public List<RecipeAndDocsDto> getSearchRecipe2(@RequestParam String keyword, @RequestParam(defaultValue = "0") String  page){
+    public List<RecipeAndDocsDto> getSearchRecipe(@RequestParam String keyword, @RequestParam(defaultValue = "0") String  page){
         int pageNum = Integer.parseInt(page);
-        List<RecipeAndDocsDto> recipeAndDocsDtos = recipeService.findAllByKeyword2(keyword, pageNum);
+        List<RecipeAndDocsDto> recipeAndDocsDtos = recipeService.findAllByKeyword(keyword, pageNum);
         return recipeAndDocsDtos;
     }
 
