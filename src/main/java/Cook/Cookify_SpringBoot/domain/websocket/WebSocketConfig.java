@@ -12,9 +12,12 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 public class WebSocketConfig implements WebSocketConfigurer {
 
     private final EchoHandler echoHandler;
+    private final HttpSessionHandshakeInterceptor httpSessionHandshakeInterceptor;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(echoHandler, "/push").setAllowedOriginPatterns("*").withSockJS();
+        registry.addHandler(echoHandler, "/push")
+                .addInterceptors(httpSessionHandshakeInterceptor)
+                .setAllowedOriginPatterns("*");
     }
 }

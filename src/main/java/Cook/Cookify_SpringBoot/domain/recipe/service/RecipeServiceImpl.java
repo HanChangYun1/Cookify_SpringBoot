@@ -97,7 +97,7 @@ public class RecipeServiceImpl implements RecipeService{
         List<BriefRecipeDto> collects = recipes.stream().map(r -> new BriefRecipeDto(r.getId(), r.getTitle(), r.getThumbnail())).collect(Collectors.toList());
         return collects;
     }
-    
+
     public List<RecipeAndDocsDto> findAllByKeyword(String keyword, int pageNum) {
         List<Object[]> allTitlesContaining = recipeRepository.findAllTitlesContaining(keyword, PageRequest.of(pageNum, 20));
         List<RecipeAndDocsDto> collects = new ArrayList<>();

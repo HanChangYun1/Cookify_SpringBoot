@@ -1,5 +1,12 @@
 package Cook.Cookify_SpringBoot.domain.websocket;
 
+import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
+import Cook.Cookify_SpringBoot.domain.member.exception.MemberException;
+import Cook.Cookify_SpringBoot.domain.member.exception.MemberExceptionType;
+import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;
+import Cook.Cookify_SpringBoot.domain.member.security.SessionMember;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -9,6 +16,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,13 +33,16 @@ public class EchoHandler extends TextWebSocketHandler {
     // 1대1 매핑
     private Map<String, WebSocketSession> userSessionMap = new HashMap<>();
 
+    private final GoogleMemberRepository googleMemberRepository;
+
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         log.info("Socket 연결");
-        sessions.add(session);
-        log.info(sendPushUsername(session));
         String senderId = sendPushUsername(session);
+        sessions.add(session);
+        log.info(senderId);
         userSessionMap.put(senderId, session);
+        log.info("userSessionMap:{}", userSessionMap);
     }
 
     @Override
@@ -41,35 +52,39 @@ public class EchoHandler extends TextWebSocketHandler {
         log.info("msg = " + msg);
 
         if (!StringUtils.isEmpty(msg)) {
-            String[] strs = msg.split(",");
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(msg);
+            String pushCategory = jsonNode.path("category").asText();
+            String replyWriter = jsonNode.path("writer").asText();
+            String sendedPushUser = jsonNode.path("receiver").asText();
 
-            if (strs != null && strs.length == 5) {
-                String pushCategory = strs[0];			//카테고리 분류
-                String replyWriter = strs[1];			//팔로우, 좋아요 보낸 유저
-                String sendedPushUser = strs[2];		//푸시 알림 받을 유저
+            log.info("category: {}", pushCategory);
+            log.info("writer: {}", replyWriter);
+            log.info("user: {}", sendedPushUser);
 
-                WebSocketSession sendedPushSession = userSessionMap.get(sendedPushUser);	//로그인상태일때 알람 보냄
+            WebSocketSession sendedPushSession = userSessionMap.get(sendedPushUser);	//로그인상태일때 알람 보냄
+            log.info("sendedPushSession:{}", sendedPushSession);
 
-                if ("like".equals(pushCategory) && sendedPushSession != null) {
-                    String boardId = strs[3];				//게시글번호
-                    String title = strs[4];					//게시글제목
-                    TextMessage textMsg = new TextMessage(replyWriter + "님이 회원님의 게시물을 좋아합니다: " +
-                            "<a href='/porfolDetail/" + boardId + "' style=\"color:black\"><strong>" + title + "</strong></a>");
-                    sendedPushSession.sendMessage(textMsg);
+            if ("like".equals(pushCategory) && sendedPushSession != null) {
+                String boardId = jsonNode.path("boardId").asText();
+                String title = jsonNode.path("title").asText();
+                TextMessage textMsg = new TextMessage(replyWriter + "님이 회원님의" + title + " 게시물을 좋아합니다: " +
+                        "<a href='/porfolDetail/" + boardId + "' style=\"color:black\"><strong>" + title + "</strong></a>");
+                sendedPushSession.sendMessage(textMsg);
 
-                } else if ("follow".equals(pushCategory) && sendedPushSession != null) {
-                    TextMessage textMsg = new TextMessage(replyWriter + "님이 회원님을 팔로우하기 시작했습니다.");
-                    sendedPushSession.sendMessage(textMsg);
+            } else if ("follow".equals(pushCategory) && sendedPushSession != null) {
+                log.info("들어온건가??");
+                TextMessage textMsg = new TextMessage(replyWriter + "님이 "+ sendedPushUser+"회원님을 팔로우하기 시작했습니다.");
+                sendedPushSession.sendMessage(textMsg);
 
-                } else if ("directMessage".equals(pushCategory) && sendedPushSession != null) {
-                    String receiverId = strs[5];
-                    WebSocketSession receiverSession = userSessionMap.get(receiverId);
-                    if (receiverSession != null) {
-                        TextMessage textMsg = new TextMessage(replyWriter + "님으로부터 새로운 메시지: " + msg);
-                        receiverSession.sendMessage(textMsg);
-                    }
+            } else if ("directMessage".equals(pushCategory) && sendedPushSession != null) {
+                WebSocketSession receiverSession = userSessionMap.get(sendedPushUser);
+                if (receiverSession != null) {
+                    TextMessage textMsg = new TextMessage(replyWriter + "님으로부터 새로운 메시지: " + msg);
+                    receiverSession.sendMessage(textMsg);
                 }
             }
+
         }
     }
 
@@ -77,17 +92,29 @@ public class EchoHandler extends TextWebSocketHandler {
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         log.info("Socket 연결 해제");
         sessions.remove(session);
-        userSessionMap.remove(sendPushUsername(session), session);
+        String removedUserId = sendPushUsername(session);
+        userSessionMap.remove(removedUserId, session);
     }
+
 
     //알람을 보내는 유저(댓글작성, 좋아요 누르는 유저)
     private String sendPushUsername(WebSocketSession session) {
         String loginUsername;
 
-        if (session.getPrincipal() == null) {
+        // attributes에서 HTTP 세션을 가져옴
+        HttpSession httpSession = (HttpSession) session.getAttributes().get("HTTP_SESSION");
+        log.info("httpSession:{}", httpSession);
+        // HttpSession에서 유저 정보를 가져옴 (예: email)
+        SessionMember sessionUser = (SessionMember) httpSession.getAttribute("user");
+        log.info("sessionUser:{}", sessionUser);
+        String email = sessionUser.getEmail();
+        log.info("email:{}", email);
+
+        if (email== null) {
             loginUsername = null;
         } else {
-            loginUsername = session.getPrincipal().getName();
+            GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
+            loginUsername = member.getName();
         }
         return loginUsername;
     }
