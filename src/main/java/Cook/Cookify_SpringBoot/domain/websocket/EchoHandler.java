@@ -66,14 +66,18 @@ public class EchoHandler extends TextWebSocketHandler {
             log.info("sendedPushSession:{}", sendedPushSession);
 
             if ("like".equals(pushCategory) && sendedPushSession != null) {
-                String boardId = jsonNode.path("boardId").asText();
+                log.info("좋아요들어옴");
+                String recipeId = jsonNode.path("recipeId").asText();
+                log.info("recipeId:{}", recipeId);
                 String title = jsonNode.path("title").asText();
+                log.info("title:{}", title);
                 TextMessage textMsg = new TextMessage(replyWriter + "님이 회원님의" + title + " 게시물을 좋아합니다: " +
-                        "<a href='/porfolDetail/" + boardId + "' style=\"color:black\"><strong>" + title + "</strong></a>");
+                        "<a href='/recipe/" + recipeId + "' style=\"color:black\"><strong>" + title + "</strong></a>");
                 sendedPushSession.sendMessage(textMsg);
+                log.info("textMsg:{}", textMsg);
 
             } else if ("follow".equals(pushCategory) && sendedPushSession != null) {
-                log.info("들어온건가??");
+                log.info("팔로우 들어옴");
                 TextMessage textMsg = new TextMessage(replyWriter + "님이 "+ sendedPushUser+"회원님을 팔로우하기 시작했습니다.");
                 sendedPushSession.sendMessage(textMsg);
 
