@@ -36,36 +36,25 @@ public class HeartServiceImpl implements HeartService{
     private final HttpSession httpSession;
 
     @Transactional
-    public HeartAlarmDto addHeart(Long recipeId){
+    public HeartAlarmDto handleHeart(Long recipeId){
         String email = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
 
         Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
-
+        log.info("boolean:{}", heartRepository.existsByMemberAndRecipe(member,recipe));
         if(!heartRepository.existsByMemberAndRecipe(member,recipe)){
             recipe.setHeartCount(recipe.getHeartCount() + 1);
             Heart heart = heartRepository.save(Heart.createHeart(member, recipe));
 
             return HeartAlarmDto.builder()
-                    .memberName(member.getName())
-                    .recipeMemberName(recipe.getMember().getName())
-                    .recipeId(recipe.getId())
-                    .recipeName(recipe.getTitle()).build();
+                    .memberName(heart.getMember().getName())
+                    .recipeMemberName(heart.getRecipe().getMember().getName())
+                    .recipeId(heart.getRecipe().getId())
+                    .recipeName(heart.getRecipe().getTitle()).build();
         }else {
-            throw new DuplicateKeyException("Heart already exists for this recipe and member");
-        }
-    }
-
-    @Transactional
-    public void deleteHeart(Long recipeId){
-        String email = SecurityUtil.getLoginUserEmail(httpSession);
-        GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
-
-        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
-
-        if (heartRepository.existsByMemberAndRecipe(member, recipe)){
             recipe.setHeartCount(recipe.getHeartCount() - 1);
             heartRepository.deleteByMemberAndRecipe(member,recipe);
+            return HeartAlarmDto.builder().build();
         }
     }
 

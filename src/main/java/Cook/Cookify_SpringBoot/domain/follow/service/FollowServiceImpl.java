@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -30,7 +31,7 @@ public class FollowServiceImpl implements FollowService{
     private final HttpSession httpSession;
 
     @Transactional
-    public FollowAlarmDto addFollow(Long memberId){
+    public FollowAlarmDto handleFollow(Long memberId){
         String email = SecurityUtil.getLoginUserEmail(httpSession);
         GoogleMember follower = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
         GoogleMember following = googleMemberRepository.findById(memberId).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
@@ -41,20 +42,11 @@ public class FollowServiceImpl implements FollowService{
                     .followerName(follow.getFollower().getName())
                     .followingName(follow.getFollowing().getName()).build();
         }else {
-            throw  new DuplicateKeyException("follow is already exist.");
-        }
-    }
-
-    @Transactional
-    public void deleteFollow(Long memberId){
-        String email = SecurityUtil.getLoginUserEmail(httpSession);
-        GoogleMember follower = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
-        GoogleMember following = googleMemberRepository.findById(memberId).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
-
-        if (followRepository.existsByFollowerAndFollowing(follower, following)){
             followRepository.deleteByFollowerAndFollowing(follower, following);
+            return FollowAlarmDto.builder().build();
         }
     }
+
 
     public FollowResponseDto getMyFollow(){
         String email = SecurityUtil.getLoginUserEmail(httpSession);
