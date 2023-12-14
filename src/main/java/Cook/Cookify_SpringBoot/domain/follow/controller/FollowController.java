@@ -17,16 +17,12 @@ public class FollowController {
     private final FollowService followService;
 
     @PostMapping("/{memberId}")
-    public ResponseEntity<FollowAlarmDto> addFollow(@PathVariable("memberId") Long memberid){
-        FollowAlarmDto dto = followService.addFollow(memberid);
+    public ResponseEntity<FollowAlarmDto> handleFollow(@PathVariable("memberId") Long memberid){
+        FollowAlarmDto dto = followService.handleFollow(memberid);
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
-    @DeleteMapping("/{memberId}")
-    public ResponseEntity<Void> deleteFollow(@PathVariable("memberId") Long memberId){
-        followService.deleteFollow(memberId);
-        return ResponseEntity.ok().build();
-    }
+
 
     @GetMapping()
     public ResponseEntity<FollowResponseDto> getMyFollow(){

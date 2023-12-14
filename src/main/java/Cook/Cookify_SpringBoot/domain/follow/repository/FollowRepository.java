@@ -8,14 +8,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface FollowRepository extends JpaRepository<Follow, Long> {
     boolean existsByFollowerAndFollowing(GoogleMember follower, GoogleMember following);
     void deleteByFollowerAndFollowing(GoogleMember follower, GoogleMember following);
+    
 
-
-    Long countByFollower(GoogleMember member);   //팔로워 수
     Long countByFollowing(GoogleMember member);  // 팔로잉 수
 
     @Query("select f from Follow f left join fetch f.following where f.follower = :follower") //내가 팔로우한 사람들

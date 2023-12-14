@@ -8,9 +8,7 @@ import java.util.List;
 
 
 public interface HeartService {
-    HeartAlarmDto addHeart(Long recipeId);
-
-    void deleteHeart(Long recipeId);
+    HeartAlarmDto handleHeart(Long recipeId);
 
     HeartCountDto getHeartCount(Long recipeId);
 
