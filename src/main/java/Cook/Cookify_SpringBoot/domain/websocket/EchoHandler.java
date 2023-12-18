@@ -40,16 +40,12 @@ public class EchoHandler extends TextWebSocketHandler {
         log.info("Socket 연결");
         String senderId = sendPushUsername(session);
         sessions.add(session);
-        log.info(senderId);
         userSessionMap.put(senderId, session);
-        log.info("userSessionMap:{}", userSessionMap);
     }
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        log.info("session = " + sendPushUsername(session));
         String msg = message.getPayload();
-        log.info("msg = " + msg);
 
         if (!StringUtils.isEmpty(msg)) {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -58,22 +54,14 @@ public class EchoHandler extends TextWebSocketHandler {
             String replyWriter = jsonNode.path("writer").asText();
             String sendedPushUser = jsonNode.path("receiver").asText();
 
-            log.info("category: {}", pushCategory);
-            log.info("writer: {}", replyWriter);
-            log.info("user: {}", sendedPushUser);
-
             WebSocketSession sendedPushSession = userSessionMap.get(sendedPushUser);	//로그인상태일때 알람 보냄
-            log.info("sendedPushSession:{}", sendedPushSession);
 
             if ("like".equals(pushCategory) && sendedPushSession != null) {
-                String boardId = jsonNode.path("boardId").asText();
+                String recipeId = jsonNode.path("recipeId").asText();
                 String title = jsonNode.path("title").asText();
-                TextMessage textMsg = new TextMessage(replyWriter + "님이 회원님의" + title + " 게시물을 좋아합니다: " +
-                        "<a href='/porfolDetail/" + boardId + "' style=\"color:black\"><strong>" + title + "</strong></a>");
+                TextMessage textMsg = new TextMessage(replyWriter + "님이 회원님의" + title + " 게시물을 좋아합니다: ");
                 sendedPushSession.sendMessage(textMsg);
-
             } else if ("follow".equals(pushCategory) && sendedPushSession != null) {
-                log.info("들어온건가??");
                 TextMessage textMsg = new TextMessage(replyWriter + "님이 "+ sendedPushUser+"회원님을 팔로우하기 시작했습니다.");
                 sendedPushSession.sendMessage(textMsg);
 
@@ -84,7 +72,6 @@ public class EchoHandler extends TextWebSocketHandler {
                     receiverSession.sendMessage(textMsg);
                 }
             }
-
         }
     }
 

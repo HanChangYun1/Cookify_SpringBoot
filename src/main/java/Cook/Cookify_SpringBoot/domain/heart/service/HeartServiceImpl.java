@@ -41,7 +41,6 @@ public class HeartServiceImpl implements HeartService{
         GoogleMember member = googleMemberRepository.findByEmail(email).orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_Member));
 
         Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
-        log.info("boolean:{}", heartRepository.existsByMemberAndRecipe(member,recipe));
         if(!heartRepository.existsByMemberAndRecipe(member,recipe)){
             recipe.setHeartCount(recipe.getHeartCount() + 1);
             Heart heart = heartRepository.save(Heart.createHeart(member, recipe));
