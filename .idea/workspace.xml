@@ -7,7 +7,6 @@
     <list default="true" id="a8fcd54c-300c-4581-aab7-294aa31f3b54" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/websocket/EchoHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/websocket/EchoHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/websocket/HttpSessionHandshakeInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cook/Cookify_SpringBoot/domain/websocket/HttpSessionHandshakeInterceptor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,7 +233,7 @@
       <workItem from="1702518363007" duration="3971000" />
       <workItem from="1702542998919" duration="2739000" />
       <workItem from="1702862905834" duration="2727000" />
-      <workItem from="1702900599065" duration="1021000" />
+      <workItem from="1702900599065" duration="1282000" />
     </task>
     <servers />
   </component>

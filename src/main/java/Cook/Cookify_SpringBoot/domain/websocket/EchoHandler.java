@@ -64,13 +64,6 @@ public class EchoHandler extends TextWebSocketHandler {
             } else if ("follow".equals(pushCategory) && sendedPushSession != null) {
                 TextMessage textMsg = new TextMessage(replyWriter + "님이 "+ sendedPushUser+"회원님을 팔로우하기 시작했습니다.");
                 sendedPushSession.sendMessage(textMsg);
-
-            } else if ("directMessage".equals(pushCategory) && sendedPushSession != null) {
-                WebSocketSession receiverSession = userSessionMap.get(sendedPushUser);
-                if (receiverSession != null) {
-                    TextMessage textMsg = new TextMessage(replyWriter + "님으로부터 새로운 메시지: " + msg);
-                    receiverSession.sendMessage(textMsg);
-                }
             }
         }
     }
