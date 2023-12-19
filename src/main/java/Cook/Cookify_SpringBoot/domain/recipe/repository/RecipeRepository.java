@@ -6,10 +6,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.lang.reflect.Member;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
+    @Query("select  r from Recipe r join fetch r.member m where r.id = :recipeId")
+    Optional<Recipe> findById(@Param("recipeId") Long recipeId);
 
     @Query("select r from Recipe r join fetch r.member m")
     List<Recipe> findAllWithMemberComment(PageRequest of);
