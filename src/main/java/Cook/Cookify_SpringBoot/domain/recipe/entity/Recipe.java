@@ -9,6 +9,7 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,18 +25,17 @@ public class Recipe extends BaseEntity {
     private Long id;
 
     @Column(nullable = false)
+    @NotNull
     private String title;
     @ElementCollection
-    private List<String> ingredients;
+    private List<String> ingredients1;
     @ElementCollection
     private List<String> ingredients2;
     @ElementCollection
     private List<String> steps;
+    @NotNull
     private String  thumbnail;
 
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "recipe_docs_id")
-//    private RecipeDocs recipeDocs;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
@@ -56,7 +56,7 @@ public class Recipe extends BaseEntity {
         Recipe recipe = new Recipe();
         recipe.confirmMember(member);
         recipe.setTitle(recipeRequestDto.getTitle());
-        recipe.setIngredients(recipeRequestDto.getIngredients());
+        recipe.setIngredients1(recipeRequestDto.getIngredients1());
         recipe.setIngredients2(recipeRequestDto.getIngredients2());
         recipe.setSteps(recipeRequestDto.getSteps());
         recipe.setThumbnail(recipeRequestDto.getThumbnail());
@@ -78,7 +78,7 @@ public class Recipe extends BaseEntity {
 
     public void update(RecipeRequestDto recipeRequestDto){
         this.title = recipeRequestDto.getTitle();
-        this.ingredients = recipeRequestDto.getIngredients();
+        this.ingredients1 = recipeRequestDto.getIngredients1();
         this.ingredients2 = recipeRequestDto.getIngredients2();
         this.steps = recipeRequestDto.getSteps();
         this.thumbnail = recipeRequestDto.getThumbnail();

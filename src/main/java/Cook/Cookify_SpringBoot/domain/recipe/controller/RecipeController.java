@@ -83,10 +83,6 @@ public class RecipeController {
         return recipeService.findAllByMember();
     }
 
-//    @GetMapping("/all")
-//    public List<RecipeAndDocsDto> getAllRecipeAndDocs(){
-//        return recipeService.findAllRecipeAndDocs();
-//    }
 
     @PostMapping("/image")
     public ResponseEntity<String> imageUpload(@RequestParam("file")MultipartFile file) throws IOException{

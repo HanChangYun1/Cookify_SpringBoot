@@ -86,7 +86,7 @@ public class RecipeServiceImpl implements RecipeService{
 
     public RecipeDetailDto findOne(Long recipeId){
         Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
-        RecipeDetailDto recipeDto = new RecipeDetailDto(recipe.getTitle(), recipe.getIngredients(), recipe.getIngredients2(), recipe.getSteps(), recipe.getThumbnail(), recipe.getComments());
+        RecipeDetailDto recipeDto = new RecipeDetailDto(recipe.getMember(), recipe.getTitle(), recipe.getIngredients1(), recipe.getIngredients2(), recipe.getSteps(), recipe.getThumbnail(),recipe.getHeartCount() , recipe.getComments());
         return  recipeDto;
     }
 

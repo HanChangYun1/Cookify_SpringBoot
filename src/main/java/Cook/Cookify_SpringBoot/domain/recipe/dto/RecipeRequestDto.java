@@ -18,7 +18,7 @@ public class RecipeRequestDto {
     @NotBlank(message = "Title cannot be blank")
     private String title;
     @NotNull(message = "Ingredients cannot be null")
-    private List<String> ingredients;
+    private List<String> ingredients1;
     private List<String> ingredients2;
     @NotNull(message = "Ingredients cannot be null")
     private List<String> steps;
@@ -27,12 +27,12 @@ public class RecipeRequestDto {
 
     @Builder
     public RecipeRequestDto( String title,
-                             List<String> ingredients,
+                             List<String> ingredients1,
                              List<String> ingredients2,
                              List<String> steps,
                              String thumbnail) {
         this.title = title;
-        this.ingredients = ingredients;
+        this.ingredients1 = ingredients1;
         this.ingredients2 = ingredients2;
         this.steps = steps;
         this.thumbnail = thumbnail;
