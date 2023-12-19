@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -36,7 +36,7 @@ public class CommentServiceImpl implements CommentService{
 
     private final HttpSession httpSession;
 
-    @Override
+
     @Transactional
     public Comment save(Long recipeId, CommentRequestDto commentRequestDto) {
 
@@ -49,7 +49,7 @@ public class CommentServiceImpl implements CommentService{
 
     }
 
-    @Override
+
     @Transactional
     public Comment saveReComment(Long recipeId, Long parentId, CommentRequestDto commentRequestDto) {
         String loginUserEmail = SecurityUtil.getLoginUserEmail(httpSession);
@@ -63,7 +63,7 @@ public class CommentServiceImpl implements CommentService{
         return commentRepository.save(comment);
     }
 
-    @Override
+
     public List<CommentResponseDto> getComments(Long recipeId){
         List<Comment> comments = commentRepository.findByRecipeId(recipeId);
         List<CommentResponseDto> commentDtos = comments.stream().map(c -> new CommentResponseDto(c.getId(), c.getContent(), c.getMember().getName(), c.isRemoved())).collect(Collectors.toList());
@@ -73,7 +73,7 @@ public class CommentServiceImpl implements CommentService{
 
 
 
-    @Override
+
     @Transactional
     public void update(Long commentId, CommentRequestDto commentRequestDto) {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));
@@ -86,7 +86,7 @@ public class CommentServiceImpl implements CommentService{
 
 
 
-    @Override
+
     @Transactional
     public void remove(Long commentId) throws CommentException {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new CommentException(CommentExceptionType.NOT_FOUND_COMMENT));

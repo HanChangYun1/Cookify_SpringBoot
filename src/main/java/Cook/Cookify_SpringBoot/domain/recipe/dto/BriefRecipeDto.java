@@ -1,8 +1,6 @@
 package Cook.Cookify_SpringBoot.domain.recipe.dto;
 
 import lombok.Data;
-
-import javax.persistence.Column;
 @Data
 public class BriefRecipeDto {
 

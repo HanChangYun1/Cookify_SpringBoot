@@ -2,19 +2,16 @@ package Cook.Cookify_SpringBoot.domain.member.service;
 
 import Cook.Cookify_SpringBoot.domain.member.dto.MemberInfoDto;
 import Cook.Cookify_SpringBoot.domain.member.dto.MemberResponseDto;
-import Cook.Cookify_SpringBoot.domain.member.dto.MemberUpdateRequest;
 import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.member.exception.MemberException;
 import Cook.Cookify_SpringBoot.domain.member.exception.MemberExceptionType;
 import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;
 import Cook.Cookify_SpringBoot.domain.member.security.OAuthAttributes;
 import Cook.Cookify_SpringBoot.domain.member.security.SessionMember;
-import Cook.Cookify_SpringBoot.global.GoogleCloudStorageConfig;
 import Cook.Cookify_SpringBoot.global.util.SecurityUtil;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -30,10 +27,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Optional;
 import java.util.UUID;
 
-@Slf4j
+
 @RequiredArgsConstructor
 @Service
 @Transactional(readOnly = true)

@@ -20,8 +20,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     @Query("select r from Recipe r join fetch r.member m where r.member.id = :memberId")
     List<Recipe> findAllByMember(@Param("memberId") Long memberId);
 
-    List<Recipe> findAllByTitleContaining(String keyword, PageRequest of);
-
     @Query(value = "SELECT recipe_id, null AS recipeDocsId, title, thumbnail FROM Recipe WHERE title LIKE %:keyword% " +
             "UNION ALL " +
             "SELECT null AS recipeId, id AS recipeDocsId, title, thumbnail FROM recipe_docs WHERE title LIKE %:keyword%", nativeQuery = true)

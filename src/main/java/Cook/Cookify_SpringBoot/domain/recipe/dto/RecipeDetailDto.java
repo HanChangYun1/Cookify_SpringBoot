@@ -4,7 +4,6 @@ import Cook.Cookify_SpringBoot.domain.comment.entity.Comment;
 import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import lombok.Data;
 
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import java.util.ArrayList;
 import java.util.List;
