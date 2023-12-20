@@ -77,18 +77,15 @@ public class EchoHandler extends TextWebSocketHandler {
     }
 
 
-    //알람을 보내는 유저(댓글작성, 좋아요 누르는 유저)
     private String sendPushUsername(WebSocketSession session) {
         String loginUsername;
 
-        // attributes에서 HTTP 세션을 가져옴
         HttpSession httpSession = (HttpSession) session.getAttributes().get("HTTP_SESSION");
-        log.info("httpSession:{}", httpSession);
-        // HttpSession에서 유저 정보를 가져옴 (예: email)
+
         SessionMember sessionUser = (SessionMember) httpSession.getAttribute("user");
-        log.info("sessionUser:{}", sessionUser);
+
         String email = sessionUser.getEmail();
-        log.info("email:{}", email);
+
 
         if (email== null) {
             loginUsername = null;

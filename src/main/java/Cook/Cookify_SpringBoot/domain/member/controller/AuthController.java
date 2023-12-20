@@ -2,11 +2,9 @@ package Cook.Cookify_SpringBoot.domain.member.controller;
 
 import Cook.Cookify_SpringBoot.domain.member.dto.MemberInfoDto;
 import Cook.Cookify_SpringBoot.domain.member.dto.MemberResponseDto;
-import Cook.Cookify_SpringBoot.domain.member.dto.MemberUpdateRequest;
 import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.member.security.SessionMember;
 import Cook.Cookify_SpringBoot.domain.member.service.CustomOAuth2UserService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@Slf4j
+
 @RestController
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = "http://localhost:3000") // CORS 설정

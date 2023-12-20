@@ -4,12 +4,11 @@ import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.member.entity.Role;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 
 
-@Slf4j
+
 @Getter
 public class OAuthAttributes {
 

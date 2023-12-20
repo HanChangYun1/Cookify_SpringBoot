@@ -2,6 +2,7 @@ package Cook.Cookify_SpringBoot.domain.comment.controller;
 
 import Cook.Cookify_SpringBoot.domain.comment.dto.CommentRequestDto;
 import Cook.Cookify_SpringBoot.domain.comment.dto.CommentResponseDto;
+import Cook.Cookify_SpringBoot.domain.comment.entity.Comment;
 import Cook.Cookify_SpringBoot.domain.comment.exception.CommentException;
 import Cook.Cookify_SpringBoot.domain.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -22,16 +23,20 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/{recipeId}")
-    public void commentSave(@PathVariable("recipeId") Long recipeId,@RequestBody CommentRequestDto commentRequestDto){
-        commentService.save(recipeId, commentRequestDto);
+    public ResponseEntity<CommentResponseDto> commentSave(@PathVariable("recipeId") Long recipeId,@RequestBody CommentRequestDto commentRequestDto){
+        Comment comment = commentService.save(recipeId, commentRequestDto);
+        CommentResponseDto dto = new CommentResponseDto(comment.getId(), comment.getContent(), comment.getMember(), comment.isRemoved());
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
 
     @PostMapping("/{recipeId}/{commentId}")
-    public void reCommentSave(@PathVariable("recipeId") Long recipeId,
+    public ResponseEntity<CommentResponseDto> reCommentSave(@PathVariable("recipeId") Long recipeId,
                               @PathVariable("commentId") Long commentId,
                               @RequestBody CommentRequestDto commentRequestDto){
-        commentService.saveReComment(recipeId, commentId, commentRequestDto);
+        Comment comment = commentService.saveReComment(recipeId, commentId, commentRequestDto);
+        CommentResponseDto dto = new CommentResponseDto(comment.getId(), comment.getContent(), comment.getMember(), comment.isRemoved());
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
     @GetMapping("/{recipeId}")

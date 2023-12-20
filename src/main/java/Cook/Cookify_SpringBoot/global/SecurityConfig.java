@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .and()
                 .authorizeRequests()
-                .antMatchers("/oauth2/**", "/login/**", "/api/**", "/start/**", "/mypage/**", "/").permitAll()
+                .antMatchers("/oauth2/**", "/login/**", "/api/**", "/start/**", "/mypage/**", "/", "/push/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable() // Disable CSRF (only for testing environment)

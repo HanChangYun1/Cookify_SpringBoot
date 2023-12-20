@@ -4,12 +4,11 @@ import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.member.exception.MemberException;
 import Cook.Cookify_SpringBoot.domain.member.exception.MemberExceptionType;
 import Cook.Cookify_SpringBoot.domain.member.repository.GoogleMemberRepository;
-import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeAndDocsDto;
-import Cook.Cookify_SpringBoot.domain.recipe.entity.Recipe;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.BriefRecipeDto;
+import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeAndDocsDto;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeDetailDto;
 import Cook.Cookify_SpringBoot.domain.recipe.dto.RecipeRequestDto;
-import Cook.Cookify_SpringBoot.domain.recipe.entity.RecipeDocs;
+import Cook.Cookify_SpringBoot.domain.recipe.entity.Recipe;
 import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeException;
 import Cook.Cookify_SpringBoot.domain.recipe.exception.RecipeExceptionType;
 import Cook.Cookify_SpringBoot.domain.recipe.repository.RecipeDocsRepository;
@@ -18,10 +17,8 @@ import Cook.Cookify_SpringBoot.global.util.SecurityUtil;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,7 +30,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Slf4j
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -86,7 +83,7 @@ public class RecipeServiceImpl implements RecipeService{
 
     public RecipeDetailDto findOne(Long recipeId){
         Recipe recipe = recipeRepository.findById(recipeId).orElseThrow(() -> new RecipeException(RecipeExceptionType.NOT_FOUND_Recipe));
-        RecipeDetailDto recipeDto = new RecipeDetailDto(recipe.getMember(), recipe.getTitle(), recipe.getIngredients1(), recipe.getIngredients2(), recipe.getSteps(), recipe.getThumbnail(),recipe.getHeartCount() , recipe.getComments());
+        RecipeDetailDto recipeDto = new RecipeDetailDto(recipe.getMember(), recipe.getId(), recipe.getTitle(), recipe.getIngredients1(), recipe.getIngredients2(), recipe.getSteps(), recipe.getThumbnail(),recipe.getHeartCount() , recipe.getComments());
         return  recipeDto;
     }
 
