@@ -66,7 +66,7 @@ public class CommentServiceImpl implements CommentService{
 
     public List<CommentResponseDto> getComments(Long recipeId){
         List<Comment> comments = commentRepository.findByRecipeId(recipeId);
-        List<CommentResponseDto> commentDtos = comments.stream().map(c -> new CommentResponseDto(c.getId(), c.getContent(), c.getMember().getName(), c.isRemoved())).collect(Collectors.toList());
+        List<CommentResponseDto> commentDtos = comments.stream().map(c -> new CommentResponseDto(c.getId(), c.getContent(), c.getMember(), c.isRemoved())).collect(Collectors.toList());
 
         return commentDtos;
     }

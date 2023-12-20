@@ -3,6 +3,7 @@ package Cook.Cookify_SpringBoot.domain.comment.entity;
 import Cook.Cookify_SpringBoot.global.Entity.BaseEntity;
 import Cook.Cookify_SpringBoot.domain.member.entity.GoogleMember;
 import Cook.Cookify_SpringBoot.domain.recipe.entity.Recipe;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,6 +35,7 @@ public class Comment extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
+    @JsonIgnore
     private Comment parent;
 
     @OneToMany(mappedBy = "parent")
