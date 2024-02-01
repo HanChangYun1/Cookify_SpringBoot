@@ -29,8 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .cors().and()
-                .headers()
+                .cors().and()  //cors 허용
+                .headers()    //헤더 frameoption
                 .addHeaderWriter(new HeaderWriter() {
                     @Override
                     public void writeHeaders(HttpServletRequest request, HttpServletResponse response) {
