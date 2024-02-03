@@ -39,9 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .and()
                 // Your existing configurations
-                .oauth2Login()
+                .oauth2Login()  //간편로그인
                 .userInfoEndpoint()
-                .userService(customOAuth2UserService)
+                .userService(customOAuth2UserService)  //로그인 성공 후 데이터를 받아온 후처리 로직
                 .and()
                 .successHandler((request, response, authentication) -> {
                     response.sendRedirect("http://localhost:3000");
